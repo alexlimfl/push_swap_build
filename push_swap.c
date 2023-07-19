@@ -131,8 +131,9 @@ int main(int argc, char *argv[])
     
     if (!check_sorted(&A))
     {
-        n_operation = tiny_sort(&A, n_operation);
-        n_operation = medium_sort(&A, &B, n_operation);
+        // n_operation = tiny_sort(&A, n_operation);
+        // n_operation = medium_sort(&A, &B, n_operation);
+		n_operation = mega_sort_one(&A, &B, n_operation);
     }
 
     ft_printf("FINAL >>> \n");

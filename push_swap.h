@@ -23,13 +23,18 @@
 typedef struct Node
 {
 	int x;
+	int rank;
+	int position;
 	char *str;
 	struct Node *next;
 	struct Node *prev;
 } Node;
 
 // linked list functions
-void	view_list(Node *curr);
+void 	view_list(Node *lst);
+void	view_list_rank(Node *lst);
+void	view_list_position(Node *lst);
+void 	view_list_backward(Node *lst);
 void	insert_back(Node **lst, int value);
 void	delete_list(Node **lst);
 void	insert_front(Node **lst, int value);
@@ -57,6 +62,8 @@ void	rrr(Node **A, Node **B);
 // sorting category
 int		tiny_sort(Node **A, int n_operation);
 int		medium_sort(Node **A, Node **B, int n_operation);
+int		mega_sort_one(Node **A, Node **B, int n_operation);
+
 
 // check conditions
 int		check_sorted(Node **A);
@@ -69,6 +76,8 @@ int		get_largest(Node **lst);
 int		get_smallest(Node **lst);
 int		get_median(Node *lst);
 int		last_node_value(Node *lst);
+void	label_ranking(Node **lst);
+void 	label_position(Node **lst);
 
 
 // ft_printf
@@ -88,7 +97,7 @@ int		ft_printf(const char *str, ...);
 int		ft_atoi(const char *str);
 char	**ft_split(char const *s, char c);
 char	**split_string(char **str);
-
+Node	*double_ll_convert(Node **lst);
 int		main(int argc, char *argv[]);
 
 #endif

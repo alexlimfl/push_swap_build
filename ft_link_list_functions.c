@@ -12,20 +12,59 @@
 
 #include "push_swap.h"
 
-void view_list(Node *curr)
+void view_list(Node *lst)
 {
 	ft_printf("List:\n");
-	if (curr == NULL)
+	if (lst == NULL)
 	{
 		ft_printf("Empty\n");
 	}
-    while (curr != NULL)
+    while (lst != NULL)
     {
         // ft_printf("%d\n", curr);
-        ft_printf("%d\n", curr->x);
-        curr = curr->next;
+        ft_printf("%d\n", lst->x);
+        lst = lst->next;
     }
-        // ft_printf("%d\n", curr);
+        // ft_printf("%d\n", lst);
+}
+
+void view_list_rank(Node *lst)
+{
+	ft_printf("List (Ranking):\n");
+	if (lst == NULL)
+		ft_printf("Empty\n");
+    while (lst != NULL)
+    {
+        ft_printf("%d\n", lst->rank);
+        lst = lst->next;
+    }
+}
+
+void view_list_position(Node *lst)
+{
+	ft_printf("List (Position):\n");
+	if (lst == NULL)
+		ft_printf("Empty\n");
+    while (lst != NULL)
+    {
+        ft_printf("%d\n", lst->position);
+        lst = lst->next;
+    }
+}
+
+void view_list_backward(Node *lst)
+{
+	ft_printf("List (backward):\n");
+	if(lst == NULL)
+	{
+		ft_printf("Empty.\n");
+		return;
+	}
+	while (lst != NULL)
+    {
+		ft_printf("%d\n", lst->x);
+        lst = lst->prev;
+    }
 }
 
 void insert_back(Node **lst, int value)

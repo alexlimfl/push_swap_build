@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int	ft_atoi(const char *str)
+int		ft_atoi(const char *str)
 {
 	int	sign;
 	int	i;
@@ -37,7 +37,7 @@ int	ft_atoi(const char *str)
 	return (output * sign);
 }
 
-int check_sorted(Node **A)
+int		check_sorted(Node **A)
 {
 	Node *curr;
 	int before;
@@ -59,7 +59,7 @@ int check_sorted(Node **A)
 	return (1);
 }
 
-int get_largest(Node **lst)
+int		get_largest(Node **lst)
 {
 	int largest;
 	Node *curr;
@@ -76,7 +76,7 @@ int get_largest(Node **lst)
 	return (largest);
 }
 
-int get_smallest(Node **lst)
+int		get_smallest(Node **lst)
 {
 	int smallest;
 	Node *curr;
@@ -93,7 +93,7 @@ int get_smallest(Node **lst)
 	return (smallest);
 }
 
-int tiny_sort(Node **A, int n_operation)
+int		tiny_sort(Node **A, int n_operation)
 {
 	Node *curr;
 	int largest;
@@ -136,7 +136,7 @@ int tiny_sort(Node **A, int n_operation)
 	return (n_operation);
 }
 
-void check_duplicate(Node **A)
+void	check_duplicate(Node **A)
 {
 	Node *curr;
 	Node *temp;
@@ -163,7 +163,7 @@ void check_duplicate(Node **A)
 	}
 }
 
-int get_median(Node *lst)
+int		get_median(Node *lst)
 {
 	int sum;
 	int median;
@@ -182,7 +182,7 @@ int get_median(Node *lst)
 	return (median);
 }
 
-int last_node_value(Node *lst)
+int 	last_node_value(Node *lst)
 {
 	Node *curr;
 	curr = lst;
@@ -191,7 +191,7 @@ int last_node_value(Node *lst)
 	return (curr->x);
 }
 
-int medium_sort(Node **A, Node **B, int n_operation)
+int		medium_sort(Node **A, Node **B, int n_operation)
 {
 	int largest;
 	int smallest;
@@ -252,5 +252,88 @@ int medium_sort(Node **A, Node **B, int n_operation)
 		ra(A, 0);
 		n_operation += 1;
 	}
+	return (n_operation);
+}
+
+Node	*double_ll_convert(Node **lst)
+{
+	if (*lst == NULL)
+	{
+		ft_printf("Error (double_ll_convert)\n");
+		exit(1);
+	}
+
+	Node *prev;
+	Node *curr;
+	Node *tail;
+
+	prev = NULL;
+	curr = *lst;
+
+	while (curr != NULL)
+	{
+		curr->prev = prev;
+		prev = curr;
+		curr = curr->next;
+	}
+	tail = prev;
+	return (tail);
+}
+
+void	label_ranking(Node **lst)
+{
+	int max_rank;
+	int	bigger_than_nb;
+	int	nb;
+	Node *curr;
+	Node *curr_two;
+
+	max_rank = count_node(*lst);
+	curr = *lst;
+	curr_two = *lst;
+	while(curr != NULL)
+	{
+		nb = curr->x;
+		curr_two = *lst;
+		bigger_than_nb = 0;
+		while(curr_two != NULL)
+		{
+			if (curr_two->x > nb)
+				bigger_than_nb += 1;
+			curr_two = curr_two->next;
+		}
+		curr->rank = max_rank - bigger_than_nb;
+		curr = curr->next;
+	}
+}
+
+
+void 	label_position(Node **lst)
+{
+	Node *curr;
+	int count;
+
+	count = 0;
+	curr = *lst;
+	while(curr != NULL)
+	{
+		curr->position = count;
+		curr = curr->next;
+		count++;
+	}
+}
+
+int		mega_sort_one(Node **A, Node **B, int n_operation)
+{
+	Node *A_tail;
+	A_tail = double_ll_convert(A);
+
+	label_ranking(A);
+	label_position(A);
+	view_list(*A);
+	view_list_rank(*A);
+	view_list_position(*A);
+	view_list_backward(A_tail);
+
 	return (n_operation);
 }
