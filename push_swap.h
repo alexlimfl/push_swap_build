@@ -1,0 +1,67 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: folim <folim@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/05 22:29:16 by folim             #+#    #+#             */
+/*   Updated: 2023/07/05 22:29:18 by folim            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+typedef struct Node
+{
+	int x;
+	char *str;
+	struct Node *next;
+	struct Node *prev;
+} Node;
+
+int	ft_atoi(const char *str);
+char	**ft_split(char const *s, char c);
+int		main(int argc, char *argv[]);
+
+void view_list(Node *curr);
+void insert_back(Node **lst, int value);
+void delete_list(Node **lst);
+void insert_front(Node **lst, int value);
+void insert_after(Node *lst, int value);
+void insert_sorted(Node **lst, int value);
+void delete_an_element(Node **lst, int value);
+void delete_all_element(Node **lst, int value);
+void reverse(Node **lst);
+int check_loop(Node *lst);
+int count_node(Node *lst);
+
+void sa(Node **A, int c);
+void sb(Node **B, int c);
+void ss(Node **A, Node **B);
+void pa(Node **A, Node **B);
+void pb(Node **A, Node **B);
+void ra(Node **A, int c);
+void rb(Node **B, int c);
+void rr(Node **A, Node **B);
+void rra(Node **A, int c);
+void rrb(Node **B, int c);
+void rrr(Node **A, Node **B);
+
+void tiny_sort(Node **A);
+int get_largest(Node **lst);
+int get_smallest(Node **lst);
+int check_sorted(Node **A);
+void check_duplicate(Node **A);
+int get_median(Node *lst);
+int last_node_value(Node *lst);
+
+void medium_sort(Node **A, Node **B);
+
+
+#endif
