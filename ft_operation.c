@@ -16,7 +16,7 @@ void sa(Node **A, int c)
 {
     if(*A == NULL || (*A)->next == NULL)
     {
-        printf("Error (sa)\n");
+        ft_printf("Error (sa)\n");
         delete_list(A);
         exit(1);
     }
@@ -32,7 +32,7 @@ void sa(Node **A, int c)
     first->next = third;
     *A = second;
     if(c == 0)
-        printf("sa\n");
+        ft_printf("sa\n");
 }
 
 void sb(Node **B, int c)
@@ -40,7 +40,7 @@ void sb(Node **B, int c)
     
     if(*B == NULL || (*B)->next == NULL)
     {
-        printf("Error (sb)\n");
+        ft_printf("Error (sb)\n");
         delete_list(B);
         exit(1);
     }
@@ -56,28 +56,28 @@ void sb(Node **B, int c)
     first->next = third;
     *B = second;
     if(c == 0)
-        printf("sb\n");
+        ft_printf("sb\n");
 }
 
 void ss(Node **A, Node **B)
 {
     if(*A == NULL || (*A)->next == NULL || *B == NULL || (*B)->next == NULL)
     {
-        printf("Error (ss)\n");
+        ft_printf("Error (ss)\n");
         delete_list(A);
         delete_list(B);
         exit(1);
     }
     sa(A, 1);
     sb(A, 1);
-    printf("ss\n");
+    ft_printf("ss\n");
 }
 
 void pa(Node **A, Node **B)
 {
     if(*B == NULL)
     {
-        printf("Error (pa)\n");
+        ft_printf("Error (pa)\n");
         delete_list(A);
         delete_list(B);
         exit(1);
@@ -93,14 +93,14 @@ void pa(Node **A, Node **B)
     temp_B->next = *A;
     *A = temp_B;
 
-    printf("pa\n");
+    ft_printf("pa\n");
 }
 
 void pb(Node **A, Node **B)
 {
     if(*A == NULL)
     {
-        printf("Error (pb)\n");
+        ft_printf("Error (pb)\n");
         delete_list(A);
         delete_list(B);
         exit(1);
@@ -116,14 +116,14 @@ void pb(Node **A, Node **B)
     temp_A->next = *B;
     *B = temp_A;
 
-    printf("pb\n");
+    ft_printf("pb\n");
 }
 
 void ra(Node **A, int c)
 {
     if(*A == NULL || (*A)->next == NULL)
     {
-        printf("Error (ra)\n");
+        ft_printf("Error (ra)\n");
         delete_list(A);
         exit(1);
     }
@@ -141,14 +141,14 @@ void ra(Node **A, int c)
     
     curr->next = first;
 	if(c == 0)
-    	printf("ra\n");
+    	ft_printf("ra\n");
 }
 
 void rb(Node **B, int c)
 {
     if(*B == NULL || (*B)->next == NULL)
     {
-        printf("Error (rb)\n");
+        ft_printf("Error (rb)\n");
         delete_list(B);
         exit(1);
     }
@@ -166,7 +166,7 @@ void rb(Node **B, int c)
 
     curr->next = first;
 	if(c == 0)
-		printf("rb\n");
+		ft_printf("rb\n");
 }
 
 void rr(Node **A, Node **B)
@@ -174,21 +174,21 @@ void rr(Node **A, Node **B)
 
 	if(*A == NULL || (*A)->next == NULL || *B == NULL || (*B)->next == NULL)
     {
-        printf("Error (rr)\n");
+        ft_printf("Error (rr)\n");
         delete_list(A);
         delete_list(B);
         exit(1);
     }
 	ra(A, 1);
 	rb(B, 1);
-	printf("rr\n");
+	ft_printf("rr\n");
 }
 
 void rra(Node **A, int c)
 {
 	if(*A == NULL || (*A)->next == NULL)
     {
-        printf("Error (rra)\n");
+        ft_printf("Error (rra)\n");
         delete_list(A);
         exit(1);
     }
@@ -203,13 +203,13 @@ void rra(Node **A, int c)
 	second_last->next->next = first;
 	second_last->next = NULL;
 	if(c == 0)
-		printf("rra\n");
+		ft_printf("rra\n");
 }
 void rrb(Node **B, int c)
 {
 	if(*B == NULL || (*B)->next == NULL)
     {
-        printf("Error (rrb)\n");
+        ft_printf("Error (rrb)\n");
         delete_list(B);
         exit(1);
     }
@@ -224,19 +224,19 @@ void rrb(Node **B, int c)
 	second_last->next->next = first;
 	second_last->next = NULL;
 	if(c == 0)
-		printf("rrb\n");
+		ft_printf("rrb\n");
 }
 
 void rrr(Node **A, Node **B)
 {
 	if(*A == NULL || (*A)->next == NULL || *B == NULL || (*B)->next == NULL)
     {
-        printf("Error (rrr)\n");
+        ft_printf("Error (rrr)\n");
         delete_list(A);
         delete_list(B);
         exit(1);
     }
 	rra(A, 1);
 	rrb(B, 1);
-	printf("rrr\n");
+	ft_printf("rrr\n");
 }

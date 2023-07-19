@@ -14,18 +14,18 @@
 
 void view_list(Node *curr)
 {
-	printf("List:\n");
+	ft_printf("List:\n");
 	if (curr == NULL)
 	{
-		printf("Empty\n");
+		ft_printf("Empty\n");
 	}
     while (curr != NULL)
     {
-        // printf("%d\n", curr);
-        printf("%d\n", curr->x);
+        // ft_printf("%d\n", curr);
+        ft_printf("%d\n", curr->x);
         curr = curr->next;
     }
-        // printf("%d\n", curr);
+        // ft_printf("%d\n", curr);
 }
 
 void insert_back(Node **lst, int value)
@@ -38,14 +38,14 @@ void insert_back(Node **lst, int value)
 	if (*lst == NULL) //if value pointed by *root is NULL
 	{
 		*lst = newnode; //*root is assigned to point at value pointed by *newnode
-		// printf("First node in the list with value '%d' is added.\n", value);
+		// ft_printf("First node in the list with value '%d' is added.\n", value);
 		return;
 	}
 	curr = *lst; //*curr is assigned to point at value pointed by *root
 	while(curr->next != NULL)
 		curr = curr->next;
 	curr->next = newnode;
-	// printf("Node with value '%d' is added at the end.\n", value);
+	// ft_printf("Node with value '%d' is added at the end.\n", value);
 	// **lst points at &root/root's address/root pointer/pointer to a pointer
 	// **lst --> *root pointer
 	//  *lst points to variable of &root/root pointer/the allocated memory pointed by root pointer
@@ -67,7 +67,7 @@ void delete_list(Node **lst)
 		free(prenode);
 	}
 	*lst = NULL;
-	printf("Deallocation done and list deleted.\n");
+	ft_printf("Deallocation done and list deleted.\n");
 }
 
 void insert_front(Node **lst, int value)
@@ -80,19 +80,19 @@ void insert_front(Node **lst, int value)
 	{
 		newnode->next = NULL;
 		*lst = newnode;
-		printf("First node in the list with value '%d' is added.\n", value);
+		ft_printf("First node in the list with value '%d' is added.\n", value);
 		return;
 	}
 	newnode->next = *lst;
 	*lst = newnode;
-	printf("Node with value '%d' is added at the front.\n", value);
+	ft_printf("Node with value '%d' is added at the front.\n", value);
 }
 
 void insert_after(Node *lst, int value)
 {
 	if(lst == NULL)
 	{
-		printf("No node found\n");
+		ft_printf("No node found\n");
 		return;
 	}
 	Node *newNode = malloc(sizeof(Node));
@@ -100,7 +100,7 @@ void insert_after(Node *lst, int value)
 	newNode->x = value;
 	newNode->next = lst->next;
 	lst->next = newNode;
-	printf("Node with value '%d' is added after '%d'.\n", value, lst->x);
+	ft_printf("Node with value '%d' is added after '%d'.\n", value, lst->x);
 }
 
 void insert_sorted(Node **lst, int value)
@@ -123,7 +123,7 @@ void insert_sorted(Node **lst, int value)
 	// {
 	// 	newNode->next = NULL;
 	// 	*lst = newNode;
-	// 	printf("Node not found for sorting, node with value '%d' is added as the first node.\n", value);
+	// 	ft_printf("Node not found for sorting, node with value '%d' is added as the first node.\n", value);
 	// 	return;
 	// }
 }
@@ -132,14 +132,14 @@ void delete_an_element(Node **lst, int value)
 {
 	if (*lst == NULL)
 	{
-		printf("List is empty\n");
+		ft_printf("List is empty\n");
 		return;
 	}
 	if ((*lst)->x == value)
 	{
 		Node *to_remove;
 		to_remove = (*lst);
-		printf("Element '%d' is deleted.\n", (*lst)->x);
+		ft_printf("Element '%d' is deleted.\n", (*lst)->x);
 		*lst = (*lst)->next;
 		free(to_remove);
 		return;
@@ -152,14 +152,14 @@ void delete_an_element(Node **lst, int value)
 		{
 			Node *to_remove1;
 			to_remove1 = curr->next;
-			printf("Element '%d' is deleted.\n", curr->next->x);
+			ft_printf("Element '%d' is deleted.\n", curr->next->x);
 			curr->next = curr->next->next;
 			free(to_remove1);
 			return;
 		}
 		curr = curr->next;
 	}
-	printf("Element '%d' not found\n", value);
+	ft_printf("Element '%d' not found\n", value);
 }
 
 void delete_all_element(Node **lst, int value)
@@ -168,14 +168,14 @@ void delete_all_element(Node **lst, int value)
 	count = 0;
 	if (*lst == NULL)
 	{
-		count = printf("List is empty\n");
+		count = ft_printf("List is empty\n");
 		return;
 	}
 	while ((*lst)->x == value)
 	{
 		Node *to_remove;
 		to_remove = (*lst);
-		count = printf("Element '%d' is deleted.\n", (*lst)->x);
+		count = ft_printf("Element '%d' is deleted.\n", (*lst)->x);
 		*lst = (*lst)->next;
 		free(to_remove);
 	}
@@ -187,7 +187,7 @@ void delete_all_element(Node **lst, int value)
 		{
 			Node *to_remove1;
 			to_remove1 = curr->next;
-			count = printf("Element '%d' is deleted.\n", curr->next->x);
+			count = ft_printf("Element '%d' is deleted.\n", curr->next->x);
 			curr->next = curr->next->next;
 			if (curr->next == NULL)
 			{
@@ -199,7 +199,7 @@ void delete_all_element(Node **lst, int value)
 		curr = curr->next;
 	}
 	if (count == 0)
-		printf("Element '%d' not found\n", value);
+		ft_printf("Element '%d' not found\n", value);
 }
 
 void reverse(Node **lst)
@@ -216,7 +216,7 @@ void reverse(Node **lst)
 	}
 	(*lst)->next = NULL;
 	*lst = previous;
-	printf("Linked list is reversed\n");
+	ft_printf("Linked list is reversed\n");
 }
 
 int check_loop(Node *lst)
@@ -230,11 +230,11 @@ int check_loop(Node *lst)
 		fast = fast->next->next;
 		if (slow == fast)
 		{
-			printf("Linked list contains loop.\n");
+			ft_printf("Linked list contains loop.\n");
 			return (1);
 		}
 	}
-	printf("Linked list contains no loop.\n");
+	ft_printf("Linked list contains no loop.\n");
 	return (0);
 }
 
@@ -249,7 +249,7 @@ int count_node(Node *lst)
 		count++;
 		curr = curr->next;
 	}
-	// printf("Number of node(s) in linked list: %d\n", count);
+	// ft_printf("Number of node(s) in linked list: %d\n", count);
 	return (count);
 }
 

@@ -49,13 +49,13 @@ int check_sorted(Node **A)
 		
 		if (curr->x <= before)
 		{
-			printf("Not sorted\n");
+			// ft_printf("Not sorted\n");
 			return (0);
 		}
 		before = curr->x;
 		curr = curr->next;
 	}
-	printf("Sorted\n");
+	// ft_printf("Sorted\n");
 	return (1);
 }
 
@@ -72,7 +72,7 @@ int get_largest(Node **lst)
 			largest = curr->x;
 		curr = curr->next;
 	}
-	// printf("Largest = %d\n", largest);
+	// ft_printf("Largest = %d\n", largest);
 	return (largest);
 }
 
@@ -89,18 +89,18 @@ int get_smallest(Node **lst)
 			smallest = curr->x;
 		curr = curr->next;
 	}
-	// printf("Smallest = %d\n", smallest);
+	// ft_printf("Smallest = %d\n", smallest);
 	return (smallest);
 }
 
-void tiny_sort(Node **A)
+int tiny_sort(Node **A, int n_operation)
 {
 	Node *curr;
 	int largest;
 	int c;
 
 	if(count_node(*A) > 3)
-		return;
+		return (n_operation);
 	largest = get_largest(A);
 	curr = *A;
 	c = 1;
@@ -109,6 +109,7 @@ void tiny_sort(Node **A)
 		if(c == 1 && largest == curr->x)
 		{
 			ra(A, 0);
+			n_operation += 1;
 			curr = *A;
 			c = 1;
 			view_list(*A);
@@ -116,6 +117,7 @@ void tiny_sort(Node **A)
 		if(c == 2 && largest == curr->x)
 		{
 			rra(A, 0);
+			n_operation += 1;
 			curr = *A;
 			c = 1;
 			view_list(*A);
@@ -123,6 +125,7 @@ void tiny_sort(Node **A)
 		if(c == 3 && largest == curr->x)
 		{
 			sa(A, 0);
+			n_operation += 1;
 			curr = *A;
 			c = 1;
 			view_list(*A);
@@ -130,7 +133,7 @@ void tiny_sort(Node **A)
 		c++;
 		curr = curr->next;
 	}
-	return;
+	return (n_operation);
 }
 
 void check_duplicate(Node **A)
@@ -148,9 +151,9 @@ void check_duplicate(Node **A)
 			if(temp->x == curr->x)
 			{
 
-				printf("%d\n", temp->x);
-				printf("%d\n", curr->x);
-				printf("Error (Duplicate found)\n");
+				ft_printf("%d\n", temp->x);
+				ft_printf("%d\n", curr->x);
+				ft_printf("Error (Duplicate found)\n");
 				exit(1);
 			}
 			curr = curr->next;
@@ -175,21 +178,9 @@ int get_median(Node *lst)
 		curr = curr->next;
 	}
 	median = sum/(count_node(lst));
-	printf("Sum = %d, Median = %d\n", sum, median);
+	ft_printf("Sum = %d, Median = %d\n", sum, median);
 	return (median);
 }
-
-// void closest_to_median(Node *lst)
-// {
-// 	Node *curr;
-// 	int median_diff;
-// 	curr = lst;
-// 	while(curr != NULL)
-// 	{
-// 		curr = curr->next;
-// 	}
-// }
-
 
 int last_node_value(Node *lst)
 {
@@ -200,62 +191,66 @@ int last_node_value(Node *lst)
 	return (curr->x);
 }
 
-void medium_sort(Node **A, Node **B)
+int medium_sort(Node **A, Node **B, int n_operation)
 {
 	int largest;
 	int smallest;
 	
 	if(count_node(*A) > 5)
-		return;
+		return (n_operation);
 	
 	largest = get_largest(A);
 	smallest = get_smallest(A);
 
 	pb(A, B);
 	pb(A, B);
+	n_operation += 2;
 
-	tiny_sort(A);
+	n_operation = tiny_sort(A, n_operation);
 
 	while(*B != NULL)
 	{
-		view_list(*A);
-		view_list(*B);
+		// view_list(*A);
+		// view_list(*B);
 
 		if((*B)->x == largest && (*B)->x && get_largest(A) == last_node_value(*A))
 		{
-			printf("CHECK 1\n");
+			// ft_printf("CHECK 1\n");
 			pa(A, B);
 		}
 		else if((*B)->x == smallest && get_smallest(A) == (*A)->x)
 		{
-			printf("CHECK 2\n");
+			// ft_printf("CHECK 2\n");
 			pa(A, B);
 		}
 		else if((*B)->x > last_node_value(*A) && (*B)->x < (*A)->x)
 		{
-			printf("CHECK 3\n");
+			// ft_printf("CHECK 3\n");
 			pa(A, B);
 		}
 		else if(check_sorted(A) && (*B)->x < (*A)->x)
 		{
-			printf("CHECK 4\n");
+			// ft_printf("CHECK 4\n");
 			pa(A, B);
 		}
 		else if(check_sorted(A) && (*B)->x > last_node_value(*A))
 		{
-			printf("CHECK 4.5\n");
+			// ft_printf("CHECK 4.5\n");
 			pa(A, B);
 		}
 		else
 		{
-			printf("CHECK 5\n");
+			// ft_printf("CHECK 5\n");
 			ra(A, 0);
 		}
+		n_operation += 1;
 	}
 
 	while(!check_sorted(A))
 	{
-		printf("CHECK 6\n");
+		// ft_printf("CHECK 6\n");
 		ra(A, 0);
+		n_operation += 1;
 	}
+	return (n_operation);
 }

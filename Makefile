@@ -16,7 +16,7 @@ CC = gcc
 FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 RCS = ar -rcs
 RM = rm -rf
-CFILES = push_swap.c ft_split.c LinkedListFunction.c push_swap_utils.c Operation.c
+CFILES = $(wildcard ft_*.c) push_swap.c push_swap_utils.c
 OBJS = $(CFILES:.c=.o)
 
 all: $(NAME)

@@ -17,7 +17,7 @@ void argc_more_than_one(int argc)
 {
     if (argc < 2)
     {
-        printf("Error (no numbers found)\n");
+        ft_printf("Error (no numbers found)\n");
         exit (1);
     }
 }
@@ -35,31 +35,31 @@ void no_space_and_character_allowed(char **str)
         {
             if(c > 1 && str[c][d] == ' ') // if second argument contains ' '
             {
-                printf("'%c'\n", str[c][d]);
-                printf("Error (space found)\n");
-                // printf("Space found in argv[%d].\n", d);
+                ft_printf("'%c'\n", str[c][d]);
+                ft_printf("Error (space found)\n");
+                // ft_printf("Space found in argv[%d].\n", d);
                 exit(1);
             }
             if(str[1][d] == ' ') // if first argument has ' '
                 {
                     if(str[2]) // if second argument isn't NULL
                     {
-                        printf("Error (empty argv)\n");
+                        ft_printf("Error (empty argv)\n");
                         exit(0);
                     }
                 }
             if(str[c][d] != ' ' && (str[c][d] < '0' || str[c][d] > '9'))
             {
-                printf("'%c'\n", str[c][d]);
-                printf("Error (characters found)\n");
-                // printf("Characters found in argv[%d].\n", d);
+                ft_printf("'%c'\n", str[c][d]);
+                ft_printf("Error (characters found)\n");
+                // ft_printf("Characters found in argv[%d].\n", d);
                 exit(1);
             }
             d++;
         }
         c++;
     }
-    // printf("No space and character found\n");
+    // ft_printf("No space and character found\n");
 }
 
 char **split_string(char **str)// not neccesary, remove after complete
@@ -75,7 +75,7 @@ char **split_string(char **str)// not neccesary, remove after complete
 		d = 0;
 		while(output[d]) //loops when string is not null
 		{
-			printf("string[%d]: %s\n", d, output[d]);
+			ft_printf("string[%d]: %s\n", d, output[d]);
 			d++;
 		}
 	}
@@ -102,7 +102,9 @@ Node *ll_convert(char **str)
 int main(int argc, char *argv[])
 {
     
-	Node *A;
+	int n_operation;
+    n_operation = 0;
+    Node *A;
 	Node *B;
     char **str;
     
@@ -120,51 +122,34 @@ int main(int argc, char *argv[])
 
     if(count_node(A) < 2)
     {
-        printf("Error (less than one number)\n");
+        ft_printf("Error (less than one number)\n");
         exit(1);
     }
 
     check_duplicate(&A);
-
-    // Stack B
-    // insert_back(&B, 95);
-    // insert_back(&B, 96);
-    // insert_back(&B, 97);
-    // insert_back(&B, 98);
-    // insert_back(&B, 99);
-    
-    printf("///A\n");
-	view_list(A);
-    printf("///B\n");
-	view_list(B);
-    printf("checkpoint\n");
+    ft_printf("Operations >>>\n");
     
     if (!check_sorted(&A))
     {
-        tiny_sort(&A);
-        medium_sort(&A, &B);
+        n_operation = tiny_sort(&A, n_operation);
+        n_operation = medium_sort(&A, &B, n_operation);
     }
 
-    printf("FINAL >>> ");
-    
-    check_sorted(&A);
+    ft_printf("FINAL >>> \n");
+    ft_printf("Check sorted = %d\n", check_sorted(&A));
+    ft_printf("Number of operations: %d\n", n_operation);
 
-    printf("///A\n");
+    ft_printf("Stack A:\n");
 	view_list(A);
-    printf("///B\n");
+    ft_printf("Stack B:\n");
 	view_list(B);
 
-    printf("checkpoint\n");
-
+    ft_printf("Deallocation >>> \n");
 	delete_list(&A);
 	delete_list(&B);
 
-	printf("checkpoint\n");	
-
-    printf("///A\n");
-	view_list(A);
-    printf("///B\n");
-	view_list(B);
+    ft_printf("Check memory leaks >>> \n");
+	system("leaks -q push_swap");
 
     return (0);
 }
