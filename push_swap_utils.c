@@ -307,13 +307,12 @@ void	label_ranking(Node **lst)
 	}
 }
 
-
 void 	label_position(Node **lst)
 {
 	Node *curr;
 	int count;
 
-	count = 0;
+	count = 1;
 	curr = *lst;
 	while(curr != NULL)
 	{
@@ -326,14 +325,111 @@ void 	label_position(Node **lst)
 int		mega_sort_one(Node **A, Node **B, int n_operation)
 {
 	Node *A_tail;
-	A_tail = double_ll_convert(A);
+	A_tail = double_ll_convert(A); // make if readable from end to front of Stack A.
 
-	label_ranking(A);
-	label_position(A);
-	view_list(*A);
-	view_list_rank(*A);
-	view_list_position(*A);
-	view_list_backward(A_tail);
+	label_ranking(A); // simplify values to ranking to make chunk-sorting easier
+
+	// view_list(*A);
+	// view_list_rank(*A);
+	// view_list_position(*A);
+	// view_list_backward(A_tail);
+
+	int n_nodes = count_node(*A);
+
+	// using 5 chunks
+	int chunk[] = {0, (0.20)*n_nodes, (0.40)*n_nodes, (0.60)*n_nodes, (0.80)*n_nodes, n_nodes};
+
+	// decide ra or rra
+	Node *curr_forward;
+	Node *curr_reverse;
+	int middle_position;
+
+	// count steps taken to middle position
+	int position_f;
+	int position_b;
+	int position_selected;
+	int rank_selected;
+	int a;
+	int count = 1;
+	a = 0;
+	while(a < 5)
+	{
+		ft_printf("BEFORE -------, loop number = %d, a = %d\n", count++, a);
+		ft_printf("Stack A :\n");
+		view_list_rank(*A);
+		ft_printf("Stack B :\n");
+		view_list_rank(*B);
+		ft_printf("BEFORE -------\n");
+
+		middle_position = (count_node(*A)/2); // refresh middle position in Stack A
+		label_position(A); // refresh the position of Stack A
+		
+		
+		// count forward
+		curr_forward = *A;
+		while(curr_forward != NULL)
+		{
+			if(curr_forward->rank >= (chunk[a]+1) && curr_forward->rank <= chunk[a+1]) // rank is within 1 to 20, 21 to 40, 41 to 60 etc ...
+			{
+				position_f = curr_forward->position;
+				ft_printf("position_f = %d\n", position_f);
+				break;
+			}
+			curr_forward = curr_forward->next;
+		}
+		// count reverse
+		curr_reverse = A_tail;
+		while(curr_reverse != NULL)
+		{
+			if(curr_reverse->rank >= (chunk[a]+1) && curr_reverse->rank <= chunk[a+1]) // rank is within 1 to 20, 21 to 40, 41 to 60 etc ...
+			{
+				position_b = curr_reverse->position;
+				ft_printf("position_b = %d\n", position_b);
+				break;
+			}
+			curr_reverse = curr_reverse->prev;
+		}
+		ft_printf("CHECK 1\n");
+		if(curr_forward != NULL || curr_reverse != NULL) // if value in chunk[a] is found
+		{
+			ft_printf("CHECK 2\n");
+			if(position_f <= (n_nodes - position_b)) // choose forward selection
+			{
+				position_selected = position_f;
+				rank_selected = curr_forward->rank;
+				ft_printf("Rank selected: %d\n", rank_selected);
+			}
+			else if(position_f > (n_nodes - position_b)) // choose backward selection
+			{
+				position_selected = position_b;
+				rank_selected = curr_reverse->rank;
+				ft_printf("Rank selected: %d\n", rank_selected);
+			}
+
+			ft_printf("CHECK 3\n");
+			// rotation
+			while((*A)->rank != rank_selected) // loop until rank_selected is at the top
+			{
+				if (position_selected <= middle_position)
+					ra(A, 0);
+				else if (position_selected > middle_position)
+					rra(A, 0);
+				n_operation += 1;
+			}
+			pb(A, B); //push to stack B
+			n_operation += 1;
+		}
+		else if(curr_forward == NULL && curr_reverse == NULL) // if value in chunk[a] is not found
+			a++;
+
+		ft_printf("AFTER -------\n");
+		ft_printf("Stack A :\n");
+		view_list_rank(*A);
+		ft_printf("Stack B :\n");
+		view_list_rank(*B);
+		ft_printf("AFTER -------\n");
+
+	}
 
 	return (n_operation);
 }
