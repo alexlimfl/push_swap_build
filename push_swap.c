@@ -138,6 +138,7 @@ int main(int argc, char *argv[])
 
     ft_printf("FINAL >>> \n");
     ft_printf("Check sorted = %d\n", check_sorted(&A));
+    ft_printf("Check MAIN\n");
     ft_printf("Number of operations: %d\n", n_operation);
 
     ft_printf("Stack A:\n");

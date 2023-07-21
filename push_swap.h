@@ -67,6 +67,7 @@ int		mega_sort_one(Node **A, Node **B, int n_operation);
 
 // check conditions
 int		check_sorted(Node **A);
+int		check_sorted_reverse(Node **A);
 void	check_duplicate(Node **A);
 void	argc_more_than_one(int argc);
 void	no_space_and_character_allowed(char **str);
@@ -74,6 +75,8 @@ void	no_space_and_character_allowed(char **str);
 // get values
 int		get_largest(Node **lst);
 int		get_smallest(Node **lst);
+int		get_lowest_rank(Node **lst);
+int		get_highest_rank(Node **lst);
 int		get_median(Node *lst);
 int		last_node_value(Node *lst);
 void	label_ranking(Node **lst);
