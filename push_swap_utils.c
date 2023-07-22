@@ -111,11 +111,11 @@ int		get_highest_rank(Node **lst)
 	curr = (*lst)->next;
 	while (curr != NULL)
 	{
-		if (curr->x > highest_rank)
+		if (curr->rank > highest_rank)
 			highest_rank = curr->rank;
+		// ft_printf("Curr->rank: %d , HR = %d\n", curr->rank, highest_rank);
 		curr = curr->next;
 	}
-	// ft_printf("Largest = %d\n", largest);
 	return (highest_rank);
 }
 
@@ -418,12 +418,12 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 	while(a < 5)
 	{
 		A_tail = double_ll_convert(A); // make if readable from end to front of Stack A.
-		ft_printf("BEFORE -------, loop number = %d, a = %d\n", count++, a);
-		ft_printf("Stack A :\n");
-		view_list_rank(*A);
-		ft_printf("Stack B :\n");
-		view_list_rank(*B);
-		ft_printf("BEFORE -------\n");
+		// ft_printf("BEFORE -------, loop number = %d, a = %d\n", count++, a);
+		// ft_printf("Stack A :\n");
+		// view_list_rank(*A);
+		// ft_printf("Stack B :\n");
+		// view_list_rank(*B);
+		// ft_printf("BEFORE -------\n");
 
 		middle_position = (count_node(*A)/2); // refresh middle position in Stack A
 		label_position(A); // refresh the position of Stack A
@@ -436,7 +436,7 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 			if(curr_forward->rank >= (chunk[a]+1) && curr_forward->rank <= chunk[a+1]) // rank is within 1 to 20, 21 to 40, 41 to 60 etc ...
 			{
 				position_f = curr_forward->position;
-				ft_printf("position_f = %d\n", position_f);
+				// ft_printf("position_f = %d\n", position_f);
 				break;
 			}
 			curr_forward = curr_forward->next;
@@ -448,7 +448,7 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 			if(curr_reverse->rank >= (chunk[a]+1) && curr_reverse->rank <= chunk[a+1]) // rank is within 1 to 20, 21 to 40, 41 to 60 etc ...
 			{
 				position_b = curr_reverse->position;
-				ft_printf("position_b = %d\n", position_b);
+				// ft_printf("position_b = %d\n", position_b);
 				break;
 			}
 			curr_reverse = curr_reverse->prev;
@@ -550,38 +550,70 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 						// ft_printf("position_selected_B: %d\nmiddle_positioin_B: %d\n",position_selected_B,middle_position_B);
 						rb(B, 0);
 					}
-					else if(position_selected_B > middle_position_B)
+					else if(position_selected_B > middle_position_B && position_selected_B != // last)
 						rrb(B, 0);
 					n_operation += 1;
 				}
 
 			}
-			ft_printf("Check 5\n");
 			pb(A, B); //push to stack B
 			n_operation += 1;
 		}
 		else if(curr_forward == NULL && curr_reverse == NULL) // if value in chunk[a] is not found
 			a++;
-
-		ft_printf("AFTER -------\n");
+		ft_printf("Stack B >>>>>>>>>>>>>>>>>>>>>>>>>:\n");
+		view_list_rank(*B);
+	}
+		ft_printf("AFTER -------------1111---------------\n");
 		ft_printf("Stack A :\n");
 		view_list_rank(*A);
 		ft_printf("Stack B >>>>>>>>>>>>>>>>>>>>>>>>>:\n");
 		view_list_rank(*B);
-		ft_printf("AFTER -------\n");
-
-	}
+		ft_printf("AFTER -------------1111--------------\n");
 	// ft_printf("Number of operation (Sorting): %d\n", n_operation);
+	// sort Stack B
 
-	if(check_sorted_reverse(B))
+	int highest_rank_B = get_highest_rank(B); //checked
+	// ft_printf("highest_rank_B: %d\n", highest_rank_B);
+	int position_highest_rank_B;
+	int middle_position_B = (n_nodes/2);
+	label_position(B);
+	view_list_position(*B); // checked
+	view_list_rank(*B); // checked
+	Node *curr_sort_B = *B;
+	while(curr_sort_B != NULL)
 	{
-		while((*B) != NULL)
+		if(curr_sort_B->rank == highest_rank_B) //MAKE SURE IF STATEMENT USING == NOT = !!!
+		{
+			position_highest_rank_B = curr_sort_B->position;
+			ft_printf("HR: %d , PHR: %d\n", highest_rank_B, position_highest_rank_B);
+			break;
+		}
+		curr_sort_B = curr_sort_B->next;
+	}
+	ft_printf("position_highest_rank_B: %d\n", position_highest_rank_B);
+	
+	while(!check_sorted_reverse(B) && (*B)->rank != highest_rank_B)
+	{
+		if(position_highest_rank_B <= middle_position_B)
+			rb(B, 0);
+		else if(position_highest_rank_B > middle_position_B)
+			rrb(B, 0);
+		n_operation +=1;
+	}
+
+		ft_printf("AFTER ----------------------------\n");
+		ft_printf("Stack A :\n");
+		view_list_rank(*A);
+		ft_printf("Stack B >>>>>>>>>>>>>>>>>>>>>>>>>:\n");
+		view_list_rank(*B);
+		ft_printf("AFTER ----------------------------\n");
+
+	while((*B) != NULL)
 		{
 			pa(A, B);
 			n_operation += 1;
 		}
-	}
-	// sort Stack B...
 
 
 	return (n_operation);
