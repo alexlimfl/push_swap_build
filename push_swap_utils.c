@@ -397,43 +397,36 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 	// view_list_position(*A);
 	// view_list_backward(A_tail);
 
-	int nn = count_node(*A); // 0.5 to round off int value.
+	int nn = count_node(*A);
 
 	// using 2 chunks
 	// int n_chunk = 2;
-	// float chunk[] = {0, 0.5, 1};
+	// int chunk[] = {0, 0.5*nn, nn};
 
 	// using 4 chunks
 	// int n_chunk = 4;
-	// float chunk[] = {0, 0.25, 0.5, 0.75, 1};
+	// int chunk[] = {0, 0.25*nn, 0.5*nn, 0.75*nn, nn};
 
 	// using 5 chunks
 	// int n_chunk = 5;
-	// float chunk[] = {0, 0.2, 0.4, 0.6, 0.8, 1};
+	// int chunk[] = {0, 0.2*nn, 0.4*nn, 0.6*nn, 0.8*nn, nn};
 
 	// using 10 chunks
-	int n_chunk = 10;
-	float chunk[] = {0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1};
+	// int n_chunk = 10;
+	// int chunk[] = {0, 0.1*nn, 0.2*nn, 0.3*nn, 0.4*nn, 0.5*nn, 0.6*nn, 0.7*nn, 0.8*nn, 0.9*nn, nn};
+
+	// using 15 chunks;
+	int n_chunk = 15;
+	int chunk[] = {0, 0.07*nn, 0.13*nn, 0.20*nn, 0.27*nn, 0.33*nn, 0.40*nn, 0.47*nn, 0.53*nn, 0.60*nn, 0.67*nn, 0.73*nn, 0.80*nn, 0.87*nn, 0.93*nn, nn};
 
 	// using 11 chunks
 	// int n_chunk = 11;
-	// float chunk[] = {0, 0.096, 0.192, 0.288, 0.384, 0.48, 0.576, 0.672, 0.768, 0.864, 0.96, 1};
-
-	// using 15 chunks;
-	// int n_chunk = 15;
-	// float chunk[] = {0, 0.07, 0.13, 0.20, 0.27, 0.33, 0.40, 0.47, 0.53, 0.60, 0.67, 0.73, 0.80, 0.87, 0.93, 1};
-
-	// using 16 chunks;
-	// int n_chunk = 16;
-	// float chunk[] = {0, 0.06, 0.13, 0.19, 0.25, 0.31, 0.38, 0.44, 0.50, 0.56, 0.63, 0.69, 0.75, 0.81, 0.88, 0.94, 1};
+	// int chunk[] = {0, 0.096*nn, 0.192*nn, 0.288*nn, 0.384*nn, 0.48*nn, 0.576*nn, 0.672*nn, 0.768*nn, 0.864*nn, 0.96*nn, nn};
 
 	// using 20 chunks
 	// int n_chunk = 20;
-	// float chunk[] = {0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1};
+	// int chunk[] = {0, 0.05*nn, 0.1*nn, 0.15*nn, 0.2*nn, 0.25*nn, 0.3*nn, 0.35*nn, 0.4*nn, 0.45*nn, 0.5*nn, 0.55*nn, 0.6*nn, 0.65*nn, 0.7*nn, 0.75*nn, 0.8*nn, 0.85*nn, 0.9*nn, 0.95*nn, nn};
 
-	// using 25 chunks;
-	// int n_chunk = 25;
-	// float chunk[] = {0, 0.04, 0.08, 0.12, 0.16, 0.20, 0.24, 0.28, 0.32, 0.36, 0.40, 0.44, 0.48, 0.52, 0.56, 0.60, 0.64, 0.68, 0.72, 0.76, 0.80, 0.84, 0.88, 0.92, 0.96, 1};
 
 	// decide ra or rra
 	Node *curr_forward;
@@ -466,7 +459,7 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 		curr_forward = *A;
 		while(curr_forward != NULL)
 		{
-			if(curr_forward->rank >= ((nn*chunk[a])+1) && curr_forward->rank <= (nn*chunk[a+1])) // rank is within 1 to 20, 21 to 40, 41 to 60 etc ...
+			if(curr_forward->rank >= (chunk[a]+1) && curr_forward->rank <= chunk[a+1]) // rank is within 1 to 20, 21 to 40, 41 to 60 etc ...
 			{
 				position_f = curr_forward->position;
 				// ft_printf("position_f = %d\n", position_f);
@@ -478,7 +471,7 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 		curr_reverse = A_tail;
 		while(curr_reverse != NULL)
 		{
-			if(curr_reverse->rank >= ((nn*chunk[a])+1) && curr_reverse->rank <= (nn*chunk[a+1])) // rank is within 1 to 20, 21 to 40, 41 to 60 etc ...
+			if(curr_reverse->rank >= (chunk[a]+1) && curr_reverse->rank <= chunk[a+1]) // rank is within 1 to 20, 21 to 40, 41 to 60 etc ...
 			{
 				position_b = curr_reverse->position;
 				// ft_printf("position_b = %d\n", position_b);
@@ -504,22 +497,27 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 			}
 
 			ft_printf("CHECK 3\n");
-			// rotation
-			while((*A)->rank != rank_selected) // loop until rank_selected is at the top
-			{
-				if (position_selected <= middle_position)
-					ra(A, 0);
-				else if (position_selected > middle_position)
-					rra(A, 0);
-				n_operation += 1;
-			}
+			// rotation in Stack A.
+			// rotation in Stack A.
+			// while((*A)->rank != rank_selected) // loop until rank_selected is at the top
+			// {
+			// 	if (position_selected <= middle_position)
+			// 		ra(A, 0);
+			// 	else if (position_selected > middle_position)
+			// 		rra(A, 0);
+			// 	n_operation += 1;
+			// }
 			
-			// Strategy 2 for B.
+			// Strategy 2 for B. >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 			// getting Stack B into correct sort before Push B.
 			// let's say target to push B is 8
 			// make sure 7 to 1, (7, 6, 5 , 4, 3, 2, 1) is at the top of Stack B.
 			// if not, make sure 15 to 9 is at the top of Stack B.
 			// make sure when Stack B has more than two nodes.
+
+			int position_selected_B = 0;
+			int rank_selected_B = 0;
+			int middle_position_B = 0;
 
 			if (count_node(*B) > 1)
 			{
@@ -528,18 +526,9 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 				label_position(B);
 				// view_list_position(*B);
 				int rank_number;
-				int position_selected_B = 0;
 				int lower_rank = rank_selected - 1;
 				int higher_rank = rank_selected + 1;
-				int rank_selected_B = 0;
-				int middle_position_B = (count_node(*B)/2);
-
-				//if rank_selected is 1 in Stack A, highest rank must be at the top in Stack B
-
-				// if(rank_selected == 12)
-				// {
-				// 	view_list_rank(*B);
-				// }
+				middle_position_B = (count_node(*B)/2);
 
 				if(rank_selected < get_lowest_rank(B)) // smallest rank in Stack B
 				{
@@ -605,21 +594,66 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 
 				// 	ft_printf("(*B)->rank: %d\nrank_selected_B: %d\nposition_selected_B: %d\nmiddle_positioin_B: %d\n",
 				// 	(*B)->rank,rank_selected_B,position_selected_B,middle_position_B);
-				while((*B)->rank != rank_selected_B)
+				// rotate Stack B
+				// while((*B)->rank != rank_selected_B)
+				// {
+				// 	if(position_selected_B <= middle_position_B)
+				// 		rb(B, 0);
+				// 	else if(position_selected_B > middle_position_B)
+				// 		rrb(B, 0);
+				// 	n_operation += 1;
+				// }
+			}
+			ft_printf("Loop: %d\n", a);
+			while(((*A)->rank != rank_selected) || ((count_node(*B) > 1) && ((*B)->rank != rank_selected_B))) //make sure both selected rank at the top of both stacks
+			{
+				ft_printf("rank selected: %d\n", rank_selected);
+				ft_printf("rank selected B: %d\n", rank_selected_B);
+				ft_printf("count node B: %d\n", count_node(*B));
+				if((count_node(*B) > 1) && ((*A)->rank != rank_selected) && ((*B)->rank != rank_selected_B))
+				{
+					if(position_selected <= middle_position && position_selected_B <= middle_position_B)
+					{
+						ft_printf("CHECK 41\n");
+						rr(A, B);
+					}
+					else if(position_selected > middle_position && position_selected_B > middle_position_B)
+					{
+						ft_printf("CHECK 42\n");
+						rrr(A, B);
+					}
+					else if((*A)->rank != rank_selected)
+					{
+						if(position_selected <= middle_position)
+						ra(A, 0);
+						else if(position_selected > middle_position)
+						rra(A, 0);
+					}
+					else if((count_node(*B) > 1) && ((*B)->rank != rank_selected_B))
+					{
+						if(position_selected_B <= middle_position_B)
+						rb(B, 0);
+						else if(position_selected_B > middle_position_B)
+						rrb(B, 0);
+					}
+				}
+				else if((*A)->rank != rank_selected)
+				{
+					if(position_selected <= middle_position)
+						ra(A, 0);
+					else if(position_selected > middle_position)
+						rra(A, 0);
+				}
+				else if((count_node(*B) > 1) && ((*B)->rank != rank_selected_B))
 				{
 					if(position_selected_B <= middle_position_B)
-					{		
-						// ft_printf("position_selected_B: %d\nmiddle_positioin_B: %d\n", position_selected_B, middle_position_B);
-						// ft_printf("Stack B >>>>>>>>>>>>>>>>>>>>>>>>>:\n");
-						// view_list_rank(*B);
-						// view_list_position(*B);
 						rb(B, 0);
-					}
 					else if(position_selected_B > middle_position_B)
 						rrb(B, 0);
-					n_operation += 1;
 				}
-
+				n_operation += 1;
+				// view_list_rank(*A);
+				// view_list_rank(*B);
 			}
 			pb(A, B); //push to stack B
 			n_operation += 1;
@@ -631,7 +665,7 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 				// 	view_list_rank(*B);
 				// 	exit(1);
 				// }
-	}
+	}   ///////////////////////////////////////////////ending of the big while loop///////////////////////////////////////////////
 		// ft_printf("AFTER -------------1111---------------\n");
 		// ft_printf("Stack A :\n");
 		// view_list_rank(*A);
@@ -670,13 +704,13 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 		n_operation +=1;
 	}
 
-		ft_printf("CHECK ERROR\n");
-		ft_printf("AFTER ----------------------------\n");
-		ft_printf("Stack A :\n");
-		view_list_rank(*A);
-		ft_printf("Stack B >>>>>>>>>>>>>>>>>>>>>>>>>:\n");
-		view_list_rank(*B);
-		ft_printf("AFTER ----------------------------\n");
+		// ft_printf("CHECK ERROR\n");
+		// ft_printf("AFTER ----------------------------\n");
+		// ft_printf("Stack A :\n");
+		// view_list_rank(*A);
+		// ft_printf("Stack B >>>>>>>>>>>>>>>>>>>>>>>>>:\n");
+		// view_list_rank(*B);
+		// ft_printf("AFTER ----------------------------\n");
 
 				// ft_printf("HigherRank:%d\n", higher_rank); //ER
 				// ft_printf("CP: %d\n", curr->position); //ER
