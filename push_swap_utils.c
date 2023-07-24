@@ -397,14 +397,43 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 	// view_list_position(*A);
 	// view_list_backward(A_tail);
 
-	int nn = count_node(*A);
-	int n_chunk = 10;
+	int nn = count_node(*A); // 0.5 to round off int value.
+
+	// using 2 chunks
+	// int n_chunk = 2;
+	// float chunk[] = {0, 0.5, 1};
+
+	// using 4 chunks
+	// int n_chunk = 4;
+	// float chunk[] = {0, 0.25, 0.5, 0.75, 1};
 
 	// using 5 chunks
-	// int chunk[] = {0, 0.2*nn, 0.4*nn, 0.6*nn, 0.8*nn, nn};
+	// int n_chunk = 5;
+	// float chunk[] = {0, 0.2, 0.4, 0.6, 0.8, 1};
 
 	// using 10 chunks
-	int chunk[] = {0, 0.1*nn, 0.2*nn, 0.3*nn, 0.4*nn, 0.5*nn, 0.6*nn, 0.7*nn, 0.8*nn, 0.9*nn, nn};
+	int n_chunk = 10;
+	float chunk[] = {0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1};
+
+	// using 11 chunks
+	// int n_chunk = 11;
+	// float chunk[] = {0, 0.096, 0.192, 0.288, 0.384, 0.48, 0.576, 0.672, 0.768, 0.864, 0.96, 1};
+
+	// using 15 chunks;
+	// int n_chunk = 15;
+	// float chunk[] = {0, 0.07, 0.13, 0.20, 0.27, 0.33, 0.40, 0.47, 0.53, 0.60, 0.67, 0.73, 0.80, 0.87, 0.93, 1};
+
+	// using 16 chunks;
+	// int n_chunk = 16;
+	// float chunk[] = {0, 0.06, 0.13, 0.19, 0.25, 0.31, 0.38, 0.44, 0.50, 0.56, 0.63, 0.69, 0.75, 0.81, 0.88, 0.94, 1};
+
+	// using 20 chunks
+	// int n_chunk = 20;
+	// float chunk[] = {0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1};
+
+	// using 25 chunks;
+	// int n_chunk = 25;
+	// float chunk[] = {0, 0.04, 0.08, 0.12, 0.16, 0.20, 0.24, 0.28, 0.32, 0.36, 0.40, 0.44, 0.48, 0.52, 0.56, 0.60, 0.64, 0.68, 0.72, 0.76, 0.80, 0.84, 0.88, 0.92, 0.96, 1};
 
 	// decide ra or rra
 	Node *curr_forward;
@@ -437,7 +466,7 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 		curr_forward = *A;
 		while(curr_forward != NULL)
 		{
-			if(curr_forward->rank >= (chunk[a]+1) && curr_forward->rank <= chunk[a+1]) // rank is within 1 to 20, 21 to 40, 41 to 60 etc ...
+			if(curr_forward->rank >= ((nn*chunk[a])+1) && curr_forward->rank <= (nn*chunk[a+1])) // rank is within 1 to 20, 21 to 40, 41 to 60 etc ...
 			{
 				position_f = curr_forward->position;
 				// ft_printf("position_f = %d\n", position_f);
@@ -449,7 +478,7 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 		curr_reverse = A_tail;
 		while(curr_reverse != NULL)
 		{
-			if(curr_reverse->rank >= (chunk[a]+1) && curr_reverse->rank <= chunk[a+1]) // rank is within 1 to 20, 21 to 40, 41 to 60 etc ...
+			if(curr_reverse->rank >= ((nn*chunk[a])+1) && curr_reverse->rank <= (nn*chunk[a+1])) // rank is within 1 to 20, 21 to 40, 41 to 60 etc ...
 			{
 				position_b = curr_reverse->position;
 				// ft_printf("position_b = %d\n", position_b);
