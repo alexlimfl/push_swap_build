@@ -106,7 +106,7 @@ void delete_list(Node **lst)
 		free(prenode);
 	}
 	*lst = NULL;
-	ft_printf("Deallocation done and list deleted.\n");
+	// ft_printf("Deallocation done and list deleted.\n");
 }
 
 void insert_front(Node **lst, int value)

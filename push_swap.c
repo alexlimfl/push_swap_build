@@ -17,7 +17,7 @@ void argc_more_than_one(int argc)
 {
     if (argc < 2)
     {
-        ft_printf("Error (no numbers found)\n");
+        ft_printf("Error\n");
         exit (1);
     }
 }
@@ -36,7 +36,7 @@ void no_space_and_character_allowed(char **str)
             if(c > 1 && str[c][d] == ' ') // if second argument contains ' '
             {
                 ft_printf("'%c'\n", str[c][d]);
-                ft_printf("Error (space found)\n");
+                ft_printf("Error\n");
                 // ft_printf("Space found in argv[%d].\n", d);
                 exit(1);
             }
@@ -44,14 +44,14 @@ void no_space_and_character_allowed(char **str)
                 {
                     if(str[2]) // if second argument isn't NULL
                     {
-                        ft_printf("Error (empty argv)\n");
+                        ft_printf("Error\n");
                         exit(0);
                     }
                 }
             if(str[c][d] != ' ' && (str[c][d] < '0' || str[c][d] > '9'))
             {
                 ft_printf("'%c'\n", str[c][d]);
-                ft_printf("Error (characters found)\n");
+                ft_printf("Error\n");
                 // ft_printf("Characters found in argv[%d].\n", d);
                 exit(1);
             }
@@ -102,7 +102,7 @@ Node *ll_convert(char **str)
 int main(int argc, char *argv[])
 {
     
-	int n_operation;
+	int n_operation = 0;
     n_operation = 0;
     Node *A;
 	Node *B;
@@ -122,36 +122,39 @@ int main(int argc, char *argv[])
 
     if(count_node(A) < 2)
     {
-        ft_printf("Error (less than one number)\n");
+        ft_printf("Error\n");
         exit(1);
     }
 
     check_duplicate(&A);
-    ft_printf("Operations >>>\n");
+    // ft_printf("Operations >>>\n");
     
     if (!check_sorted(&A))
-    {
-        // n_operation = tiny_sort(&A, n_operation);
-        // n_operation = medium_sort(&A, &B, n_operation);
-		n_operation = mega_sort_one(&A, &B, n_operation);
+    {   
+        if(count_node(A) <= 3)
+            n_operation = tiny_sort(&A, n_operation);
+        else if(count_node(A) <= 5)
+            n_operation = medium_sort(&A, &B, n_operation);
+        else
+		    n_operation = mega_sort_one(&A, &B, n_operation);
     }
 
-    ft_printf("FINAL >>> \n");
-    ft_printf("Check sorted = %d\n", check_sorted(&A));
-    ft_printf("Check MAIN\n");
-    ft_printf("Number of operations: %d\n", n_operation);
+    // ft_printf("FINAL >>> \n");
+    // ft_printf("Check sorted = %d\n", check_sorted(&A));
+    // ft_printf("Check MAIN\n");
+    // ft_printf("Number of operations: %d\n", n_operation);
 
-    ft_printf("Stack A:\n");
-	view_list(A);
-    ft_printf("Stack B:\n");
-	view_list(B);
+    // ft_printf("Stack A:\n");
+	// view_list(A);
+    // ft_printf("Stack B:\n");
+	// view_list(B);
 
-    ft_printf("Deallocation >>> \n");
+    // ft_printf("Deallocation >>> \n");
 	delete_list(&A);
 	delete_list(&B);
 
-    ft_printf("Check memory leaks >>> \n");
-	system("leaks -q push_swap");
+    // ft_printf("Check memory leaks >>> \n");
+	// system("leaks -q push_swap");
 
     return (0);
 }

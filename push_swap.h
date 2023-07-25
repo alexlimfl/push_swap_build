@@ -18,7 +18,7 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include <stdint.h>
-// # include <stdio.h>
+# include <stdio.h>
 
 typedef struct Node
 {
@@ -101,6 +101,11 @@ int		ft_atoi(const char *str);
 char	**ft_split(char const *s, char c);
 char	**split_string(char **str);
 Node	*double_ll_convert(Node **lst);
+void	*chunk_maker(int nn, int *chunk, int denominator);
+// int		action_one_1(Node **A, Node **B, int rank_selected, int rank_selected_B, int middle_position, int middle_position_B, int position_selected, int position_selected_B, int n_operation);
+// void	action_one_2(Node **A, Node **B, int rank_selected, int rank_selected_B, int middle_position, int middle_position_B, int position_selected, int position_selected_B);
+
+
 int		main(int argc, char *argv[]);
 
 #endif
