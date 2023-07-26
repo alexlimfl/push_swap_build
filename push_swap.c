@@ -136,7 +136,8 @@ int main(int argc, char *argv[])
         else if(count_node(A) <= 5)
             n_operation = medium_sort(&A, &B, n_operation);
         else
-		    n_operation = mega_sort_one(&A, &B, n_operation);
+            n_operation = mega_sort_two(&A, &B, n_operation);
+		    // n_operation = mega_sort_one(&A, &B, n_operation);
     }
 
     // ft_printf("FINAL >>> \n");

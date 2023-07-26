@@ -1,7 +1,7 @@
 #include "push_swap.h"
 
 
-void	*chunk_maker(int nn, int *chunk, int denominator)
+void	chunk_maker(int nn, int *chunk, int denominator)
 {
 	float numerator;
 	int i;
@@ -128,6 +128,8 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 		// ft_printf("CHECK 1\n");
 		if(curr_forward != NULL || curr_reverse != NULL) // if value in chunk[a] is found
 		{
+				// position_selected = position_f;
+				// rank_selected = curr_forward->rank;
 			// ft_printf("CHECK 2\n");
 			if(position_f <= (nn - position_b)) // choose forward selection
 			{
@@ -304,7 +306,6 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 			pa(A, B);
 			n_operation += 1;
 		}
-	// ft_printf("Number of operation: %d\nCheck sorted >>> %d\n", n_operation, check_sorted(A));
 	// ft_printf("Denominator: %d\n", num_chunk);
 	int i = 0;
 	while(i <= num_chunk)
@@ -314,28 +315,13 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 	}
 	if(!check_sorted(A))
 	{
-		// ft_printf("SORT FAILED\n");
+		ft_printf("SORT FAILED\n");
 		// exit(1);
 	}
+	else
+		ft_printf("Number of operation: %d\nCheck sorted >>> %d\n", n_operation, check_sorted(A));
 
 	return (n_operation);
 }
 
 
-int	mega_sort_two(Node **A, Node **B, int n_operation)
-{
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	return (n_operation);
-}

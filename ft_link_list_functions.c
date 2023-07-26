@@ -52,6 +52,29 @@ void view_list_position(Node *lst)
     }
 }
 
+void view_all(Node *lst, Node *lst2)
+{
+	ft_printf("List ALL:\n");
+	if (lst == NULL)
+		ft_printf("A: Empty\n");
+	if (lst2 == NULL)
+		ft_printf("B: Empty\n");
+	ft_printf("Value, Rank, ChunkID, Position	 Value, Rank, ChunkID, Position\n");
+    while (lst != NULL || lst2 != NULL)
+    {
+        if(lst != NULL)
+		{
+			ft_printf("\n%d	%d	%d	%d ", lst->x, lst->rank, lst->chunk_id, lst->position);
+			lst = lst->next;
+		}
+		if(lst2 != NULL)
+		{
+			ft_printf("\n		   		%d	%d	%d	%d",lst2->x, lst2->rank, lst2->chunk_id, lst2->position);
+			lst2 = lst2->next;
+		}
+    }
+}
+
 void view_list_backward(Node *lst)
 {
 	ft_printf("List (backward):\n");

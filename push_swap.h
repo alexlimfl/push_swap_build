@@ -25,6 +25,7 @@ typedef struct Node
 	int x;
 	int rank;
 	int position;
+	int chunk_id;
 	char *str;
 	struct Node *next;
 	struct Node *prev;
@@ -34,6 +35,7 @@ typedef struct Node
 void 	view_list(Node *lst);
 void	view_list_rank(Node *lst);
 void	view_list_position(Node *lst);
+void 	view_all(Node *lst, Node *lst2);
 void 	view_list_backward(Node *lst);
 void	insert_back(Node **lst, int value);
 void	delete_list(Node **lst);
@@ -63,7 +65,7 @@ void	rrr(Node **A, Node **B);
 int		tiny_sort(Node **A, int n_operation);
 int		medium_sort(Node **A, Node **B, int n_operation);
 int		mega_sort_one(Node **A, Node **B, int n_operation);
-
+int		mega_sort_two(Node **A, Node **B, int n_operation);
 
 // check conditions
 int		check_sorted(Node **A);
@@ -101,7 +103,9 @@ int		ft_atoi(const char *str);
 char	**ft_split(char const *s, char c);
 char	**split_string(char **str);
 Node	*double_ll_convert(Node **lst);
-void	*chunk_maker(int nn, int *chunk, int denominator);
+void	chunk_maker(int nn, int *chunk, int denominator);
+int	position_s_within_chunk(Node **A, int *chunk, int i);
+
 // int		action_one_1(Node **A, Node **B, int rank_selected, int rank_selected_B, int middle_position, int middle_position_B, int position_selected, int position_selected_B, int n_operation);
 // void	action_one_2(Node **A, Node **B, int rank_selected, int rank_selected_B, int middle_position, int middle_position_B, int position_selected, int position_selected_B);
 
