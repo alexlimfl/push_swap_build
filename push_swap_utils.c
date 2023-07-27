@@ -172,24 +172,21 @@ int		tiny_sort(Node **A, int n_operation)
 	{
 		if(c == 1 && largest == curr->x)
 		{
-			ra(A, 0);
-			n_operation += 1;
+			n_operation = ra(A, 1, n_operation);
 			curr = *A;
 			c = 1;
 			// view_list(*A);
 		}
 		if(c == 2 && largest == curr->x)
 		{
-			rra(A, 0);
-			n_operation += 1;
+			n_operation = rra(A, 1, n_operation);
 			curr = *A;
 			c = 1;
 			// view_list(*A);
 		}
 		if(c == 3 && largest == curr->x)
 		{
-			sa(A, 0);
-			n_operation += 1;
+			n_operation = sa(A, 1, n_operation);
 			curr = *A;
 			c = 1;
 			// view_list(*A);
@@ -266,9 +263,8 @@ int		medium_sort(Node **A, Node **B, int n_operation)
 	largest = get_largest(A);
 	smallest = get_smallest(A);
 
-	pb(A, B);
-	pb(A, B);
-	n_operation += 2;
+	n_operation = pb(A, B, 1, n_operation);
+	n_operation = pb(A, B, 1, n_operation);
 
 	n_operation = tiny_sort(A, n_operation);
 
@@ -278,28 +274,26 @@ int		medium_sort(Node **A, Node **B, int n_operation)
 		// view_list(*B);
 
 		if((*B)->x == largest && (*B)->x && get_largest(A) == last_node_value(*A))
-			pa(A, B);
+			n_operation = pa(A, B, 1, n_operation);
 		else if((*B)->x == smallest && get_smallest(A) == (*A)->x)
-			pa(A, B);
+			n_operation = pa(A, B, 1, n_operation);
 		else if((*B)->x > last_node_value(*A) && (*B)->x < (*A)->x)
-			pa(A, B);
+			n_operation = pa(A, B, 1, n_operation);
 		else if(check_sorted(A) && (*B)->x < (*A)->x)
-			pa(A, B);
+			n_operation = pa(A, B, 1, n_operation);
 		else if(check_sorted(A) && (*B)->x > last_node_value(*A))
-			pa(A, B);
+			n_operation = pa(A, B, 1, n_operation);
 		else
-			ra(A, 0);
-		n_operation += 1;
+			n_operation = ra(A, 1, n_operation);
 	}
 
 	while(!check_sorted(A))
 	{
 		// ft_printf("CHECK 6\n");
 		if(last_node_value(*A) == smallest)
-			rra(A,0);
+			n_operation = rra(A, 1, n_operation);
 		else
-			ra(A, 0);
-		n_operation += 1;
+			n_operation = ra(A, 1, n_operation);
 	}
 	return (n_operation);
 }

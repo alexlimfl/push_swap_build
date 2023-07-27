@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Operation.c                                        :+:      :+:    :+:   */
+/*   Operation.print                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: folim <folim@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void sa(Node **A, int c)
+int sa(Node **A, int print, int n_operation)
 {
     if(*A == NULL || (*A)->next == NULL)
     {
@@ -31,11 +31,13 @@ void sa(Node **A, int c)
     second->next = first;
     first->next = third;
     *A = second;
-    if(c == 0)
+    if(print == 1)
         ft_printf("sa\n");
+    n_operation += 1;
+    return (n_operation);
 }
 
-void sb(Node **B, int c)
+int sb(Node **B, int print, int n_operation)
 {
     
     if(*B == NULL || (*B)->next == NULL)
@@ -55,11 +57,13 @@ void sb(Node **B, int c)
     second->next = first;
     first->next = third;
     *B = second;
-    if(c == 0)
+    if(print == 1)
         ft_printf("sb\n");
+    n_operation += 1;
+    return (n_operation);
 }
 
-void ss(Node **A, Node **B)
+int ss(Node **A, Node **B, int print, int n_operation)
 {
     if(*A == NULL || (*A)->next == NULL || *B == NULL || (*B)->next == NULL)
     {
@@ -68,12 +72,15 @@ void ss(Node **A, Node **B)
         delete_list(B);
         exit(1);
     }
-    sa(A, 1);
-    sb(A, 1);
-    ft_printf("ss\n");
+    sa(A, 0, 0);
+    sb(A, 0, 0);
+    if(print == 1)
+        ft_printf("ss\n");
+    n_operation += 1;
+    return (n_operation);
 }
 
-void pa(Node **A, Node **B)
+int pa(Node **A, Node **B, int print, int n_operation)
 {
     if(*B == NULL)
     {
@@ -92,11 +99,13 @@ void pa(Node **A, Node **B)
 
     temp_B->next = *A;
     *A = temp_B;
-
-    ft_printf("pa\n");
+    if(print == 1)
+        ft_printf("pa\n");
+    n_operation += 1;
+    return (n_operation);
 }
 
-void pb(Node **A, Node **B)
+int pb(Node **A, Node **B, int print, int n_operation)
 {
     if(*A == NULL)
     {
@@ -115,11 +124,13 @@ void pb(Node **A, Node **B)
 
     temp_A->next = *B;
     *B = temp_A;
-
-    ft_printf("pb\n");
+    if(print == 1)
+        ft_printf("pb\n");
+    n_operation += 1;
+    return (n_operation);
 }
 
-void ra(Node **A, int c)
+int ra(Node **A, int print, int n_operation)
 {
     if(*A == NULL || (*A)->next == NULL)
     {
@@ -140,11 +151,13 @@ void ra(Node **A, int c)
     first->next = NULL;
     
     curr->next = first;
-	if(c == 0)
+	if(print == 1)
     	ft_printf("ra\n");
+    n_operation += 1;
+    return (n_operation);
 }
 
-void rb(Node **B, int c)
+int rb(Node **B, int print, int n_operation)
 {
     if(*B == NULL || (*B)->next == NULL)
     {
@@ -165,11 +178,13 @@ void rb(Node **B, int c)
     first->next = NULL;
 
     curr->next = first;
-	if(c == 0)
+	if(print == 1)
 		ft_printf("rb\n");
+    n_operation += 1;
+    return (n_operation);
 }
 
-void rr(Node **A, Node **B)
+int rr(Node **A, Node **B, int print, int n_operation)
 {
 
 	if(*A == NULL || (*A)->next == NULL || *B == NULL || (*B)->next == NULL)
@@ -179,12 +194,15 @@ void rr(Node **A, Node **B)
         delete_list(B);
         exit(1);
     }
-	ra(A, 1);
-	rb(B, 1);
-	ft_printf("rr\n");
+	ra(A, 0, 0);
+	rb(B, 0, 0);
+    if(print == 1)
+	    ft_printf("rr\n");
+    n_operation += 1;
+    return (n_operation);
 }
 
-void rra(Node **A, int c)
+int rra(Node **A, int print, int n_operation)
 {
 	if(*A == NULL || (*A)->next == NULL)
     {
@@ -202,10 +220,13 @@ void rra(Node **A, int c)
 	*A = second_last->next;
 	second_last->next->next = first;
 	second_last->next = NULL;
-	if(c == 0)
+	if(print == 1)
 		ft_printf("rra\n");
+    n_operation += 1;
+    return (n_operation);
 }
-void rrb(Node **B, int c)
+
+int rrb(Node **B, int print, int n_operation)
 {
 	if(*B == NULL || (*B)->next == NULL)
     {
@@ -223,11 +244,13 @@ void rrb(Node **B, int c)
 	*B = second_last->next;
 	second_last->next->next = first;
 	second_last->next = NULL;
-	if(c == 0)
+	if(print == 1)
 		ft_printf("rrb\n");
+    n_operation += 1;
+    return (n_operation);
 }
 
-void rrr(Node **A, Node **B)
+int rrr(Node **A, Node **B, int print, int n_operation)
 {
 	if(*A == NULL || (*A)->next == NULL || *B == NULL || (*B)->next == NULL)
     {
@@ -236,7 +259,10 @@ void rrr(Node **A, Node **B)
         delete_list(B);
         exit(1);
     }
-	rra(A, 1);
-	rrb(B, 1);
-	ft_printf("rrr\n");
+	rra(A, 0, 0);
+	rrb(B, 0, 0);
+    if(print == 1)
+	    ft_printf("rrr\n");
+    n_operation += 1;
+    return (n_operation);
 }

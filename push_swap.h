@@ -49,17 +49,17 @@ int		check_loop(Node *lst);
 int		count_node(Node *lst);
 
 // operations
-void	sa(Node **A, int c);
-void	sb(Node **B, int c);
-void	ss(Node **A, Node **B);
-void	pa(Node **A, Node **B);
-void	pb(Node **A, Node **B);
-void	ra(Node **A, int c);
-void	rb(Node **B, int c);
-void	rr(Node **A, Node **B);
-void	rra(Node **A, int c);
-void	rrb(Node **B, int c);
-void	rrr(Node **A, Node **B);
+int		sa(Node **A, int print, int n_operation);
+int		sb(Node **B, int print, int n_operation);
+int		ss(Node **A, Node **B, int print, int n_operation);
+int		pa(Node **A, Node **B, int print, int n_operation);
+int		pb(Node **A, Node **B, int print, int n_operation);
+int		ra(Node **A, int print, int n_operation);
+int		rb(Node **B, int print, int n_operation);
+int		rr(Node **A, Node **B, int print, int n_operation);
+int		rra(Node **A, int print, int n_operation);
+int		rrb(Node **B, int print, int n_operation);
+int		rrr(Node **A, Node **B, int print, int n_operation);
 
 // sorting category
 int		tiny_sort(Node **A, int n_operation);
@@ -104,7 +104,9 @@ char	**ft_split(char const *s, char c);
 char	**split_string(char **str);
 Node	*double_ll_convert(Node **lst);
 void	chunk_maker(int nn, int *chunk, int denominator);
-int	position_s_within_chunk(Node **A, int *chunk, int i);
+int		position_s_within_chunk(Node **A, int *chunk, int i);
+int 	position_s_within_chunk_reverse(Node **A, int *chunk, int i);
+
 
 // int		action_one_1(Node **A, Node **B, int rank_selected, int rank_selected_B, int middle_position, int middle_position_B, int position_selected, int position_selected_B, int n_operation);
 // void	action_one_2(Node **A, Node **B, int rank_selected, int rank_selected_B, int middle_position, int middle_position_B, int position_selected, int position_selected_B);
