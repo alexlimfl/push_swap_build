@@ -1,6 +1,5 @@
 #include "push_swap.h"
 
-
 void	chunk_maker(int nn, int *chunk, int denominator)
 {
 	float numerator;
@@ -17,11 +16,6 @@ void	chunk_maker(int nn, int *chunk, int denominator)
 		numerator++;
 	}
 }
-
-
-
-
-
 
 
 int		mega_sort_one(Node **A, Node **B, int n_operation)
