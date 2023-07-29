@@ -309,7 +309,7 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 		// exit(1);
 	}
 	// else
-		// ft_printf("Number of operation: %d\nCheck sorted >>> %d\n", n_operation, check_sorted(A));
+	// 	ft_printf("Number of operation: %d\nCheck sorted >>> %d\n", n_operation, check_sorted(A));
 
 	return (n_operation);
 }

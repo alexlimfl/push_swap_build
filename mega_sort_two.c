@@ -210,6 +210,8 @@ int push_top_chunk(Node **A, Node **B, int *chunk, int num_chunk, int n_operatio
 			if((*A)->chunk_id >= (*B)->chunk_id && ((*A)->chunk_id == (i+1) || (*A)->chunk_id == (i+2)))
 			{
 				n_operation = pb(A, B, 1, n_operation);
+				if((*B)->chunk_id == (i+1))
+					RB = 1;
 			}
 			else if((*A)->chunk_id < (*B)->chunk_id && ((*A)->chunk_id == (i+1) || (*A)->chunk_id == (i+2)))
 			{
@@ -222,8 +224,11 @@ int push_top_chunk(Node **A, Node **B, int *chunk, int num_chunk, int n_operatio
 			// if((*A) != NULL)
 				n_operation = rotate(A, B, RA, RB, n_operation);
 		}
-		while((*B)->chunk_id == (i+1))
-			n_operation = rb(B, 1, n_operation);
+		// while((*B)->chunk_id == (i+1))
+		// 	n_operation = rb(B, 1, n_operation);
+		// if(!(value_within_chunk_available(A, chunk, i) || value_within_chunk_available(A, chunk, (i+1))) && ((*B)->chunk_id == (i+1) || (*B)->chunk_id == (i+2)))
+		// 	n_operation = rb(B, 1, n_operation);
+
 		i += 2;
 	}
 
@@ -361,6 +366,139 @@ void	outer_chunk_maker(int nn, int *inner_chunk, int *outer_chunk, int denominat
 	}
 }
 
+
+
+
+
+// int		check_sorted_tail_h(Node **lst)
+// {
+// 	Node *curr;
+// 	int before;
+// 
+// 	curr = (*lst)->prev;
+// 	before = (*lst)->x;	
+// 	while(curr != NULL)
+// 	{
+// 		if (curr->x <= before)
+// 		{
+// 			before = curr->x;
+// 			curr = curr->prev;		
+// 		}
+// 		else
+// 		{
+// 			curr->sorted_tail_h = 1;
+// 			before = curr->x;
+// 			curr = curr->prev;
+// 		}
+// 	}
+// 	return (1);
+// }
+
+int		check_sorted_h_tail(Node **lst)
+{
+	Node *curr;
+	int before;
+
+	curr = (*lst)->next;
+	before = (*lst)->x;	
+	while(curr != NULL)
+	{
+		
+		if (curr->x >= before)
+		{
+			before = curr->x;
+			curr = curr->next;
+		}
+		else
+		{
+			curr->sorted_h_tail = 1;
+			before = curr->x;
+			curr = curr->next;
+		}
+	}
+	return (1);
+}
+
+int	decending_from_top(Node **A, Node **B, int num_chunk, int n_operation)
+{
+	Node *tail_B;
+	Node *curr;
+
+	curr = *B;
+	tail_B = double_ll_convert(B);
+
+	check_sorted_h_tail(B);
+
+// //
+// 	int highest_rank_B = get_highest_rank(B); //checked
+// 	// ft_printf("highest_rank_B: %d\n", highest_rank_B);
+// 	int position_highest_rank_B;
+// 	int middle_position_B = (count_node(*B)/2);
+// 	Node *curr_sort_B = *B;
+// 
+// 	label_position(B);
+// 	while(curr_sort_B != NULL)
+// 	{
+// 		if(curr_sort_B->rank == highest_rank_B) //MAKE SURE IF STATEMENT USING == NOT = !!!
+// 		{
+// 			position_highest_rank_B = curr_sort_B->position;
+// 			break;
+// 		}
+// 		curr_sort_B = curr_sort_B->next;
+// 	}
+// 	while(!check_sorted_reverse(B) && (*B)->rank != highest_rank_B)
+// 	{
+// 		if(position_highest_rank_B <= middle_position_B)
+// 			n_operation = rb(B, 1, n_operation);
+// 		else if(position_highest_rank_B > middle_position_B)
+// 			n_operation = rrb(B, 1, n_operation);
+// 	}
+// 	while((*B) != NULL)
+// 		{
+// 			n_operation = pa(A, B, 1, n_operation);
+// 		}
+// 	// ft_printf("Denominator: %d\n", num_chunk);
+// 	int i = 0;
+// 	while(i <= num_chunk)
+// 	{
+// 		// printf("Chunks : %d\n", chunk[i]);
+// 		i++;
+// 	}
+// 	if(!check_sorted(A))
+// 	{
+// 		ft_printf("SORT FAILED\n");
+// 		// exit(1);
+// 	}
+// 	// else
+// 	// 	ft_printf("Number of operation: %d\nCheck sorted >>> %d\n", n_operation, check_sorted(A));
+// //
+
+
+	return (n_operation);
+	
+}
+
+
+
+int	quick_sort(Node **A, Node **B, int *chunk, int num_chunk, int n_operation)
+{
+	// while(count_node(*A) < 2) // push A until A has two
+	// 	n_operation = pa(A, B, 1, n_operation);
+	// until last two chunk, chunk_ID 1 and 2
+	// while((*B)->chunk_id != 1 && (*B)->chunk_id !=2)
+	// {
+	// 	//find
+	// }
+
+	n_operation = decending_from_top(A, B, num_chunk, n_operation);
+
+
+
+	return (n_operation);
+}
+
+
+
 int mega_sort_two(Node **A, Node **B, int n_operation)
 {	
 	int inner_chunk[100];
@@ -378,6 +516,7 @@ int mega_sort_two(Node **A, Node **B, int n_operation)
 	outer_chunk_maker(count_node(*A), inner_chunk, outer_chunk, num_chunk);
 	lable_chunk(A, outer_chunk, num_chunk);
 	n_operation = push_top_chunk(A, B, outer_chunk, num_chunk, n_operation);
+	n_operation = quick_sort(A, B, outer_chunk, num_chunk, n_operation);
 
 
 	

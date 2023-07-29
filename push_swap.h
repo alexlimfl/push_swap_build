@@ -26,6 +26,8 @@ typedef struct Node
 	int rank;
 	int position;
 	int chunk_id;
+	int sorted_h_tail;
+	// int	sorted_tail_h;
 	char *str;
 	struct Node *next;
 	struct Node *prev;
