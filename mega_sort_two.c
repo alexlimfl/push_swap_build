@@ -192,6 +192,42 @@ int rotate(Node **A, Node**B, int RA, int RB, int n_operation)
 	return (n_operation);
 }
 
+int reverse_rotate(Node **A, Node**B, int RRA, int RRB, int n_operation)
+{
+	if(RRA == 1 && RRB == 1)
+		n_operation = rrr(A, B, 1, n_operation);
+	else if(RRA == 1 && RRB == 0)
+		n_operation = rra(A, 1, n_operation);
+	else if(RRA == 0 && RRB == 1)
+		n_operation = rrb(B, 1, n_operation);
+	return (n_operation);
+}
+
+int		check_sorted_h_tail(Node **lst)
+{
+	Node *curr;
+	int before;
+
+	curr = (*lst)->next;
+	before = (*lst)->x;	
+	while(curr != NULL)
+	{
+		
+		if (curr->x >= before)
+		{
+			before = curr->x;
+			curr = curr->next;
+		}
+		else
+		{
+			curr->sorted_h_tail = 1;
+			before = curr->x;
+			curr = curr->next;
+		}
+	}
+	return (1);
+}
+
 int push_top_chunk(Node **A, Node **B, int *chunk, int num_chunk, int n_operation)
 {
 	int RA;
@@ -231,6 +267,9 @@ int push_top_chunk(Node **A, Node **B, int *chunk, int num_chunk, int n_operatio
 
 		i += 2;
 	}
+	// check_sorted_h_tail(B);
+	// view_all(*A, *B);
+	// exit(1);
 
 	/*
 	while(value_within_chunk_available(A, chunk, 0) || value_within_chunk_available(A, chunk, 1))
@@ -394,86 +433,198 @@ void	outer_chunk_maker(int nn, int *inner_chunk, int *outer_chunk, int denominat
 // 	return (1);
 // }
 
-int		check_sorted_h_tail(Node **lst)
-{
-	Node *curr;
-	int before;
 
-	curr = (*lst)->next;
-	before = (*lst)->x;	
-	while(curr != NULL)
+int target_A_largest_B(Node **A, int rank_B)
+{
+	Node *curr_A;
+	int highest_rank;
+	int lowest_rank;
+
+	label_position(A);
+	highest_rank = get_highest_rank(A);
+	lowest_rank = get_lowest_rank(A);
+	if(rank_B > highest_rank)
 	{
-		
-		if (curr->x >= before)
+		while(highest_rank >= lowest_rank)
 		{
-			before = curr->x;
-			curr = curr->next;
-		}
-		else
-		{
-			curr->sorted_h_tail = 1;
-			before = curr->x;
-			curr = curr->next;
+			curr_A = *A;
+			while(curr_A != NULL)
+			{
+				if(curr_A->rank == highest_rank)
+					return (curr_A->position);
+				curr_A = curr_A->next;
+			}
+			highest_rank--;
 		}
 	}
-	return (1);
+	return (-1);
 }
+
+int	target_A_smallest_B(Node **A, int rank_B)
+{
+	Node *curr_A;
+	int highest_rank;
+	int lowest_rank;
+
+	highest_rank = get_highest_rank(A);
+	lowest_rank = get_lowest_rank(A);
+	label_position(A);
+	if(rank_B < lowest_rank)
+	{
+		while(lowest_rank <= highest_rank)
+		{
+			curr_A = *A;
+			while (curr_A != NULL)
+			{
+				if(curr_A->rank == lowest_rank)
+					return (curr_A->position);
+				curr_A = curr_A->next;
+			}
+			lowest_rank--;
+		}
+	}
+	return (-1);
+}
+
+int target_A(Node **A, int rank_B)
+{
+	Node *curr_A;
+	int position_l;
+	int position_h;
+	int rank_B_temp;
+
+	label_position(A);
+	rank_B_temp = rank_B;
+	while(rank_B >= get_lowest_rank(A))
+	{
+		curr_A = *A;
+		while (curr_A != NULL)
+		{
+			if (curr_A->rank == rank_B)
+				break;
+			curr_A = curr_A->next;
+		}
+		if (curr_A != NULL)
+			break;
+		rank_B--;
+	}
+	position_l = curr_A->position;
+	rank_B = rank_B_temp;
+	while(rank_B <- get_highest_rank(A))
+	{
+		curr_A = *A;
+		while (curr_A != NULL)
+		{
+			if (curr_A->rank == rank_B)
+				break;
+			curr_A = curr_A->next;
+		}
+		if (curr_A != NULL)
+			break;
+		rank_B++;
+	}
+	position_h = curr_A->position;
+	if (position_h <= count_node(*A) - position_l)
+		return (position_h);
+	else if (position_h > count_node(*A) - position_l)
+		return (position_l);
+}
+
+
 
 int	decending_from_top(Node **A, Node **B, int num_chunk, int n_operation)
 {
+	Node *curr_A;
+	Node *curr_B;
 	Node *tail_B;
-	Node *curr;
+	int target_p_A;
+	int RA;
+	int RB;
+	int RRA;
+	int RRB;
 
-	curr = *B;
+
 	tail_B = double_ll_convert(B);
 
-	check_sorted_h_tail(B);
-
-// //
-// 	int highest_rank_B = get_highest_rank(B); //checked
-// 	// ft_printf("highest_rank_B: %d\n", highest_rank_B);
-// 	int position_highest_rank_B;
-// 	int middle_position_B = (count_node(*B)/2);
-// 	Node *curr_sort_B = *B;
-// 
-// 	label_position(B);
-// 	while(curr_sort_B != NULL)
-// 	{
-// 		if(curr_sort_B->rank == highest_rank_B) //MAKE SURE IF STATEMENT USING == NOT = !!!
-// 		{
-// 			position_highest_rank_B = curr_sort_B->position;
-// 			break;
-// 		}
-// 		curr_sort_B = curr_sort_B->next;
-// 	}
-// 	while(!check_sorted_reverse(B) && (*B)->rank != highest_rank_B)
-// 	{
-// 		if(position_highest_rank_B <= middle_position_B)
-// 			n_operation = rb(B, 1, n_operation);
-// 		else if(position_highest_rank_B > middle_position_B)
-// 			n_operation = rrb(B, 1, n_operation);
-// 	}
-// 	while((*B) != NULL)
-// 		{
-// 			n_operation = pa(A, B, 1, n_operation);
-// 		}
-// 	// ft_printf("Denominator: %d\n", num_chunk);
-// 	int i = 0;
-// 	while(i <= num_chunk)
-// 	{
-// 		// printf("Chunks : %d\n", chunk[i]);
-// 		i++;
-// 	}
-// 	if(!check_sorted(A))
-// 	{
-// 		ft_printf("SORT FAILED\n");
-// 		// exit(1);
-// 	}
-// 	// else
-// 	// 	ft_printf("Number of operation: %d\nCheck sorted >>> %d\n", n_operation, check_sorted(A));
-// //
+	get_highest_rank(B);
 
 
+	while((*B) != NULL)
+	{
+		curr_B = *B;
+		label_position(B);
+		while(curr_B != NULL)
+		{
+			if(curr_B->rank == get_highest_rank(B))
+				break;
+			curr_B = curr_B->next;
+		}
+		curr_A = *A;
+		label_position(A);
+
+				// ft_printf("CHECK, %d, %d\n", curr_B->rank, get_highest_rank(A));
+		if (curr_B->rank > get_highest_rank(A))
+		{
+			target_p_A = target_A_largest_B(A, curr_B->rank);
+			ft_printf("CHECK 111111111111111\n");
+
+		}
+		else if (curr_B->rank < get_lowest_rank(A))
+		{
+			target_p_A = target_A_smallest_B(A, curr_B->rank);
+			ft_printf("CHECK 2222222222222222222222\n");
+
+		}
+		else
+		{
+			ft_printf("CHECK 33333333333333333333\n");
+			target_p_A = target_A(A, curr_B->rank);
+		}
+
+		// while(curr_A !=  NULL)
+		// {
+		// 	if(curr_A->rank == get_lowest_rank(A))
+		// 		break;
+		// 	curr_A = curr_A->next;
+		// }
+
+		while(curr_B != NULL && (*B)->rank != curr_B->rank || (*A) != NULL && (*A)->position != target_p_A)
+		{
+			RA = 0;
+			RB = 0;
+			RRA = 0;
+			RRB = 0;
+			if(curr_B != NULL && (*B)->rank != curr_B->rank)
+			{
+				if(curr_B->position <= count_node(*B)/2)
+					RB = 1;
+				else
+					RRB = 1;
+			}
+			if((*A) != NULL && (*A)->position != target_p_A)
+			{
+				if(target_p_A <= count_node(*A)/2)
+					RA = 1;
+				else
+					RRA = 1;
+			}
+			n_operation = rotate(A, B, RA, RB, n_operation);
+			n_operation = reverse_rotate(A, B, RRA, RRB, n_operation);
+		}
+		if((*B)->next != NULL && (*B)->sorted_h_tail == 0 && (*B)->next->sorted_h_tail == 1)
+		{
+			if((*B)->sorted_h_tail == 0 && (*B)->next->sorted_h_tail == 1)
+				n_operation = pa(A, B, 1, n_operation);
+			while((*B)->sorted_h_tail == 1)
+				n_operation = pa(A, B, 1, n_operation);
+			ft_printf("CHECK 44444444444444\n");
+		}
+		else
+			n_operation = pa(A, B, 1, n_operation);
+	}
+
+	// while((*A)->rank != get_smallest(A))
+	// 	n_operation = ra(A, 1, n_operation);
 	return (n_operation);
 	
 }
@@ -510,7 +661,7 @@ int mega_sort_two(Node **A, Node **B, int n_operation)
 	curr = *A;
 	num_chunk = 10;
 	label_ranking(A);
-	view_list_rank(*A);
+	// view_list_rank(*A);
 	// exit(1);
 	inner_chunk_maker(count_node(*A), inner_chunk, num_chunk);
 	outer_chunk_maker(count_node(*A), inner_chunk, outer_chunk, num_chunk);
@@ -520,9 +671,10 @@ int mega_sort_two(Node **A, Node **B, int n_operation)
 
 
 	
-	view_all(*A, *B);
-	view_chunk(outer_chunk, num_chunk);
-	ft_printf("Number of Operation >>> %d\n", n_operation);
+	// view_all(*A, *B);
+	// view_chunk(outer_chunk, num_chunk);
+	// ft_printf("Check sorted = %d\n", check_sorted(A));
+	// ft_printf("Number of Operation >>> %d\n", n_operation);
 	exit(0);
 	return (n_operation);
 }

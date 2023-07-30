@@ -59,12 +59,12 @@ void view_all(Node *lst, Node *lst2)
 		ft_printf("A: Empty\n");
 	if (lst2 == NULL)
 		ft_printf("B: Empty\n");
-	ft_printf("Value, Rank, ChunkID, Position	 Value, Rank, ChunkID, Position, sht, sth\n");
+	ft_printf("Value, Rank, ChunkID, Position, sht	 Value, Rank, ChunkID, Position, sht\n");
     while (lst != NULL || lst2 != NULL)
     {
         if(lst != NULL)
 		{
-			ft_printf("%d   %d   %d   %d   ", lst->x, lst->rank, lst->chunk_id, lst->position);
+			ft_printf("%d   %d   %d   %d   %d   ", lst->x, lst->rank, lst->chunk_id, lst->position, lst->sorted_h_tail);
 			lst = lst->next;
 		}
 		if(lst2 != NULL)
