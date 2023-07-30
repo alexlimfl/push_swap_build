@@ -267,8 +267,7 @@ int push_top_chunk(Node **A, Node **B, int *chunk, int num_chunk, int n_operatio
 
 		i += 2;
 	}
-	// check_sorted_h_tail(B);
-	// view_all(*A, *B);
+
 	// exit(1);
 
 	/*
@@ -549,9 +548,10 @@ int	decending_from_top(Node **A, Node **B, int num_chunk, int n_operation)
 	get_highest_rank(B);
 
 
-	while((*B) != NULL)
+	while((*B) != NULL && (count_node(*A) <= count_node(*B)))
 	{
 		curr_B = *B;
+		label_position(A);
 		label_position(B);
 		while(curr_B != NULL)
 		{
@@ -560,24 +560,23 @@ int	decending_from_top(Node **A, Node **B, int num_chunk, int n_operation)
 			curr_B = curr_B->next;
 		}
 		curr_A = *A;
-		label_position(A);
 
 				// ft_printf("CHECK, %d, %d\n", curr_B->rank, get_highest_rank(A));
 		if (curr_B->rank > get_highest_rank(A))
 		{
 			target_p_A = target_A_largest_B(A, curr_B->rank);
-			ft_printf("CHECK 111111111111111\n");
+			// ft_printf("CHECK 111111111111111\n");
 
 		}
 		else if (curr_B->rank < get_lowest_rank(A))
 		{
 			target_p_A = target_A_smallest_B(A, curr_B->rank);
-			ft_printf("CHECK 2222222222222222222222\n");
+			// ft_printf("CHECK 2222222222222222222222\n");
 
 		}
 		else
 		{
-			ft_printf("CHECK 33333333333333333333\n");
+			// ft_printf("CHECK 33333333333333333333\n");
 			target_p_A = target_A(A, curr_B->rank);
 		}
 
@@ -617,7 +616,6 @@ int	decending_from_top(Node **A, Node **B, int num_chunk, int n_operation)
 				n_operation = pa(A, B, 1, n_operation);
 			while((*B)->sorted_h_tail == 1)
 				n_operation = pa(A, B, 1, n_operation);
-			ft_printf("CHECK 44444444444444\n");
 		}
 		else
 			n_operation = pa(A, B, 1, n_operation);
@@ -667,14 +665,17 @@ int mega_sort_two(Node **A, Node **B, int n_operation)
 	outer_chunk_maker(count_node(*A), inner_chunk, outer_chunk, num_chunk);
 	lable_chunk(A, outer_chunk, num_chunk);
 	n_operation = push_top_chunk(A, B, outer_chunk, num_chunk, n_operation);
+	// check_sorted_h_tail(B);
+	// view_all(*A, *B);
+	// exit(0);
 	n_operation = quick_sort(A, B, outer_chunk, num_chunk, n_operation);
 
 
 	
-	// view_all(*A, *B);
-	// view_chunk(outer_chunk, num_chunk);
-	// ft_printf("Check sorted = %d\n", check_sorted(A));
-	// ft_printf("Number of Operation >>> %d\n", n_operation);
+	view_all(*A, *B);
+	view_chunk(outer_chunk, num_chunk);
+	ft_printf("Check sorted = %d\n", check_sorted(A));
+	ft_printf("Number of Operation >>> %d\n", n_operation);
 	exit(0);
 	return (n_operation);
 }
