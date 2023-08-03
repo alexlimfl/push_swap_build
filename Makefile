@@ -13,7 +13,7 @@
 
 NAME = push_swap.exe
 CC = gcc
-FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
+FLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 RCS = ar -rcs
 RM = rm -rf
 CFILES = $(wildcard ft_*.c) push_swap.c push_swap_utils.c mega_sort_one.c mega_sort_two.c

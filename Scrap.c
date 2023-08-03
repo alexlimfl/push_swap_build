@@ -77,3 +77,29 @@ void top_A_one(Node **A, int target_p_A, int curr_B_rank, int tail_A_position, i
             *stop = 1;
     }
 }
+
+int	decending_from_top(Node **A, Node **B, int *chunk, int num_chunk, int until_chunk, int n_operation)
+{
+	Node *curr_B;
+	Node *tail_A;
+	int RA;
+	int RB;
+	int RRA;
+	int RRB;
+	int target_p_A;
+
+	while((*B) != NULL && chunkID_avalable(B, until_chunk))
+	{					
+		label_position(B);
+		if (is_even(num_chunk) || until_chunk < 5)
+			curr_B = *B;
+		else if (!is_even(num_chunk))
+			curr_B = double_ll_convert(B);
+		target_p_A =  get_target_p_A(A, curr_B->rank);
+		n_operation = push_A(A, B, &curr_B, target_p_A, &RA, &RB, &RRA, &RRB, n_operation);
+		n_operation = pa(A, B, 1, n_operation);
+		if(!chunkID_avalable(B, num_chunk)) //when 5 finish, highest is 4, so plus two.
+				num_chunk--;
+	}
+	return (n_operation);
+}
