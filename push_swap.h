@@ -27,15 +27,20 @@ typedef struct s_node
 	int				position;
 	int				chunk_id;
 	int				sorted_h_tail;
-	int				ra;
-	int				rb;
-	int				rra;
-	int				rrb;
-	int				stop;
 	char			*str;
 	struct s_node	*next;
 	struct s_node	*prev;
-}	t_node;
+}		t_node;
+
+typedef struct s_var
+{
+	int	ra;
+	int rb;
+	int rra;
+	int rrb;
+	int stop;
+
+}		t_var;
 
 // linked list functions
 void 	view_list(t_node *lst);
