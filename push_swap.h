@@ -20,71 +20,75 @@
 # include <stdint.h>
 # include <stdio.h>
 
-typedef struct Node
+typedef struct s_node
 {
-	int x;
-	int rank;
-	int position;
-	int chunk_id;
-	int sorted_h_tail;
-	// int	sorted_tail_h;
-	char *str;
-	struct Node *next;
-	struct Node *prev;
-} Node;
+	int				x;
+	int				rank;
+	int				position;
+	int				chunk_id;
+	int				sorted_h_tail;
+	int				ra;
+	int				rb;
+	int				rra;
+	int				rrb;
+	int				stop;
+	char			*str;
+	struct s_node	*next;
+	struct s_node	*prev;
+}	t_node;
 
 // linked list functions
-void 	view_list(Node *lst);
-void	view_list_rank(Node *lst);
-void	view_list_position(Node *lst);
-void 	view_all(Node *lst, Node *lst2);
-void 	view_list_backward(Node *lst);
-void	insert_back(Node **lst, int value);
-void	delete_list(Node **lst);
-void	insert_front(Node **lst, int value);
-void	insert_after(Node *lst, int value);
-void	insert_sorted(Node **lst, int value);
-void	delete_an_element(Node **lst, int value);
-void	delete_all_element(Node **lst, int value);
-void	reverse(Node **lst);
-int		check_loop(Node *lst);
-int		count_node(Node *lst);
+void 	view_list(t_node *lst);
+void	view_list_rank(t_node *lst);
+void	view_list_position(t_node *lst);
+void 	view_all(t_node *lst, t_node *lst2);
+void 	view_list_backward(t_node *lst);
+void	insert_back(t_node **lst, int value);
+void	delete_list(t_node **lst);
+void	insert_front(t_node **lst, int value);
+void	insert_after(t_node *lst, int value);
+void	insert_sorted(t_node **lst, int value);
+void	delete_an_element(t_node **lst, int value);
+void	delete_all_element(t_node **lst, int value);
+void	reverse(t_node **lst);
+int		check_loop(t_node *lst);
+int		c_node(t_node *lst);
 
 // operations
-int		sa(Node **A, int print, int n_operation);
-int		sb(Node **B, int print, int n_operation);
-int		ss(Node **A, Node **B, int print, int n_operation);
-int		pa(Node **A, Node **B, int print, int n_operation);
-int		pb(Node **A, Node **B, int print, int n_operation);
-int		ra(Node **A, int print, int n_operation);
-int		rb(Node **B, int print, int n_operation);
-int		rr(Node **A, Node **B, int print, int n_operation);
-int		rra(Node **A, int print, int n_operation);
-int		rrb(Node **B, int print, int n_operation);
-int		rrr(Node **A, Node **B, int print, int n_operation);
+int		sa(t_node **A, int print, int n_operation);
+int		sb(t_node **B, int print, int n_operation);
+int		ss(t_node **A, t_node **B, int print, int n_operation);
+int		pa(t_node **A, t_node **B, int print, int n_operation);
+int		pb(t_node **A, t_node **B, int print, int n_operation);
+int		ra(t_node **A, int print, int n_operation);
+int		rb(t_node **B, int print, int n_operation);
+int		rr(t_node **A, t_node **B, int print, int n_operation);
+int		rra(t_node **A, int print, int n_operation);
+int		rrb(t_node **B, int print, int n_operation);
+int		rrr(t_node **A, t_node **B, int print, int n_operation);
 
 // sorting category
-int		tiny_sort(Node **A, int n_operation);
-int		medium_sort(Node **A, Node **B, int n_operation);
-int		mega_sort_one(Node **A, Node **B, int n_operation);
-int		mega_sort_two(Node **A, Node **B, int n_operation);
+int		tiny_sort(t_node **A, int n_operation);
+int		medium_sort(t_node **A, t_node **B, int n_operation);
+int		mega_sort_one(t_node **A, t_node **B, int n_operation);
+int		mega_sort_two(t_node **A, t_node **B, int n_operation);
 
 // check conditions
-int		check_sorted(Node **A);
-int		check_sorted_reverse(Node **A);
-void	check_duplicate(Node **A);
+int		check_sorted(t_node **A);
+int		check_sorted_reverse(t_node **A);
+void	check_duplicate(t_node **A);
 void	argc_more_than_one(int argc);
 void	no_space_and_character_allowed(char **str);
 
 // get values
-int		get_largest(Node **lst);
-int		get_smallest(Node **lst);
-int		get_lowest_rank(Node **lst);
-int		get_highest_rank(Node **lst);
-int		get_median(Node *lst);
-int		last_node_value(Node *lst);
-void	label_ranking(Node **lst);
-void 	label_position(Node **lst);
+int		get_largest(t_node **lst);
+int		get_smallest(t_node **lst);
+int		get_lowest_rank(t_node **lst);
+int		get_highest_rank(t_node **lst);
+int		get_median(t_node *lst);
+int		last_node_value(t_node *lst);
+void	label_ranking(t_node **lst);
+void 	label_position(t_node **lst);
 
 
 // ft_printf
@@ -104,14 +108,14 @@ int		ft_printf(const char *str, ...);
 int		ft_atoi(const char *str);
 char	**ft_split(char const *s, char c);
 char	**split_string(char **str);
-Node	*double_ll_convert(Node **lst);
+t_node	*double_ll_convert(t_node **lst);
 void	chunk_maker(int nn, int *chunk, int denominator);
-int		position_s_within_chunk(Node **A, int *chunk, int i);
-int 	position_s_within_chunk_reverse(Node **A, int *chunk, int i);
+int		position_s_within_chunk(t_node **A, int *chunk, int i);
+int 	position_s_within_chunk_reverse(t_node **A, int *chunk, int i);
 
 
-// int		action_one_1(Node **A, Node **B, int rank_selected, int rank_selected_B, int middle_position, int middle_position_B, int position_selected, int position_selected_B, int n_operation);
-// void	action_one_2(Node **A, Node **B, int rank_selected, int rank_selected_B, int middle_position, int middle_position_B, int position_selected, int position_selected_B);
+// int		action_one_1(t_node **A, t_node **B, int rank_selected, int rank_selected_B, int middle_position, int middle_position_B, int position_selected, int position_selected_B, int n_operation);
+// void	action_one_2(t_node **A, t_node **B, int rank_selected, int rank_selected_B, int middle_position, int middle_position_B, int position_selected, int position_selected_B);
 
 
 int		main(int argc, char *argv[]);

@@ -10,89 +10,88 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "push_swap.h"
 
-void view_chunk(int *chunk,  int num_chunk)
+void	view_chunk(int *chunk, int num_chunk)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(i <= num_chunk)
+	while (i <= num_chunk)
 	{
 		printf("%d\n", chunk[i]);
 		i++;
 	}
 }
 
-int	position_s_within_chunk(Node **A, int *chunk, int i)
+int	ps_w_chk(t_node **A, int *chunk, int i)
 {
-	Node *curr;
+	t_node *curr;
 
 	curr = *A;
-	while(curr != NULL)
+	while (curr != NULL)
 	{
-		if(curr->rank > (chunk[i]) && curr->rank <= chunk[i+1])
+		if (curr->rank > (chunk[i]) && curr->rank <= chunk[i + 1])
 			return (curr->position);
 		curr = curr->next;
 	}
 	return (-1);
 }
 
-int check_sorted_plus(Node **A)
+int	check_sorted_plus(t_node **A)
 {
-	Node *curr;
-	int before;
+	t_node	*curr;
+	int		b4;
 
 	curr = (*A)->next;
-	before = (*A)->rank;
-	while(curr != NULL)
+	b4 = (*A)->rank;
+	while (curr != NULL)
 	{
-		if (curr->rank < before && !(curr->rank == get_lowest_rank(A) && before == get_highest_rank(A)))
+		if (curr->rank < b4 && !(curr->rank == get_lowest_rank(A)
+				&& b4 == get_highest_rank(A)))
 			return (0);
-		before = curr->rank;
+		b4 = curr->rank;
 		curr = curr->next;
 	}
 	return (1);
 }
 
-int position_s_within_chunk_reverse(Node **A, int *chunk, int i)
+int	ps_w_chk_r(t_node **A, int *chunk, int i)
 {
-	Node *curr;
+	t_node	*curr;
 
 	curr = double_ll_convert(A);
-	while(curr != NULL)
+	while (curr != NULL)
 	{
-		if(curr->rank > (chunk[i]) && curr->rank <= chunk[i+1])
+		if (curr->rank > (chunk[i]) && curr->rank <= chunk[i + 1])
 			return (curr->position);
 		curr = curr->prev;
 	}
 	return (-1);
 }
 
-
-int	position_s_chunk_id(Node **lst, int chunk_one, int chunk_two)
+int	ps_chk_id(t_node **lst, int chunk_one, int chunk_two)
 {
-	Node *curr;
+	t_node	*curr;
 
 	curr = *lst;
-	while(curr != NULL)
+	while (curr != NULL)
 	{
-		if(curr->chunk_id == chunk_one || curr->chunk_id == chunk_two)
+		if (curr->chunk_id == chunk_one || curr->chunk_id == chunk_two)
 			return (curr->position);
 		curr = curr->next;
 	}
 	return (-1);
 }
 
-int	position_s_chunk_id_reverse(Node **lst, int chunk_one, int chunk_two)
+int	ps_chk_id_r(t_node **lst, int chunk_one, int chunk_two)
 {
-	Node *curr;
+	t_node	*curr;
 
 	curr = double_ll_convert(lst);
-	while(curr != NULL)
+	while (curr != NULL)
 	{
-		if(curr->chunk_id == chunk_one || curr->chunk_id == chunk_two)
+		if (curr->chunk_id == chunk_one || curr->chunk_id == chunk_two)
 			return (curr->position);
 		curr = curr->prev;
 	}
@@ -100,144 +99,144 @@ int	position_s_chunk_id_reverse(Node **lst, int chunk_one, int chunk_two)
 }
 
 
-int value_within_chunk_available(Node **lst, int *chunk, int i)
+int	value_within_chunk_available(t_node **lst, int *chunk, int i)
 {
-	Node *curr;
+	t_node	*curr;
 
 	curr = *lst;
-	while(curr != NULL)
+	while (curr != NULL)
 	{
-		if(curr->rank > (chunk[i]) && curr->rank <= chunk[i+1])
+		if (curr->rank > (chunk[i]) && curr->rank <= chunk[i + 1])
 			return (1);
 		curr = curr->next;
 	}
 	return (0);
 }
 
-int chunkID_avalable(Node **lst, int id)
+int	chunkID_avalable(t_node **lst, int id)
 {
-	Node *curr;
+	t_node	*curr;
 
 	curr = *lst;
-	while(curr != NULL)
+	while (curr != NULL)
 	{
-		if(curr->chunk_id == id)
+		if (curr->chunk_id == id)
 			return (1);
 		curr = curr->next;
 	}
-	return(0);
+	return (0);
 }
 
 
-int	push_A_single_way_find(Node **A, Node **B, int *chunk, int i, int n_operation)
-{
-	int position_s;
-	
-	label_position(A);
-	position_s = position_s_within_chunk(A, chunk, i);
-	if(position_s > 0)
-	{
-		while(position_s != -1 && (*A)->position != position_s)
-			n_operation = ra(A, 1, n_operation);
-		n_operation = pb(A, B, 1, n_operation);
-	}
-	return (n_operation);
-}
-
-int	push_B_multi_way_find(Node **A, Node **B, int *chunk, int i, int n_operation)
+int	push_A_single_way_find(t_node **A, t_node **B, int *chunk, int i, int n_op)
 {
 	int	position_s;
 
 	label_position(A);
-	if(position_s_within_chunk(A, chunk, i) + position_s_within_chunk_reverse(A, chunk, i) > 0) //if not negative
+	position_s = ps_w_chk(A, chunk, i);
+	if (position_s > 0)
+	{
+		while (position_s != -1 && (*A)->position != position_s)
+			n_op = ra(A, 1, n_op);
+		n_op = pb(A, B, 1, n_op);
+	}
+	return (n_op);
+}
+
+int	push_B_multi_way_find(t_node **A, t_node **B, int *chunk, int i, int n_op)
+{
+	int	position_s;
+
+	label_position(A);
+	if (ps_w_chk(A, chunk, i) + ps_w_chk_r(A, chunk, i) > 0)
+	{
+		if (ps_w_chk(A, chunk, i) <= (c_node(*A) - ps_w_chk_r(A, chunk, i)))
 		{
-			if(position_s_within_chunk(A, chunk, i) <= (count_node(*A) - position_s_within_chunk_reverse(A, chunk, i)))
-			{
-				position_s = position_s_within_chunk(A, chunk, i);
-				while(position_s != -1 && (*A)->position != position_s)
-					n_operation = ra(A, 1, n_operation);
-			}
-			else if(position_s_within_chunk(A, chunk, i) > (count_node(*A) - position_s_within_chunk_reverse(A, chunk, i)))
-			{
-				position_s = position_s_within_chunk_reverse(A, chunk, i);
-				while(position_s != -1 && (*A)->position != position_s)
-					n_operation = rra(A, 1, n_operation);
-			}
-			if(position_s > 0)
-				n_operation = pb(A, B, 1, n_operation);
+			position_s = ps_w_chk(A, chunk, i);
+			while (position_s != -1 && (*A)->position != position_s)
+				n_op = ra(A, 1, n_op);
 		}
-	return (n_operation);
+		else if (ps_w_chk(A, chunk, i) > (c_node(*A) - ps_w_chk_r(A, chunk, i)))
+		{
+			position_s = ps_w_chk_r(A, chunk, i);
+			while (position_s != -1 && (*A)->position != position_s)
+				n_op = rra(A, 1, n_op);
+		}
+		if (position_s > 0)
+			n_op = pb(A, B, 1, n_op);
+	}
+	return (n_op);
 }
 
-int	PB_multi_find_chunkID(Node **A, Node **B, int chunk_one, int chunk_two, int n_operation)
+int	PB_multi_find_chunkID(t_node **A, t_node **B, int c1, int c2, int n_op)
 {
 	int	position_s;
 
 	label_position(A);
-	if(position_s_chunk_id(A, chunk_one, chunk_two) <= (count_node(*A) - position_s_chunk_id_reverse(A, chunk_one, chunk_two)))
+	if (ps_chk_id(A, c1, c2) <= (c_node(*A) - ps_chk_id_r(A, c1, c2)))
 	{
-		position_s = position_s_chunk_id(A, chunk_one, chunk_two);
-		while(position_s != -1 && (*A)->position != position_s)
-			n_operation = ra(A, 1, n_operation);
+		position_s = ps_chk_id(A, c1, c2);
+		while (position_s != -1 && (*A)->position != position_s)
+			n_op = ra(A, 1, n_op);
 	}
-	else if(position_s_chunk_id(A, chunk_one, chunk_two) > (count_node(*A) - position_s_chunk_id_reverse(A, chunk_one, chunk_two)))
+	else if (ps_chk_id(A, c1, c2) > (c_node(*A) - ps_chk_id_r(A, c1, c2)))
 	{
-		position_s = position_s_chunk_id_reverse(A, chunk_one, chunk_two);
-		while(position_s != -1 && (*A)->position != position_s)
-			n_operation = rra(A, 1, n_operation);
+		position_s = ps_chk_id_r(A, c1, c2);
+		while (position_s != -1 && (*A)->position != position_s)
+			n_op = rra(A, 1, n_op);
 	}
-	if(position_s > 0)
-		n_operation = pb(A, B, 1, n_operation);
-	return(n_operation);
+	if (position_s > 0)
+		n_op = pb(A, B, 1, n_op);
+	return (n_op);
 }
 
 
-void lable_chunk(Node **lst, int *chunk, int num_chunk)
+void lable_chunk(t_node **lst, int *chunk, int num_chunk)
 {
-	Node *curr;
-	int i;
+	t_node	*curr;
+	int		i;
 
 	i = 0;
-	while(i < num_chunk)
+	while (i < num_chunk)
 	{
-		
 		curr = *lst;
-		while(curr != NULL)
-		{	
-			if(value_within_chunk_available(lst, chunk, i) && curr->rank > (chunk[i]) && curr->rank <= chunk[i+1])
-				curr->chunk_id = i+1;
+		while (curr != NULL)
+		{
+			if (value_within_chunk_available(lst, chunk, i)
+				&& curr->rank > (chunk[i]) && curr->rank <= chunk[i + 1])
+				curr->chunk_id = i + 1;
 			curr = curr->next;
 		}
-		if(curr == NULL)
+		if (curr == NULL)
 			i++;
 	}
 }
 
-int rotate(Node **A, Node**B, int RA, int RB, int n_operation)
+int rotate(t_node **A, t_node**B, int RA, int RB, int n_op)
 {
 	if(RA == 1 && RB == 1)
-		n_operation = rr(A, B, 1, n_operation);
+		n_op = rr(A, B, 1, n_op);
 	else if(RA == 1 && RB == 0)
-		n_operation = ra(A, 1, n_operation);
+		n_op = ra(A, 1, n_op);
 	else if(RA == 0 && RB == 1)
-		n_operation = rb(B, 1, n_operation);
-	return (n_operation);
+		n_op = rb(B, 1, n_op);
+	return (n_op);
 }
 
-int reverse_rotate(Node **A, Node**B, int RRA, int RRB, int n_operation)
+int reverse_rotate(t_node **A, t_node**B, int RRA, int RRB, int n_op)
 {
 	if(RRA == 1 && RRB == 1)
-		n_operation = rrr(A, B, 1, n_operation);
+		n_op = rrr(A, B, 1, n_op);
 	else if(RRA == 1 && RRB == 0)
-		n_operation = rra(A, 1, n_operation);
+		n_op = rra(A, 1, n_op);
 	else if(RRA == 0 && RRB == 1)
-		n_operation = rrb(B, 1, n_operation);
-	return (n_operation);
+		n_op = rrb(B, 1, n_op);
+	return (n_op);
 }
 
-int		check_sorted_h_tail(Node **lst)
+int		check_sorted_h_tail(t_node **lst)
 {
-	Node *curr;
+	t_node *curr;
 	int before;
 
 	curr = (*lst)->next;
@@ -260,132 +259,132 @@ int		check_sorted_h_tail(Node **lst)
 	return (1);
 }
 
-int push_top_chunk(Node **A, Node **B, int *chunk, int num_chunk, int n_operation)
+int push_top_chunk(t_node **A, t_node **B, int *chunk, int num_chunk, int n_op)
 {
 	int RA;
 	int RB;
 	int i;
 
-	while(count_node(*B) < 2)
-		n_operation = PB_multi_find_chunkID(A, B, 1, 2, n_operation);
+	while(c_node(*B) < 2)
+		n_op = PB_multi_find_chunkID(A, B, 1, 2, n_op);
 	i = 0;
-	while(i <= (num_chunk - 2) && count_node(*A) > 3)
+	while(i <= (num_chunk - 2) && c_node(*A) > 3)
 	{
-		while((value_within_chunk_available(A, chunk, i) || value_within_chunk_available(A, chunk, (i+1))) && count_node(*A) > 3)
+		while((value_within_chunk_available(A, chunk, i) || value_within_chunk_available(A, chunk, (i+1))) && c_node(*A) > 3)
 		{
 			RA = 0;
 			RB = 0;
 			if((*A)->chunk_id >= (*B)->chunk_id && ((*A)->chunk_id == (i+1) || (*A)->chunk_id == (i+2)))
 			{
-				n_operation = pb(A, B, 1, n_operation);
+				n_op = pb(A, B, 1, n_op);
 				if((*B)->chunk_id == (i+1))
 					RB = 1;
 			}
 			else if((*A)->chunk_id < (*B)->chunk_id && ((*A)->chunk_id == (i+1) || (*A)->chunk_id == (i+2)))
 			{
-				n_operation = pb(A, B, 1, n_operation);
+				n_op = pb(A, B, 1, n_op);
 				RB = 1;
 			}
 			if((*A) != NULL && (*A)->chunk_id != (i+1) && (*A)->chunk_id != (i+2))
 				RA = 1;
-				n_operation = rotate(A, B, RA, RB, n_operation);
+				n_op = rotate(A, B, RA, RB, n_op);
 		}
 		i += 2;
 	}
-	n_operation = tiny_sort(A, n_operation);
+	n_op = tiny_sort(A, n_op);
 	/*
 	while(value_within_chunk_available(A, chunk, 0) || value_within_chunk_available(A, chunk, 1))
 	{
 		RA = 0;
 		RB = 0;
 		if((*A)->chunk_id >= (*B)->chunk_id && ((*A)->chunk_id == 1 || (*A)->chunk_id == 2))
-			n_operation = pb(A, B, 1, n_operation);
+			n_op = pb(A, B, 1, n_op);
 		else if((*A)->chunk_id < (*B)->chunk_id && ((*A)->chunk_id == 1 || (*A)->chunk_id == 2))
 		{
-			n_operation = pb(A, B, 1, n_operation);
+			n_op = pb(A, B, 1, n_op);
 			RB = 1;
 
 		}
 		if(((*A)->chunk_id != 1 && (*A)->chunk_id != 2))
 			RA = 1;
-		n_operation = rotate(A, B, RA, RB, n_operation);
+		n_op = rotate(A, B, RA, RB, n_op);
 	}
 	while(value_within_chunk_available(A, chunk, 2) || value_within_chunk_available(A, chunk, 3))
 	{
 		RA = 0;
 		RB = 0;
-		while(count_node(*B) < 2 && ((*A)->chunk_id == 3 || (*A)->chunk_id == 4))
-			n_operation = pb(A, B, 1, n_operation);
+		while(c_node(*B) < 2 && ((*A)->chunk_id == 3 || (*A)->chunk_id == 4))
+			n_op = pb(A, B, 1, n_op);
 	
 		if((*A)->chunk_id >= (*B)->chunk_id && ((*A)->chunk_id == 3 || (*A)->chunk_id == 4))
-			n_operation = pb(A, B, 1, n_operation);
+			n_op = pb(A, B, 1, n_op);
 		else if((*A)->chunk_id < (*B)->chunk_id && ((*A)->chunk_id == 3 || (*A)->chunk_id == 4))
 		{
-			n_operation = pb(A, B, 1, n_operation);
+			n_op = pb(A, B, 1, n_op);
 			RB = 1;
 
 		}
 		if(((*A)->chunk_id != 3 && (*A)->chunk_id != 4))
 			RA = 1;
-		n_operation = rotate(A, B, RA, RB, n_operation);
+		n_op = rotate(A, B, RA, RB, n_op);
 	}
 	while(value_within_chunk_available(A, chunk, 4) || value_within_chunk_available(A, chunk, 5))
 	{
 		RA = 0;
 		RB = 0;
-		while(count_node(*B) < 2 && ((*A)->chunk_id == 5 || (*A)->chunk_id == 6))
-			n_operation = pb(A, B, 1, n_operation);
+		while(c_node(*B) < 2 && ((*A)->chunk_id == 5 || (*A)->chunk_id == 6))
+			n_op = pb(A, B, 1, n_op);
 	
 		if((*A)->chunk_id >= (*B)->chunk_id && ((*A)->chunk_id == 5 || (*A)->chunk_id == 6))
-			n_operation = pb(A, B, 1, n_operation);
+			n_op = pb(A, B, 1, n_op);
 		else if((*A)->chunk_id < (*B)->chunk_id && ((*A)->chunk_id == 5 || (*A)->chunk_id == 6))
 		{
-			n_operation = pb(A, B, 1, n_operation);
+			n_op = pb(A, B, 1, n_op);
 			RB = 1;
 
 		}
 		if(((*A)->chunk_id != 5 && (*A)->chunk_id != 6))
 			RA = 1;
-		n_operation = rotate(A, B, RA, RB, n_operation);
+		n_op = rotate(A, B, RA, RB, n_op);
 	}
 	while(value_within_chunk_available(A, chunk, 6) || value_within_chunk_available(A, chunk, 7))
 	{
 		RA = 0;
 		RB = 0;
-		while(count_node(*B) < 2 && ((*A)->chunk_id == 7 || (*A)->chunk_id == 8))
-			n_operation = pb(A, B, 1, n_operation);
+		while(c_node(*B) < 2 && ((*A)->chunk_id == 7 || (*A)->chunk_id == 8))
+			n_op = pb(A, B, 1, n_op);
 	
 		if((*A)->chunk_id >= (*B)->chunk_id && ((*A)->chunk_id == 7 || (*A)->chunk_id == 8))
-			n_operation = pb(A, B, 1, n_operation);
+			n_op = pb(A, B, 1, n_op);
 		else if((*A)->chunk_id < (*B)->chunk_id && ((*A)->chunk_id == 7 || (*A)->chunk_id == 8))
 		{
-			n_operation = pb(A, B, 1, n_operation);
+			n_op = pb(A, B, 1, n_op);
 			RB = 1;
 
 		}
 		if(((*A)->chunk_id != 7 && (*A)->chunk_id != 8))
 			RA = 1;
-		n_operation = rotate(A, B, RA, RB, n_operation);
+		n_op = rotate(A, B, RA, RB, n_op);
 	}
 	while(value_within_chunk_available(A, chunk, 8) || value_within_chunk_available(A, chunk, 9))
 	{
 		RA = 0;
 		RB = 0;
-		while(count_node(*B) < 2 && ((*A)->chunk_id == 9 || (*A)->chunk_id == 10))
-			n_operation = pb(A, B, 1, n_operation);
+		while(c_node(*B) < 2 && ((*A)->chunk_id == 9 || (*A)->chunk_id == 10))
+			n_op = pb(A, B, 1, n_op);
 	
 		if((*A)->chunk_id >= (*B)->chunk_id && ((*A)->chunk_id == 9 || (*A)->chunk_id == 10))
-			n_operation = pb(A, B, 1, n_operation);
+			n_op = pb(A, B, 1, n_op);
 		else if((*A)->chunk_id < (*B)->chunk_id && ((*A)->chunk_id == 9 || (*A)->chunk_id == 10))
 		{
-			n_operation = pb(A, B, 1, n_operation);
+			n_op = pb(A, B, 1, n_op);
 			RB = 1;
 		}
 		if(((*A)->chunk_id != 9 && (*A)->chunk_id != 10))
 			RA = 1;
-		n_operation = rotate(A, B, RA, RB, n_operation);
+		n_op = rotate(A, B, RA, RB, n_op);
 	}*/
-	return (n_operation);
+	return (n_op);
 }
 
 void	inner_chunk_maker(int nn, int *inner_chunk, int denominator)
@@ -431,146 +430,128 @@ void	outer_chunk_maker(int nn, int *inner_chunk, int *outer_chunk, int denominat
 
 
 
-// int		check_sorted_tail_h(Node **lst)
-// {
-// 	Node *curr;
-// 	int before;
-// 
-// 	curr = (*lst)->prev;
-// 	before = (*lst)->x;	
-// 	while(curr != NULL)
-// 	{
-// 		if (curr->x <= before)
-// 		{
-// 			before = curr->x;
-// 			curr = curr->prev;		
-// 		}
-// 		else
-// 		{
-// 			curr->sorted_tail_h = 1;
-// 			before = curr->x;
-// 			curr = curr->prev;
-// 		}
-// 	}
-// 	return (1);
-// }
 
 
-int target_A_largest_B(Node **A, int rank_B)
+int target_A_largest_B(t_node **A, int rank_b)
 {
-	Node *curr_A;
+	t_node *curr_A;
 	int highest_rank;
 	int lowest_rank;
 
 	// label_position(A);
 	highest_rank = get_highest_rank(A);
 	lowest_rank = get_lowest_rank(A);
-	if(rank_B > highest_rank)
+	if(rank_b > highest_rank)
 	{
 		while(highest_rank >= lowest_rank)
 		{
 			curr_A = *A;
 			while(curr_A != NULL)
 			{
-				if(curr_A->rank == rank_B)
+				if(curr_A->rank == rank_b)
 					return (curr_A->position);
 				curr_A = curr_A->next;
 			}
-			rank_B--;
+			rank_b--;
 		}
 	}
 	return (-1);
 }
 
-int	target_A_smallest_B(Node **A, int rank_B)
+int	target_A_smallest_B(t_node **A, int rank_b)
 {
-	Node *curr_A;
+	t_node *curr_A;
 	int highest_rank;
 	int lowest_rank;
 
-			// ft_printf("RANKB %d\n", rank_B);
+			// ft_printf("RANKB %d\n", rank_b);
 	highest_rank = get_highest_rank(A);
 	lowest_rank = get_lowest_rank(A);
 	// label_position(A);
-	if(rank_B < lowest_rank)
+	if(rank_b < lowest_rank)
 	{
 		while(lowest_rank <= highest_rank)
 		{
 			curr_A = *A;
 			while (curr_A != NULL)
 			{
-				if(curr_A->rank == rank_B)
+				if(curr_A->rank == rank_b)
 					return (curr_A->position);
 				curr_A = curr_A->next;
 			}
-			rank_B++;
+			rank_b++;
 		}
 	}
 	return (-1);
 }
 
-int target_A(Node **A, int rank_B)
+int target_A_poaition_h(t_node **A, int rank_b)
 {
-	Node *curr_A;
-	int position_l;
-	int position_h;
-	int rank_B_temp;
+	t_node *curr_A;
 
-	rank_B_temp = rank_B;
-	while(rank_B >= get_lowest_rank(A))
+	curr_A = *A;
+	while (rank_b <= get_highest_rank(A))
 	{
 		curr_A = *A;
 		while (curr_A != NULL)
 		{
-			if (curr_A->rank == rank_B)
-				break;
+			if (curr_A->rank == rank_b)
+				break ;
 			curr_A = curr_A->next;
 		}
 		if (curr_A != NULL)
-			break;
-		rank_B--;
+			break ;
+		rank_b++;
+	}
+	return (curr_A->position);
+}
+
+int target_A(t_node **A, int rank_b)
+{
+	t_node	*curr_A;
+	int		position_l;
+	int		position_h;
+	int		rank_b_temp;
+
+	rank_b_temp = rank_b;
+	while (rank_b >= get_lowest_rank(A))
+	{
+		curr_A = *A;
+		while (curr_A != NULL)
+		{
+			if (curr_A->rank == rank_b)
+				break ;
+			curr_A = curr_A->next;
+		}
+		if (curr_A != NULL)
+			break ;
+		rank_b--;
 	}
 	position_l = curr_A->position;
-	rank_B = rank_B_temp;
-	while(rank_B <= get_highest_rank(A))
-	{
-		curr_A = *A;
-		while (curr_A != NULL)
-		{
-			if (curr_A->rank == rank_B)
-				break;
-			curr_A = curr_A->next;
-		}
-		if (curr_A != NULL)
-			break;
-		rank_B++;
-	}
-	position_h = curr_A->position;
-	if (position_h <= count_node(*A) - position_l)
-		return (position_h);
-	else if (position_h > count_node(*A) - position_l)
+	if (target_A_poaition_h(A, rank_b_temp) <= c_node(*A) - position_l)
+		return (target_A_poaition_h(A, rank_b_temp));
+	else if (target_A_poaition_h(A, rank_b_temp) > c_node(*A) - position_l)
 		return (position_l);
 	return (-1);
 }
 
-int find_rank_of_position(Node **lst, int position)
+int	find_rank_of_position(t_node **lst, int position)
 {
-	Node *curr;
+	t_node	*curr;
 
-	// label_position(lst);
 	curr = *lst;
-	while(curr != NULL)
+	while (curr != NULL)
 	{
-		if(curr->position == position)
-			return(curr->rank);
+		if (curr->position == position)
+			return (curr->rank);
 		curr = curr->next;
 	}
 	return (-1);
 }
 
-int is_even(int num)
+int	is_even(int num)
 {
-	int value;
+	int	value;
 
 	value = num % 2;
 	if (value == 0)
@@ -578,152 +559,146 @@ int is_even(int num)
 	return (0);
 }
 
-int	get_target_p_A(Node **A, int curr_B_rank)
+int	get_target_p_A(t_node **A, int curr_B_rank)
 {
-	int target_p_A;
+	int	target_p_a;
+
 	label_position(A);
-	if((*A) != NULL && count_node(*A) > 1)
+	if ((*A) != NULL && c_node(*A) > 1)
 	{
 		if (curr_B_rank > get_highest_rank(A))
-			target_p_A = target_A_largest_B(A, curr_B_rank);
+			target_p_a = target_A_largest_B(A, curr_B_rank);
 		else if (curr_B_rank < get_lowest_rank(A))
-			target_p_A = target_A_smallest_B(A, curr_B_rank);
+			target_p_a = target_A_smallest_B(A, curr_B_rank);
 		else
-			target_p_A = target_A(A, curr_B_rank);
+			target_p_a = target_A(A, curr_B_rank);
 	}
-	return (target_p_A);
+	return (target_p_a);
+}
+
+void top_A_one(t_node **A, int target_p_a, int curr_B_rank, int tail_A_position, int *RA, int *RRA, int *stop)
+{
+	if (curr_B_rank > get_highest_rank(A))
+	{
+		if (tail_A_position != target_p_a && target_p_a < c_node(*A) / 2)
+			*RA = 1;
+		else if (tail_A_position != target_p_a && target_p_a >= c_node(*A) / 2)
+			*RRA = 1;
+		else
+			*stop = 1;
+	}
+	else if (curr_B_rank < get_lowest_rank(A))
+	{
+		if ((*A)->position != target_p_a && target_p_a <= c_node(*A) / 2)
+			*RA = 1;
+		else if ((*A)->position != target_p_a && target_p_a > c_node(*A) / 2)
+			*RRA = 1;
+		else
+			*stop = 1;
+	}
+}
+
+void top_A_two(t_node **A, int target_p_a, int curr_B_rank, int tail_A_position, int *RA, int *RRA, int *stop)
+{
+	if (find_rank_of_position(A, target_p_a) < curr_B_rank)
+	{
+		if (tail_A_position != target_p_a && target_p_a < c_node(*A) / 2)
+			*RA = 1;
+		else if (tail_A_position != target_p_a && target_p_a >= c_node(*A) / 2)
+			*RRA = 1;
+		else
+			*stop = 1;
+	}
+	else if (find_rank_of_position(A, target_p_a) > curr_B_rank)
+	{
+		if ((*A)->position != target_p_a && target_p_a <= c_node(*A) / 2)
+			*RA = 1;
+		else if ((*A)->position != target_p_a && target_p_a > c_node(*A) / 2)
+			*RRA = 1;
+		else
+			*stop = 1;
+	}
 }
 
 
 
-
-
-
-
-
-void top_A_one(Node **A, int target_p_A, int curr_B_rank, int tail_A_position, int *RA, int *RRA, int *stop)
+int push_A(t_node **A, t_node **B, t_node **curr_B, int target_p_a, int *RA, int *RB, int *RRA, int *RRB, int n_op)
 {
-    if (curr_B_rank > get_highest_rank(A))
-    {
-        if (tail_A_position != target_p_A && target_p_A < count_node(*A)/2)
-            *RA = 1;
-        else if (tail_A_position != target_p_A && target_p_A >= count_node(*A)/2)
-            *RRA = 1;
-        else
-            *stop = 1;
-    }
-    else if (curr_B_rank < get_lowest_rank(A))
-    {
-        if ((*A)->position != target_p_A && target_p_A <= count_node(*A)/2)
-            *RA = 1;
-        else if ((*A)->position != target_p_A && target_p_A > count_node(*A)/2)
-            *RRA = 1;
-        else
-            *stop = 1;
-    }
+	t_node	*tail_A;
+	int		stop;
+
+	stop = 0;
+	while(*curr_B != NULL && (*B)->rank != (*curr_B)->rank || stop == 0)
+	{
+		tail_A = double_ll_convert(A);
+		*RA = 0;
+		*RB = 0;
+		*RRA = 0;
+		*RRB = 0;
+		if (*curr_B != NULL && (*B)->rank != (*curr_B)->rank && (*curr_B)->position <= c_node(*B) / 2)
+			*RB = 1;
+		else if (*curr_B != NULL && (*B)->rank != (*curr_B)->rank)
+			*RRB = 1;
+		if (stop == 0 && ((*curr_B)->rank > get_highest_rank(A) || (*curr_B)->rank < get_lowest_rank(A)))
+			top_A_one(A, target_p_a, (*curr_B)->rank, tail_A->position, RA, RRA, &stop);
+		else if (stop == 0)
+			top_A_two(A, target_p_a, (*curr_B)->rank, tail_A->position, RA, RRA, &stop);
+		n_op = rotate(A, B, *RA, *RB, n_op);
+		n_op = reverse_rotate(A, B, *RRA, *RRB, n_op);
+	}
+	return (n_op);
 }
 
-void top_A_two(Node **A, int target_p_A, int curr_B_rank, int tail_A_position, int *RA, int *RRA, int *stop)
+int	decending_from_top(t_node **A, t_node **B, int *chunk, int num_chunk, int until_chunk, int n_op)
 {
-    if (find_rank_of_position(A, target_p_A) < curr_B_rank)
-    {
-        if (tail_A_position != target_p_A && target_p_A < count_node(*A)/2)
-            *RA = 1;
-        else if (tail_A_position != target_p_A && target_p_A >= count_node(*A)/2)
-            *RRA = 1;
-        else
-            *stop = 1;
-    }
-    else if (find_rank_of_position(A, target_p_A) > curr_B_rank)
-    {
-        if ((*A)->position != target_p_A && target_p_A <= count_node(*A)/2)
-            *RA = 1;
-        else if ((*A)->position != target_p_A && target_p_A > count_node(*A)/2)
-            *RRA = 1;
-        else 
-            *stop = 1;
-    }
-}
+	t_node	*curr_B;
+	t_node	*tail_A;
+	int		RA;
+	int		RB;
+	int		RRA;
+	int		RRB;
+	int		target_p_a;
 
-
-
-int push_A(Node **A, Node **B, Node **curr_B, int target_p_A, int *RA, int *RB, int *RRA, int *RRB, int n_operation)
-{
-    Node *tail_A;
-    int stop;
-
-    stop = 0;
-    while(*curr_B != NULL && (*B)->rank != (*curr_B)->rank || stop == 0)
-    {
-        tail_A = double_ll_convert(A);
-        *RA = 0;
-        *RB = 0;
-        *RRA = 0;
-        *RRB = 0;
-        if(*curr_B != NULL && (*B)->rank != (*curr_B)->rank && (*curr_B)->position <= count_node(*B)/2)
-            *RB = 1;
-        else if (*curr_B != NULL && (*B)->rank != (*curr_B)->rank)
-            *RRB = 1;
-        if(stop == 0 && ((*curr_B)->rank > get_highest_rank(A) || (*curr_B)->rank < get_lowest_rank(A)))
-            top_A_one(A, target_p_A, (*curr_B)->rank, tail_A->position, RA, RRA, &stop);
-        else if (stop == 0)
-            top_A_two(A, target_p_A, (*curr_B)->rank, tail_A->position, RA, RRA, &stop);
-        n_operation = rotate(A, B, *RA, *RB, n_operation);
-        n_operation = reverse_rotate(A, B, *RRA, *RRB, n_operation);
-    }
-    return (n_operation);
-}
-
-int	decending_from_top(Node **A, Node **B, int *chunk, int num_chunk, int until_chunk, int n_operation)
-{
-	Node *curr_B;
-	Node *tail_A;
-	int RA;
-	int RB;
-	int RRA;
-	int RRB;
-	int target_p_A;
-
-	while((*B) != NULL && chunkID_avalable(B, until_chunk))
-	{					
+	while ((*B) != NULL && chunkID_avalable(B, until_chunk))
+	{
 		label_position(B);
 		if (is_even(num_chunk) || until_chunk < 5)
 			curr_B = *B;
 		else if (!is_even(num_chunk))
 			curr_B = double_ll_convert(B);
-		target_p_A =  get_target_p_A(A, curr_B->rank);
-		n_operation = push_A(A, B, &curr_B, target_p_A, &RA, &RB, &RRA, &RRB, n_operation);
-		n_operation = pa(A, B, 1, n_operation);
-		if(!chunkID_avalable(B, num_chunk)) //when 5 finish, highest is 4, so plus two.
-				num_chunk--;
+		target_p_a = get_target_p_A(A, curr_B->rank);
+		n_op = push_A(A, B, &curr_B, target_p_a, &RA, &RB, &RRA, &RRB, n_op);
+		n_op = pa(A, B, 1, n_op);
+		if (!chunkID_avalable(B, num_chunk))
+			num_chunk--;
 	}
-	return (n_operation);
+	return (n_op);
 }
 
-int	decending_from_bottom(Node **A, Node **B, int *chunk, int chunkID, int n_operation)
+int	decending_from_bottom(t_node **A, t_node **B, int *chunk, int chunkID, int n_op)
 {
-	Node *curr_B;
-	Node *tail_A;
+	t_node *curr_B;
+	t_node *tail_A;
 	int RA;
 	int RB;
 	int RRA;
 	int RRB;
-	int target_p_A;
+	int target_p_a;
 
 	while((*B) != NULL && chunkID_avalable(B, chunkID))
 	{					
 		label_position(B);
 		curr_B = double_ll_convert(B);
-		target_p_A =  get_target_p_A(A, curr_B->rank);
-		n_operation = push_A(A, B, &curr_B, target_p_A, &RA, &RB, &RRA, &RRB, n_operation);
-		n_operation = pa(A, B, 1, n_operation);
+		target_p_a =  get_target_p_A(A, curr_B->rank);
+		n_op = push_A(A, B, &curr_B, target_p_a, &RA, &RB, &RRA, &RRB, n_op);
+		n_op = pa(A, B, 1, n_op);
 	}
-	return (n_operation);
+	return (n_op);
 }
 
-// int get_median_rank_within_chunk_one(Node **lst, int chunk_ID)
+// int get_median_rank_within_chunk_one(t_node **lst, int chunk_ID)
 // {
-// 	Node *curr;
+// 	t_node *curr;
 // 	int highest_rank;
 // 	int lowest_rank;
 
@@ -746,9 +721,9 @@ int	decending_from_bottom(Node **A, Node **B, int *chunk, int chunkID, int n_ope
 // 	return ((highest_rank - lowest_rank) / 2);
 // }
 
-int get_median_rank_within_chunk(Node **lst, int chunkID)
+int get_median_rank_within_chunk(t_node **lst, int chunkID)
 {
-	Node *curr;
+	t_node *curr;
 	int total;
 	int number_of_rank;
 
@@ -767,32 +742,32 @@ int get_median_rank_within_chunk(Node **lst, int chunkID)
 	return (total/number_of_rank);
 }
 
-int rotate_below_median(Node **A, Node **B, int chunkID, int top_or_bottom, int median, int n_operation)
+int rotate_below_median(t_node **A, t_node **B, int chunkID, int top_or_bottom, int median, int n_op)
 {
-	Node *curr_B;
+	t_node *curr_B;
 
 	// ft_printf("Median: %d\n", median); exit(0);
 	if(top_or_bottom == 1)
 	{
 		while (*B != NULL && (*B)->chunk_id == chunkID && (*B)->rank <= median)
-			n_operation = rb(B, 1, n_operation);
+			n_op = rb(B, 1, n_op);
 	}
 	else if (top_or_bottom == -1)
 	{
 		curr_B = double_ll_convert(B);
 		while (*B != NULL && curr_B->chunk_id == chunkID && curr_B->rank <= median)
 		{
-			n_operation = rrb(B, 1, n_operation);
+			n_op = rrb(B, 1, n_op);
 			curr_B = double_ll_convert(B);
 		}
 	}
-	return (n_operation);
+	return (n_op);
 }
 
-int	split_chunk_top(Node **A, Node **B, int chunkID, int median, int n_operation)
+int	split_chunk_top(t_node **A, t_node **B, int chunkID, int median, int n_op)
 {
-	Node *curr_B;
-	int target_p_A;
+	t_node *curr_B;
+	int target_p_a;
 	int RA;
 	int RB;
 	int RRA;
@@ -802,21 +777,21 @@ int	split_chunk_top(Node **A, Node **B, int chunkID, int median, int n_operation
 	label_position(B);
 	while ((*B) != NULL && (*B)->chunk_id == chunkID)
 	{
-		n_operation = rotate_below_median(A, B, chunkID, 1, median, n_operation);
+		n_op = rotate_below_median(A, B, chunkID, 1, median, n_op);
 		if ((*B)->chunk_id == chunkID)
 		{
-			target_p_A =  get_target_p_A(A, (*B)->rank);
-			n_operation = push_A(A, B, B, target_p_A, &RA, &RB, &RRA, &RRB, n_operation);
-			n_operation = pa(A, B, 1, n_operation);
+			target_p_a =  get_target_p_A(A, (*B)->rank);
+			n_op = push_A(A, B, B, target_p_a, &RA, &RB, &RRA, &RRB, n_op);
+			n_op = pa(A, B, 1, n_op);
 		}
 	}
-	return (n_operation);
+	return (n_op);
 }
 
-int	split_chunk_bottom(Node **A, Node **B, int chunkID, int median, int n_operation)
+int	split_chunk_bottom(t_node **A, t_node **B, int chunkID, int median, int n_op)
 {
-	Node *tail_B;
-	int target_p_A;
+	t_node *tail_B;
+	int target_p_a;
 	int RA;
 	int RB;
 	int RRA;
@@ -828,23 +803,23 @@ int	split_chunk_bottom(Node **A, Node **B, int chunkID, int median, int n_operat
 	while ((*B) != NULL && tail_B->chunk_id == chunkID)
 	{
 		tail_B = double_ll_convert(B);
-		n_operation = rotate_below_median(A, B, chunkID, -1, median, n_operation);
+		n_op = rotate_below_median(A, B, chunkID, -1, median, n_op);
 		tail_B = double_ll_convert(B);
 		if (tail_B->chunk_id == chunkID)
 		{
-			target_p_A =  get_target_p_A(A, tail_B->rank);
-			n_operation = push_A(A, B, &tail_B, target_p_A, &RA, &RB, &RRA, &RRB, n_operation);
-			n_operation = pa(A, B, 1, n_operation);
+			target_p_a =  get_target_p_A(A, tail_B->rank);
+			n_op = push_A(A, B, &tail_B, target_p_a, &RA, &RB, &RRA, &RRB, n_op);
+			n_op = pa(A, B, 1, n_op);
 		}
 		tail_B = double_ll_convert(B);
 	}
-	return (n_operation);
+	return (n_op);
 }
 
 
-int ghighest_rankwithin_chunk(Node **lst, int chunkID)
+int ghighest_rankwithin_chunk(t_node **lst, int chunkID)
 {
-	Node *curr;
+	t_node *curr;
 	int highest;
 	highest = (*lst)->rank;
 	curr = (*lst)->next;
@@ -857,9 +832,9 @@ int ghighest_rankwithin_chunk(Node **lst, int chunkID)
 	return (highest);
 }
 
-int glowest_rankwithin_chunk(Node **lst, int chunkID)
+int glowest_rankwithin_chunk(t_node **lst, int chunkID)
 {
-	Node *curr;
+	t_node *curr;
 	int lowest;
 	lowest = (*lst)->rank;
 	curr = (*lst)->next;
@@ -872,9 +847,9 @@ int glowest_rankwithin_chunk(Node **lst, int chunkID)
 	return (lowest);
 }
 
-int	get_three_median(Node **B, int chunkID, int choose)
+int	get_three_median(t_node **B, int chunkID, int choose)
 {
-	Node *curr_B;
+	t_node *curr_B;
 	int m1;
 	int	m2;
 	int m3;
@@ -890,9 +865,9 @@ int	get_three_median(Node **B, int chunkID, int choose)
 		return(m3);
 }
 
-void relable_chunkID(Node **lst, int chunkID)
+void relable_chunkID(t_node **lst, int chunkID)
 {
-	Node *curr;
+	t_node *curr;
 	int m1;
 	int m2;
 	int m3;
@@ -900,7 +875,6 @@ void relable_chunkID(Node **lst, int chunkID)
 	m1 = get_three_median(lst, chunkID, 1);
 	m2 = get_three_median(lst, chunkID, 2);
 	m3 = get_three_median(lst, chunkID, 3);
-	
 	curr = *lst;
 	while(curr != NULL)
 	{
@@ -914,9 +888,9 @@ void relable_chunkID(Node **lst, int chunkID)
 	}
 }
 
-int above_median_available(Node **lst, int median)
+int above_median_available(t_node **lst, int median)
 {
-	Node *curr;
+	t_node *curr;
 
 	curr = *lst;
 	while (curr != NULL)
@@ -929,11 +903,11 @@ int above_median_available(Node **lst, int median)
 }
 
 
-int	finalization(Node **A, Node **B, int n_operation)
+int	finalization(t_node **A, t_node **B, int n_op)
 {
 	int m[4];
-	int target_p_A;
-	Node *curr_B;
+	int target_p_a;
+	t_node *curr_B;
 	int RA;
 	int RB;
 	int RRA;
@@ -948,68 +922,81 @@ int	finalization(Node **A, Node **B, int n_operation)
 	i = 3;
 	while(*B != NULL)
 	{
-		while ((*B)->rank <= m[i] && count_node(*B) > 1)
-			n_operation = rb(B, 1, n_operation);
+		while ((*B)->rank <= m[i] && c_node(*B) > 1)
+			n_op = rb(B, 1, n_op);
 		while (*B != NULL && (*B)->rank > m[i])
 		{
 			label_position(B);
-			curr_B->rank = (*B)->rank;
-		// ft_printf("Check >>>>>>>>>>>\n");
-			target_p_A =  get_target_p_A(A, curr_B->rank);
-		// view_all(*A, *B); exit(0);
-			n_operation = push_A(A, B, &curr_B, target_p_A, &RA, &RB, &RRA, &RRB, n_operation);
-			n_operation = pa(A, B, 1, n_operation);
+			curr_B = *B;
+			target_p_a =  get_target_p_A(A, curr_B->rank);
+			n_op = push_A(A, B, &curr_B, target_p_a, &RA, &RB, &RRA, &RRB, n_op);
+			n_op = pa(A, B, 1, n_op);
 		}
 		if (!above_median_available(B, m[i]))
 			i--;
 	}
-
-
-
-
-
-
-	return (n_operation);
+	return (n_op);
 }
 
-int	quick_sort(Node **A, Node **B, int *chunk, int num_chunk, int n_operation)
+int	quick_sort(t_node **A, t_node **B, int *chunk, int num_chunk, int n_op)
 {
-	n_operation = decending_from_top(A, B, chunk, num_chunk, 5, n_operation);
-	n_operation = split_chunk_top(A, B, 4, get_median_rank_within_chunk(B, 4), n_operation);
-	n_operation = decending_from_bottom(A, B, chunk, 4, n_operation);
-	n_operation = split_chunk_bottom(A, B, 3, get_median_rank_within_chunk(B, 3), n_operation);
-	n_operation = decending_from_top(A, B, chunk, num_chunk, 3, n_operation);
-	n_operation = split_chunk_top(A, B, 2, get_three_median(B, 2, 2), n_operation);
-	n_operation = split_chunk_bottom(A, B, 2, get_three_median(B, 2, 3), n_operation);
-	n_operation = decending_from_top(A, B, chunk, num_chunk, 2, n_operation);
-	n_operation = finalization(A, B, n_operation);
+	n_op = decending_from_top(A, B, chunk, num_chunk, 5, n_op);
+	n_op = split_chunk_top(A, B, 4, get_median_rank_within_chunk(B, 4), n_op);
+	n_op = decending_from_bottom(A, B, chunk, 4, n_op);
+	n_op = split_chunk_bottom(A, B, 3, get_median_rank_within_chunk(B, 3), n_op);
+	n_op = decending_from_top(A, B, chunk, num_chunk, 3, n_op);
+	n_op = split_chunk_top(A, B, 2, get_three_median(B, 2, 2), n_op);
+	n_op = split_chunk_bottom(A, B, 2, get_three_median(B, 2, 3), n_op);
+	n_op = decending_from_top(A, B, chunk, num_chunk, 2, n_op);
+	n_op = finalization(A, B, n_op);
+	return (n_op);
+}
 
-	return (n_operation);
+int	final_sort(t_node **A, int n_op)
+{
+	t_node *curr;
+
+	label_position(A);
+	curr = *A;
+	while (curr != NULL)
+	{
+		if (curr->rank == get_lowest_rank(A))
+			break;
+		curr = curr->next;
+	}
+	while ((*A)->position != curr->position)
+	{
+		if(curr->position <= c_node(*A)/2)
+			n_op = ra(A, 1, n_op);
+		else
+			n_op = rra(A, 1, n_op);
+	}
+	return (n_op);
 }
 
 
-
-int mega_sort_two(Node **A, Node **B, int n_operation)
+int mega_sort_two(t_node **A, t_node **B, int n_op)
 {	
 	int inner_chunk[100];
 	int outer_chunk[100];
 	int num_chunk;
 	// int position_s;
-	Node *curr;
+	t_node *curr;
 
 	curr = *A;
 	num_chunk = 10;
 	label_ranking(A);
 	// view_list_rank(*A);
 	// exit(1);
-	inner_chunk_maker(count_node(*A), inner_chunk, num_chunk);
-	outer_chunk_maker(count_node(*A), inner_chunk, outer_chunk, num_chunk);
+	inner_chunk_maker(c_node(*A), inner_chunk, num_chunk);
+	outer_chunk_maker(c_node(*A), inner_chunk, outer_chunk, num_chunk);
 	lable_chunk(A, outer_chunk, num_chunk);
-	n_operation = push_top_chunk(A, B, outer_chunk, num_chunk, n_operation);
+	n_op = push_top_chunk(A, B, outer_chunk, num_chunk, n_op);
 	// check_sorted_h_tail(B);
 	// view_all(*A, *B);
 	// exit(0);
-	n_operation = quick_sort(A, B, outer_chunk, num_chunk, n_operation);
+	n_op = quick_sort(A, B, outer_chunk, num_chunk, n_op);
+	n_op = final_sort(A, n_op);
 
 
 	
@@ -1018,9 +1005,9 @@ int mega_sort_two(Node **A, Node **B, int n_operation)
 	ft_printf("Check sorted = %d\n", check_sorted(A));
 	ft_printf("Check sorted plus = %d\n", check_sorted_plus(A));
 
-	ft_printf("Number of Operation >>> %d\n", n_operation);
+	ft_printf("Number of Operation >>> %d\n", n_op);
 	exit(0);
-	return (n_operation);
+	return (n_op);
 }
 
 // Stack A will rotate, if value on top is within current and the next chunks. Ready to PA.

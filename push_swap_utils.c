@@ -37,9 +37,9 @@ int		ft_atoi(const char *str)
 	return (output * sign);
 }
 
-int		check_sorted(Node **A)
+int		check_sorted(t_node **A)
 {
-	Node *curr;
+	t_node *curr;
 	int before;
 
 	curr = (*A)->next;
@@ -59,9 +59,9 @@ int		check_sorted(Node **A)
 	return (1);
 }
 
-int		check_sorted_reverse(Node **A)
+int		check_sorted_reverse(t_node **A)
 {
-	Node *curr;
+	t_node *curr;
 	int before;
 
 	curr = (*A)->next;
@@ -81,10 +81,10 @@ int		check_sorted_reverse(Node **A)
 	return (1);
 }
 
-int		get_largest(Node **lst)
+int		get_largest(t_node **lst)
 {
 	int largest;
-	Node *curr;
+	t_node *curr;
 
 	if(*lst == NULL)
 		return (0);
@@ -100,10 +100,10 @@ int		get_largest(Node **lst)
 	return (largest);
 }
 
-int		get_highest_rank(Node **lst)
+int		get_highest_rank(t_node **lst)
 {
 	int highest_rank;
-	Node *curr;
+	t_node *curr;
 
 	if(*lst == NULL)
 		return (0);
@@ -119,10 +119,10 @@ int		get_highest_rank(Node **lst)
 	return (highest_rank);
 }
 
-int		get_smallest(Node **lst)
+int		get_smallest(t_node **lst)
 {
 	int smallest;
-	Node *curr;
+	t_node *curr;
 
 	if(*lst == NULL)
 		return (0);
@@ -138,10 +138,10 @@ int		get_smallest(Node **lst)
 	return (smallest);
 }
 
-int		get_lowest_rank(Node **lst)
+int		get_lowest_rank(t_node **lst)
 {
 	int lowest_rank;
-	Node *curr;
+	t_node *curr;
 
 	if(*lst == NULL)
 		return (0);
@@ -157,13 +157,13 @@ int		get_lowest_rank(Node **lst)
 	return (lowest_rank);
 }
 
-int		tiny_sort(Node **A, int n_operation)
+int		tiny_sort(t_node **A, int n_operation)
 {
-	Node *curr;
+	t_node *curr;
 	int largest;
 	int c;
 
-	if(count_node(*A) > 3)
+	if(c_node(*A) > 3)
 		return (n_operation);
 	largest = get_largest(A);
 	curr = *A;
@@ -197,10 +197,10 @@ int		tiny_sort(Node **A, int n_operation)
 	return (n_operation);
 }
 
-void	check_duplicate(Node **A)
+void	check_duplicate(t_node **A)
 {
-	Node *curr;
-	Node *temp;
+	t_node *curr;
+	t_node *temp;
 
 	temp = *A;
 	curr = temp->next;
@@ -224,11 +224,11 @@ void	check_duplicate(Node **A)
 	}
 }
 
-int		get_median(Node *lst)
+int		get_median(t_node *lst)
 {
 	int sum;
 	int median;
-	Node *curr;
+	t_node *curr;
 
 	sum = 0;
 	curr = lst;
@@ -238,26 +238,26 @@ int		get_median(Node *lst)
 		sum = sum + curr->x;
 		curr = curr->next;
 	}
-	median = sum/(count_node(lst));
+	median = sum/(c_node(lst));
 	ft_printf("Sum = %d, Median = %d\n", sum, median);
 	return (median);
 }
 
-int 	last_node_value(Node *lst)
+int 	last_node_value(t_node *lst)
 {
-	Node *curr;
+	t_node *curr;
 	curr = lst;
 	while(curr->next != NULL)
 		curr = curr->next;
 	return (curr->x);
 }
 
-int		medium_sort(Node **A, Node **B, int n_operation)
+int		medium_sort(t_node **A, t_node **B, int n_operation)
 {
 	int largest;
 	int smallest;
 	
-	if(count_node(*A) > 5)
+	if(c_node(*A) > 5)
 		return (n_operation);
 	
 	largest = get_largest(A);
@@ -298,7 +298,7 @@ int		medium_sort(Node **A, Node **B, int n_operation)
 	return (n_operation);
 }
 
-Node	*double_ll_convert(Node **lst)
+t_node	*double_ll_convert(t_node **lst)
 {
 	if (*lst == NULL)
 	{
@@ -306,9 +306,9 @@ Node	*double_ll_convert(Node **lst)
 		return (NULL);
 	}
 
-	Node *prev;
-	Node *curr;
-	Node *tail;
+	t_node *prev;
+	t_node *curr;
+	t_node *tail;
 
 	prev = NULL;
 	curr = *lst;
@@ -323,15 +323,15 @@ Node	*double_ll_convert(Node **lst)
 	return (tail);
 }
 
-void	label_ranking(Node **lst)
+void	label_ranking(t_node **lst)
 {
 	int max_rank;
 	int	bigger_than_nb;
 	int	nb;
-	Node *curr;
-	Node *curr_two;
+	t_node *curr;
+	t_node *curr_two;
 
-	max_rank = count_node(*lst);
+	max_rank = c_node(*lst);
 	curr = *lst;
 	curr_two = *lst;
 	while(curr != NULL)
@@ -350,9 +350,9 @@ void	label_ranking(Node **lst)
 	}
 }
 
-void 	label_position(Node **lst)
+void 	label_position(t_node **lst)
 {
-	Node *curr;
+	t_node *curr;
 	int count;
 
 	count = 1;

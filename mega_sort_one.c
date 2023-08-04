@@ -18,15 +18,15 @@ void	chunk_maker(int nn, int *chunk, int denominator)
 }
 
 
-int		mega_sort_one(Node **A, Node **B, int n_operation)
+int		mega_sort_one(t_node **A, t_node **B, int n_operation)
 {
-	Node *A_tail;
+	t_node *A_tail;
 
 	label_ranking(A); // simplify values to ranking to make chunk-sorting easier
-	int nn = count_node(*A);
+	int nn = c_node(*A);
 	int num_chunk;
 
-	if(count_node(*A) <= 100)
+	if(c_node(*A) <= 100)
 		num_chunk = 5;
 	else
 		num_chunk = 10;
@@ -79,8 +79,8 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 	chunk_maker(nn, chunk, num_chunk);
 
 	// decide ra or rra
-	Node *curr_forward;
-	Node *curr_reverse;
+	t_node *curr_forward;
+	t_node *curr_reverse;
 	int middle_position;
 
 	// count steps taken to middle position
@@ -94,7 +94,7 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 	while(a < num_chunk)
 	{
 		A_tail = double_ll_convert(A); // make if readable from end to front of Stack A.
-		middle_position = (count_node(*A)/2); // refresh middle position in Stack A
+		middle_position = (c_node(*A)/2); // refresh middle position in Stack A
 		label_position(A); // refresh the position of Stack A
 		// count forward
 		curr_forward = *A;
@@ -148,16 +148,16 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 			int rank_selected_B = 0;
 			int middle_position_B = 0;
 
-			if (count_node(*B) > 1)
+			if (c_node(*B) > 1)
 			{
-				Node *curr = *B;
+				t_node *curr = *B;
 				
 				label_position(B);
 				// view_list_position(*B);
 				int rank_number;
 				int lower_rank = rank_selected - 1;
 				int higher_rank = rank_selected + 1;
-				middle_position_B = (count_node(*B)/2);
+				middle_position_B = (c_node(*B)/2);
 
 				if(rank_selected < get_lowest_rank(B)) // smallest rank in Stack B
 				{
@@ -218,9 +218,9 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 				}
 			}
 			// ft_printf("Loop: %d\n", a);
-			while(((*A)->rank != rank_selected) || ((count_node(*B) > 1) && ((*B)->rank != rank_selected_B))) //make sure both selected rank at the top of both stacks
+			while(((*A)->rank != rank_selected) || ((c_node(*B) > 1) && ((*B)->rank != rank_selected_B))) //make sure both selected rank at the top of both stacks
 			{
-				if((count_node(*B) > 1) && ((*A)->rank != rank_selected) && ((*B)->rank != rank_selected_B))
+				if((c_node(*B) > 1) && ((*A)->rank != rank_selected) && ((*B)->rank != rank_selected_B))
 				{
 					if(position_selected <= middle_position && position_selected_B <= middle_position_B)
 						n_operation = rr(A, B, 1, n_operation);
@@ -233,7 +233,7 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 						else if(position_selected > middle_position)
 						n_operation = rra(A, 1, n_operation);
 					}
-					else if((count_node(*B) > 1) && ((*B)->rank != rank_selected_B))
+					else if((c_node(*B) > 1) && ((*B)->rank != rank_selected_B))
 					{
 						if(position_selected_B <= middle_position_B)
 						n_operation = rb(B, 1, n_operation);
@@ -248,7 +248,7 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 					else if(position_selected > middle_position)
 						n_operation = rra(A, 1, n_operation);
 				}
-				else if((count_node(*B) > 1) && ((*B)->rank != rank_selected_B))
+				else if((c_node(*B) > 1) && ((*B)->rank != rank_selected_B))
 				{
 					if(position_selected_B <= middle_position_B)
 						n_operation = rb(B, 1, n_operation);
@@ -273,7 +273,7 @@ int		mega_sort_one(Node **A, Node **B, int n_operation)
 	// ft_printf("highest_rank_B: %d\n", highest_rank_B);
 	int position_highest_rank_B;
 	int middle_position_B = (nn/2);
-	Node *curr_sort_B = *B;
+	t_node *curr_sort_B = *B;
 
 	label_position(B);
 	while(curr_sort_B != NULL)

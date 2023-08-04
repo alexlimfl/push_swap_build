@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int sa(Node **A, int print, int n_operation)
+int sa(t_node **A, int print, int n_operation)
 {
     if(*A == NULL || (*A)->next == NULL)
     {
@@ -21,9 +21,9 @@ int sa(Node **A, int print, int n_operation)
         exit(1);
     }
 
-    Node *first;
-    Node *second;
-    Node *third;
+    t_node *first;
+    t_node *second;
+    t_node *third;
 
     first = *A;
     second = first->next;
@@ -37,7 +37,7 @@ int sa(Node **A, int print, int n_operation)
     return (n_operation);
 }
 
-int sb(Node **B, int print, int n_operation)
+int sb(t_node **B, int print, int n_operation)
 {
     
     if(*B == NULL || (*B)->next == NULL)
@@ -47,9 +47,9 @@ int sb(Node **B, int print, int n_operation)
         exit(1);
     }
     
-    Node *first;
-    Node *second;
-    Node *third;
+    t_node *first;
+    t_node *second;
+    t_node *third;
 
     first = *B;
     second = first->next;
@@ -63,7 +63,7 @@ int sb(Node **B, int print, int n_operation)
     return (n_operation);
 }
 
-int ss(Node **A, Node **B, int print, int n_operation)
+int ss(t_node **A, t_node **B, int print, int n_operation)
 {
     if(*A == NULL || (*A)->next == NULL || *B == NULL || (*B)->next == NULL)
     {
@@ -80,7 +80,7 @@ int ss(Node **A, Node **B, int print, int n_operation)
     return (n_operation);
 }
 
-int pa(Node **A, Node **B, int print, int n_operation)
+int pa(t_node **A, t_node **B, int print, int n_operation)
 {
     if(*B == NULL)
     {
@@ -90,8 +90,8 @@ int pa(Node **A, Node **B, int print, int n_operation)
         exit(1);
     }
 
-    Node *temp_A;
-    Node *temp_B;
+    t_node *temp_A;
+    t_node *temp_B;
 
     temp_A = *A;
     temp_B = *B;
@@ -105,7 +105,7 @@ int pa(Node **A, Node **B, int print, int n_operation)
     return (n_operation);
 }
 
-int pb(Node **A, Node **B, int print, int n_operation)
+int pb(t_node **A, t_node **B, int print, int n_operation)
 {
     if(*A == NULL)
     {
@@ -115,8 +115,8 @@ int pb(Node **A, Node **B, int print, int n_operation)
         exit(1);
     }
 
-    Node *temp_A;
-    Node *temp_B;
+    t_node *temp_A;
+    t_node *temp_B;
 
     temp_A = *A;
     temp_B = *B;
@@ -130,7 +130,7 @@ int pb(Node **A, Node **B, int print, int n_operation)
     return (n_operation);
 }
 
-int ra(Node **A, int print, int n_operation)
+int ra(t_node **A, int print, int n_operation)
 {
     if(*A == NULL || (*A)->next == NULL)
     {
@@ -139,8 +139,8 @@ int ra(Node **A, int print, int n_operation)
         exit(1);
     }
 
-    Node *first;
-    Node *curr;
+    t_node *first;
+    t_node *curr;
 
     first = *A;
     curr = *A;
@@ -157,7 +157,7 @@ int ra(Node **A, int print, int n_operation)
     return (n_operation);
 }
 
-int rb(Node **B, int print, int n_operation)
+int rb(t_node **B, int print, int n_operation)
 {
     if(*B == NULL || (*B)->next == NULL)
     {
@@ -166,8 +166,8 @@ int rb(Node **B, int print, int n_operation)
         exit(1);
     }
 
-    Node *first;
-    Node *curr;
+    t_node *first;
+    t_node *curr;
 
     first = *B;
     curr = *B;
@@ -184,7 +184,7 @@ int rb(Node **B, int print, int n_operation)
     return (n_operation);
 }
 
-int rr(Node **A, Node **B, int print, int n_operation)
+int rr(t_node **A, t_node **B, int print, int n_operation)
 {
 
 	if(*A == NULL || (*A)->next == NULL || *B == NULL || (*B)->next == NULL)
@@ -202,7 +202,7 @@ int rr(Node **A, Node **B, int print, int n_operation)
     return (n_operation);
 }
 
-int rra(Node **A, int print, int n_operation)
+int rra(t_node **A, int print, int n_operation)
 {
 	if(*A == NULL || (*A)->next == NULL)
     {
@@ -210,8 +210,8 @@ int rra(Node **A, int print, int n_operation)
         delete_list(A);
         exit(1);
     }
-	Node *first;
-	Node *second_last;
+	t_node *first;
+	t_node *second_last;
 
 	first = *A;
 	second_last = *A;
@@ -226,7 +226,7 @@ int rra(Node **A, int print, int n_operation)
     return (n_operation);
 }
 
-int rrb(Node **B, int print, int n_operation)
+int rrb(t_node **B, int print, int n_operation)
 {
 	if(*B == NULL || (*B)->next == NULL)
     {
@@ -234,8 +234,8 @@ int rrb(Node **B, int print, int n_operation)
         delete_list(B);
         exit(1);
     }
-	Node *first;
-	Node *second_last;
+	t_node *first;
+	t_node *second_last;
 
 	first = *B;
 	second_last = *B;
@@ -250,7 +250,7 @@ int rrb(Node **B, int print, int n_operation)
     return (n_operation);
 }
 
-int rrr(Node **A, Node **B, int print, int n_operation)
+int rrr(t_node **A, t_node **B, int print, int n_operation)
 {
 	if(*A == NULL || (*A)->next == NULL || *B == NULL || (*B)->next == NULL)
     {

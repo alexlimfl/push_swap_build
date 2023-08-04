@@ -82,9 +82,9 @@ char **split_string(char **str)// not neccesary, remove after complete
 	return (output);
 }
 
-Node *ll_convert(char **str)
+t_node *ll_convert(char **str)
 {
-    Node *head;
+    t_node *head;
     head = NULL;
     int nb;
     int c,d;
@@ -104,8 +104,8 @@ int main(int argc, char *argv[])
     
 	int n_operation = 0;
     n_operation = 0;
-    Node *A;
-	Node *B;
+    t_node *A;
+	t_node *B;
     char **str;
     
     A = NULL;
@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
     else
         A = ll_convert(argv+1);
 
-    if(count_node(A) < 2)
+    if(c_node(A) < 2)
     {
         ft_printf("Error\n");
         exit(1);
@@ -131,9 +131,9 @@ int main(int argc, char *argv[])
     
     if (!check_sorted(&A))
     {   
-        if(count_node(A) <= 3)
+        if(c_node(A) <= 3)
             n_operation = tiny_sort(&A, n_operation);
-        else if(count_node(A) <= 5)
+        else if(c_node(A) <= 5)
             n_operation = medium_sort(&A, &B, n_operation);
         else
             n_operation = mega_sort_two(&A, &B, n_operation);

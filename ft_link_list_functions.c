@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void view_list(Node *lst)
+void view_list(t_node *lst)
 {
 	ft_printf("List:\n");
 	if (lst == NULL)
@@ -28,7 +28,7 @@ void view_list(Node *lst)
         // ft_printf("%d\n", lst);
 }
 
-void view_list_rank(Node *lst)
+void view_list_rank(t_node *lst)
 {
 	ft_printf("List (Ranking):\n");
 	if (lst == NULL)
@@ -40,7 +40,7 @@ void view_list_rank(Node *lst)
     }
 }
 
-void view_list_position(Node *lst)
+void view_list_position(t_node *lst)
 {
 	ft_printf("List (Position):\n");
 	if (lst == NULL)
@@ -52,7 +52,7 @@ void view_list_position(Node *lst)
     }
 }
 
-void view_all(Node *lst, Node *lst2)
+void view_all(t_node *lst, t_node *lst2)
 {
 	ft_printf("List ALL:\n");
 	if (lst == NULL)
@@ -64,19 +64,19 @@ void view_all(Node *lst, Node *lst2)
     {
         if(lst != NULL)
 		{
-			ft_printf("%d   %d   %d   %d   %d   ", lst->x, lst->rank, lst->chunk_id, lst->position, lst->sorted_h_tail);
+			ft_printf("%d   %d   %d   %d      ", lst->x, lst->rank, lst->chunk_id, lst->position/*, lst->sorted_h_tail*/);
 			lst = lst->next;
 		}
 		if(lst2 != NULL)
 		{
-			ft_printf("\n		   		%d   %d   %d   %d   %d", lst2->x, lst2->rank, lst2->chunk_id, lst2->position, lst2->sorted_h_tail);
+			ft_printf("\n		   		%d   %d   %d   %d   ", lst2->x, lst2->rank, lst2->chunk_id, lst2->position/*, lst2->sorted_h_tail*/);
 			lst2 = lst2->next;
 		}
 		ft_printf("\n");
     }
 }
 
-void view_list_backward(Node *lst)
+void view_list_backward(t_node *lst)
 {
 	ft_printf("List (backward):\n");
 	if(lst == NULL)
@@ -91,10 +91,10 @@ void view_list_backward(Node *lst)
     }
 }
 
-void insert_back(Node **lst, int value)
+void insert_back(t_node **lst, int value)
 {
-	Node *newnode, *curr;
-	newnode = malloc(sizeof(Node));
+	t_node *newnode, *curr;
+	newnode = malloc(sizeof(t_node));
 	newnode->x = value;
 	newnode->next = NULL;
 
@@ -108,23 +108,23 @@ void insert_back(Node **lst, int value)
 	while(curr->next != NULL)
 		curr = curr->next;
 	curr->next = newnode;
-	// ft_printf("Node with value '%d' is added at the end.\n", value);
+	// ft_printf("t_node with value '%d' is added at the end.\n", value);
 	// **lst points at &root/root's address/root pointer/pointer to a pointer
 	// **lst --> *root pointer
 	//  *lst points to variable of &root/root pointer/the allocated memory pointed by root pointer
-	//  *lst --> *root pointer --> malloc(sizeof(Node))
+	//  *lst --> *root pointer --> malloc(sizeof(t_node))
 	// 		**lst == &root
 	//  	 *lst == *root
 	//   	  lst ==  root->x
 }
 
-void delete_list(Node **lst)
+void delete_list(t_node **lst)
 {
-	Node *curr;
+	t_node *curr;
 	curr = *lst;
 	while(curr != NULL)
 	{	
-		Node *prenode;
+		t_node *prenode;
 		prenode = curr;
 		curr = curr->next;
 		free(prenode);
@@ -133,10 +133,10 @@ void delete_list(Node **lst)
 	// ft_printf("Deallocation done and list deleted.\n");
 }
 
-void insert_front(Node **lst, int value)
+void insert_front(t_node **lst, int value)
 {
-	Node *newnode;
-	newnode = malloc(sizeof(Node));
+	t_node *newnode;
+	newnode = malloc(sizeof(t_node));
 	newnode->x = value;
 
 	if (*lst == NULL)
@@ -148,32 +148,32 @@ void insert_front(Node **lst, int value)
 	}
 	newnode->next = *lst;
 	*lst = newnode;
-	ft_printf("Node with value '%d' is added at the front.\n", value);
+	ft_printf("t_node with value '%d' is added at the front.\n", value);
 }
 
-void insert_after(Node *lst, int value)
+void insert_after(t_node *lst, int value)
 {
 	if(lst == NULL)
 	{
 		ft_printf("No node found\n");
 		return;
 	}
-	Node *newNode = malloc(sizeof(Node));
-	// Node *curr = *lst; // dereference if **lst are used instead, *lst->next unusable
+	t_node *newNode = malloc(sizeof(t_node));
+	// t_node *curr = *lst; // dereference if **lst are used instead, *lst->next unusable
 	newNode->x = value;
 	newNode->next = lst->next;
 	lst->next = newNode;
-	ft_printf("Node with value '%d' is added after '%d'.\n", value, lst->x);
+	ft_printf("t_node with value '%d' is added after '%d'.\n", value, lst->x);
 }
 
-void insert_sorted(Node **lst, int value)
+void insert_sorted(t_node **lst, int value)
 {
 	if(*lst == NULL || (*lst)->x >= value)
 	{
 		insert_front(lst, value);
 		return;
 	}
-	Node *curr;
+	t_node *curr;
 	curr = *lst;
 	while(curr->next != NULL)
 	{
@@ -186,12 +186,12 @@ void insert_sorted(Node **lst, int value)
 	// {
 	// 	newNode->next = NULL;
 	// 	*lst = newNode;
-	// 	ft_printf("Node not found for sorting, node with value '%d' is added as the first node.\n", value);
+	// 	ft_printf("t_node not found for sorting, node with value '%d' is added as the first node.\n", value);
 	// 	return;
 	// }
 }
 
-void delete_an_element(Node **lst, int value)
+void delete_an_element(t_node **lst, int value)
 {
 	if (*lst == NULL)
 	{
@@ -200,20 +200,20 @@ void delete_an_element(Node **lst, int value)
 	}
 	if ((*lst)->x == value)
 	{
-		Node *to_remove;
+		t_node *to_remove;
 		to_remove = (*lst);
 		ft_printf("Element '%d' is deleted.\n", (*lst)->x);
 		*lst = (*lst)->next;
 		free(to_remove);
 		return;
 	}
-	Node *curr;
+	t_node *curr;
 	curr = *lst;
 	while (curr->next != NULL)
 	{
 		if (curr->next->x == value)
 		{
-			Node *to_remove1;
+			t_node *to_remove1;
 			to_remove1 = curr->next;
 			ft_printf("Element '%d' is deleted.\n", curr->next->x);
 			curr->next = curr->next->next;
@@ -225,7 +225,7 @@ void delete_an_element(Node **lst, int value)
 	ft_printf("Element '%d' not found\n", value);
 }
 
-void delete_all_element(Node **lst, int value)
+void delete_all_element(t_node **lst, int value)
 {
 	int count;
 	count = 0;
@@ -236,19 +236,19 @@ void delete_all_element(Node **lst, int value)
 	}
 	while ((*lst)->x == value)
 	{
-		Node *to_remove;
+		t_node *to_remove;
 		to_remove = (*lst);
 		count = ft_printf("Element '%d' is deleted.\n", (*lst)->x);
 		*lst = (*lst)->next;
 		free(to_remove);
 	}
-	Node *curr;
+	t_node *curr;
 	curr = *lst;
 	while (curr->next != NULL)
 	{
 		while (curr->next->x == value)
 		{
-			Node *to_remove1;
+			t_node *to_remove1;
 			to_remove1 = curr->next;
 			count = ft_printf("Element '%d' is deleted.\n", curr->next->x);
 			curr->next = curr->next->next;
@@ -265,9 +265,9 @@ void delete_all_element(Node **lst, int value)
 		ft_printf("Element '%d' not found\n", value);
 }
 
-void reverse(Node **lst)
+void reverse(t_node **lst)
 {
-	Node *curr, *previous, *after;
+	t_node *curr, *previous, *after;
 	curr = *lst;
 	previous = NULL;
 	while (curr != NULL)
@@ -282,9 +282,9 @@ void reverse(Node **lst)
 	ft_printf("Linked list is reversed\n");
 }
 
-int check_loop(Node *lst)
+int check_loop(t_node *lst)
 {
-	Node *slow, *fast;
+	t_node *slow, *fast;
 	slow = lst;
 	fast = lst;
 	while (slow != NULL && fast != NULL)
@@ -301,10 +301,10 @@ int check_loop(Node *lst)
 	return (0);
 }
 
-int count_node(Node *lst)
+int c_node(t_node *lst)
 {
 	int count;
-	Node *curr;
+	t_node *curr;
 	count = 0;
 	curr = lst;
 	while(curr != NULL)
