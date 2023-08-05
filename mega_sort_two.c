@@ -727,26 +727,29 @@ int get_median_rank_within_chunk(t_node **lst, int chunkID)
 	return (total/number_of_rank);
 }
 
-int rotate_below_median(t_node **A, t_node **B, int chunkID, int top_or_bottom, int median)
+int rotate_below_median_top(t_node **A, t_node **B, int chunkID, int median)
 {
 	t_node *curr_b;
 	int n_op;
 
 	n_op = 0;
-	if (top_or_bottom == 1)
+	while (*B != NULL && (*B)->chunk_id == chunkID && (*B)->rank <= median)
+		n_op = rb(B, 1, n_op);
+	return (n_op);
+}
+
+int rotate_below_median_bottom(t_node **A, t_node **B, int chunkID, int median)
+{
+	t_node *curr_b;
+	int n_op;
+
+	n_op = 0;
+	curr_b = double_ll_convert(B);
+	while (*B != NULL && curr_b->chunk_id == chunkID
+		&& curr_b->rank <= median)
 	{
-		while (*B != NULL && (*B)->chunk_id == chunkID && (*B)->rank <= median)
-			n_op = rb(B, 1, n_op);
-	}
-	else if (top_or_bottom == -1)
-	{
+		n_op = rrb(B, 1, n_op);
 		curr_b = double_ll_convert(B);
-		while (*B != NULL && curr_b->chunk_id == chunkID
-			&& curr_b->rank <= median)
-		{
-			n_op = rrb(B, 1, n_op);
-			curr_b = double_ll_convert(B);
-		}
 	}
 	return (n_op);
 }
@@ -762,7 +765,7 @@ int	split_chunk_top(t_node **A, t_node **B, int chunkID, int median)
 	label_position(B);
 	while ((*B) != NULL && (*B)->chunk_id == chunkID)
 	{
-		n_op += rotate_below_median(A, B, chunkID, 1, median);
+		n_op += rotate_below_median_top(A, B, chunkID, median);
 		if ((*B)->chunk_id == chunkID)
 		{
 			target_p_a =  get_target_p_A(A, (*B)->rank);
@@ -786,7 +789,7 @@ int	split_chunk_bottom(t_node **A, t_node **B, int chunkID, int median)
 	while ((*B) != NULL && tail_b->chunk_id == chunkID)
 	{
 		tail_b = double_ll_convert(B);
-		n_op += rotate_below_median(A, B, chunkID, -1, median);
+		n_op += rotate_below_median_bottom(A, B, chunkID, median);
 		tail_b = double_ll_convert(B);
 		if (tail_b->chunk_id == chunkID)
 		{
