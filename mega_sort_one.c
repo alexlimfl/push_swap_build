@@ -18,7 +18,7 @@ void	chunk_maker(int nn, int *chunk, int denominator)
 }
 
 
-int		mega_sort_one(t_node **A, t_node **B, int n_operation)
+void	mega_sort_one(t_node **A, t_node **B, t_node **output)
 {
 	t_node *A_tail;
 
@@ -223,42 +223,42 @@ int		mega_sort_one(t_node **A, t_node **B, int n_operation)
 				if((c_node(*B) > 1) && ((*A)->rank != rank_selected) && ((*B)->rank != rank_selected_B))
 				{
 					if(position_selected <= middle_position && position_selected_B <= middle_position_B)
-						n_operation = rr(A, B, 1, n_operation);
+						rr(A, B, output, 1);
 					else if(position_selected > middle_position && position_selected_B > middle_position_B)
-						n_operation = rrr(A, B, 1, n_operation);
+						rrr(A, B, output, 1);
 					else if((*A)->rank != rank_selected)
 					{
 						if(position_selected <= middle_position)
-						n_operation = ra(A, 1, n_operation);
+						ra(A, output, 1);
 						else if(position_selected > middle_position)
-						n_operation = rra(A, 1, n_operation);
+						rra(A, output, 1);
 					}
 					else if((c_node(*B) > 1) && ((*B)->rank != rank_selected_B))
 					{
 						if(position_selected_B <= middle_position_B)
-						n_operation = rb(B, 1, n_operation);
+						rb(B, output, 1);
 						else if(position_selected_B > middle_position_B)
-						n_operation = rrb(B, 1, n_operation);
+						rrb(B, output, 1);
 					}
 				}
 				else if((*A)->rank != rank_selected)
 				{
 					if(position_selected <= middle_position)
-						n_operation = ra(A, 1, n_operation);
+						ra(A, output, 1);
 					else if(position_selected > middle_position)
-						n_operation = rra(A, 1, n_operation);
+						rra(A, output, 1);
 				}
 				else if((c_node(*B) > 1) && ((*B)->rank != rank_selected_B))
 				{
 					if(position_selected_B <= middle_position_B)
-						n_operation = rb(B, 1, n_operation);
+						rb(B, output, 1);
 					else if(position_selected_B > middle_position_B)
-						n_operation = rrb(B, 1, n_operation);
+						rrb(B, output, 1);
 				}
 				// view_list_rank(*A);
 				// view_list_rank(*B);
 			}
-			n_operation = pb(A, B, 1, n_operation); //push to stack B
+			pb(A, B, output, 1); //push to stack B
 		}
 		else if(curr_forward == NULL && curr_reverse == NULL) // if value in chunk[a] is not found
 			a++;
@@ -288,13 +288,13 @@ int		mega_sort_one(t_node **A, t_node **B, int n_operation)
 	while(!check_sorted_reverse(B) && (*B)->rank != highest_rank_B)
 	{
 		if(position_highest_rank_B <= middle_position_B)
-			n_operation = rb(B, 1, n_operation);
+			rb(B, output, 1);
 		else if(position_highest_rank_B > middle_position_B)
-			n_operation = rrb(B, 1, n_operation);
+			rrb(B, output, 1);
 	}
 	while((*B) != NULL)
 		{
-			n_operation = pa(A, B, 1, n_operation);
+			pa(A, B, output, 1);
 		}
 	// ft_printf("Denominator: %d\n", num_chunk);
 	int i = 0;
@@ -311,7 +311,6 @@ int		mega_sort_one(t_node **A, t_node **B, int n_operation)
 	// else
 	// 	ft_printf("Number of operation: %d\nCheck sorted >>> %d\n", n_operation, check_sorted(A));
 
-	return (n_operation);
 }
 
 

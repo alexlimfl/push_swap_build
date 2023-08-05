@@ -106,10 +106,12 @@ int main(int argc, char *argv[])
     n_operation = 0;
     t_node *A;
 	t_node *B;
+    t_node *output;
     char **str;
     
     A = NULL;
     B = NULL;
+    output = NULL;
 	argc_more_than_one(argc);
     no_space_and_character_allowed(argv);
 	if (argc == 2)
@@ -132,13 +134,15 @@ int main(int argc, char *argv[])
     if (!check_sorted(&A))
     {   
         if(c_node(A) <= 3)
-            n_operation = tiny_sort(&A, n_operation);
+            tiny_sort(&A, &output);
         else if(c_node(A) <= 5)
-            n_operation = medium_sort(&A, &B, n_operation);
+            medium_sort(&A, &B, &output);
         else
-            n_operation = mega_sort_two(&A, &B, n_operation);
-		    // n_operation = mega_sort_one(&A, &B, n_operation);
+            mega_sort_two(&A, &B, &output);
+		    // mega_sort_one(&A, &B, &output);
     }
+
+    ft_printf("Number of operation >>>> %d\n", c_node(output));
 
     // ft_printf("FINAL >>> \n");
     // ft_printf("Check sorted = %d\n", check_sorted(&A));
@@ -151,6 +155,7 @@ int main(int argc, char *argv[])
 	// view_list(B);
 
     // ft_printf("Deallocation >>> \n");
+    delete_list(&output);
 	delete_list(&A);
 	delete_list(&B);
 

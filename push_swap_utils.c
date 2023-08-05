@@ -157,14 +157,14 @@ int		get_lowest_rank(t_node **lst)
 	return (lowest_rank);
 }
 
-int		tiny_sort(t_node **A, int n_operation)
+void	tiny_sort(t_node **A, t_node **output)
 {
 	t_node *curr;
 	int largest;
 	int c;
 
 	if(c_node(*A) > 3)
-		return (n_operation);
+		return ;
 	largest = get_largest(A);
 	curr = *A;
 	c = 1;
@@ -172,21 +172,21 @@ int		tiny_sort(t_node **A, int n_operation)
 	{
 		if(c == 1 && largest == curr->x)
 		{
-			n_operation = ra(A, 1, n_operation);
+			ra(A, output, 1);
 			curr = *A;
 			c = 1;
 			// view_list(*A);
 		}
 		if(c == 2 && largest == curr->x)
 		{
-			n_operation = rra(A, 1, n_operation);
+			rra(A, output, 1);
 			curr = *A;
 			c = 1;
 			// view_list(*A);
 		}
 		if(c == 3 && largest == curr->x)
 		{
-			n_operation = sa(A, 1, n_operation);
+			sa(A, output, 1);
 			curr = *A;
 			c = 1;
 			// view_list(*A);
@@ -194,7 +194,6 @@ int		tiny_sort(t_node **A, int n_operation)
 		c++;
 		curr = curr->next;
 	}
-	return (n_operation);
 }
 
 void	check_duplicate(t_node **A)
@@ -252,21 +251,21 @@ int 	last_node_value(t_node *lst)
 	return (curr->x);
 }
 
-int		medium_sort(t_node **A, t_node **B, int n_operation)
+void	medium_sort(t_node **A, t_node **B, t_node **output)
 {
 	int largest;
 	int smallest;
 	
 	if(c_node(*A) > 5)
-		return (n_operation);
+		return ;
 	
 	largest = get_largest(A);
 	smallest = get_smallest(A);
 
-	n_operation = pb(A, B, 1, n_operation);
-	n_operation = pb(A, B, 1, n_operation);
+	pb(A, B, output, 1);
+	pb(A, B, output, 1);
 
-	n_operation = tiny_sort(A, n_operation);
+	tiny_sort(A, output);
 
 	while(*B != NULL)
 	{
@@ -274,28 +273,26 @@ int		medium_sort(t_node **A, t_node **B, int n_operation)
 		// view_list(*B);
 
 		if((*B)->x == largest && (*B)->x && get_largest(A) == last_node_value(*A))
-			n_operation = pa(A, B, 1, n_operation);
+			pa(A, B, output, 1);
 		else if((*B)->x == smallest && get_smallest(A) == (*A)->x)
-			n_operation = pa(A, B, 1, n_operation);
+			pa(A, B, output, 1);
 		else if((*B)->x > last_node_value(*A) && (*B)->x < (*A)->x)
-			n_operation = pa(A, B, 1, n_operation);
+			pa(A, B, output, 1);
 		else if(check_sorted(A) && (*B)->x < (*A)->x)
-			n_operation = pa(A, B, 1, n_operation);
+			pa(A, B, output, 1);
 		else if(check_sorted(A) && (*B)->x > last_node_value(*A))
-			n_operation = pa(A, B, 1, n_operation);
+			pa(A, B, output, 1);
 		else
-			n_operation = ra(A, 1, n_operation);
+			ra(A, output, 1);
 	}
 
 	while(!check_sorted(A))
 	{
-		// ft_printf("CHECK 6\n");
 		if(last_node_value(*A) == smallest)
-			n_operation = rra(A, 1, n_operation);
+			rra(A, output, 1);
 		else
-			n_operation = ra(A, 1, n_operation);
+			ra(A, output, 1);
 	}
-	return (n_operation);
 }
 
 t_node	*double_ll_convert(t_node **lst)

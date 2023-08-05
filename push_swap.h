@@ -60,23 +60,24 @@ int		check_loop(t_node *lst);
 int		c_node(t_node *lst);
 
 // operations
-int		sa(t_node **A, int print, int n_operation);
-int		sb(t_node **B, int print, int n_operation);
-int		ss(t_node **A, t_node **B, int print, int n_operation);
-int		pa(t_node **A, t_node **B, int print, int n_operation);
-int		pb(t_node **A, t_node **B, int print, int n_operation);
-int		ra(t_node **A, int print, int n_operation);
-int		rb(t_node **B, int print, int n_operation);
-int		rr(t_node **A, t_node **B, int print, int n_operation);
-int		rra(t_node **A, int print, int n_operation);
-int		rrb(t_node **B, int print, int n_operation);
-int		rrr(t_node **A, t_node **B, int print, int n_operation);
+void	sa(t_node **A, t_node **output, int print);
+void	sb(t_node **B, t_node **output, int print);
+void	ss(t_node **A, t_node **B, t_node **output, int print);
+void	pa(t_node **A, t_node **B, t_node **output, int print);
+void 	pb(t_node **A, t_node **B, t_node **output, int print);
+void	ra(t_node **A, t_node **output, int print);
+void	rb(t_node **B, t_node **output, int print);
+void 	rr(t_node **A, t_node **B, t_node **output, int print);
+void 	rra(t_node **A, t_node **output, int print);
+void	rrb(t_node **B, t_node **output, int print);
+void	rrr(t_node **A, t_node **B, t_node **output, int print);
+void    print_output(t_node **output);
 
 // sorting category
-int		tiny_sort(t_node **A, int n_operation);
-int		medium_sort(t_node **A, t_node **B, int n_operation);
-int		mega_sort_one(t_node **A, t_node **B, int n_operation);
-int		mega_sort_two(t_node **A, t_node **B, int n_operation);
+void	tiny_sort(t_node **A, t_node **output);
+void	medium_sort(t_node **A, t_node **B, t_node **output);
+void	mega_sort_one(t_node **A, t_node **B, t_node **output);
+void 	mega_sort_two(t_node **A, t_node **B, t_node **output);
 
 // check conditions
 int		check_sorted(t_node **A);
@@ -115,8 +116,8 @@ char	**ft_split(char const *s, char c);
 char	**split_string(char **str);
 t_node	*double_ll_convert(t_node **lst);
 void	chunk_maker(int nn, int *chunk, int denominator);
-int		position_s_within_chunk(t_node **A, int *chunk, int i);
-int 	position_s_within_chunk_reverse(t_node **A, int *chunk, int i);
+int		ps_w_chk(t_node **A, int *chunk, int i);
+int		ps_w_chk_r(t_node **A, int *chunk, int i);
 
 
 // int		action_one_1(t_node **A, t_node **B, int rank_selected, int rank_selected_B, int middle_position, int middle_position_B, int position_selected, int position_selected_B, int n_operation);
