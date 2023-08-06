@@ -822,6 +822,50 @@ int	get_three_median(t_node **B, int chunkID, int choose)
 		return (m3);
 }
 
+/////////////////////////////////////////////////////////////////////////////////
+
+int c_node_wc(t_node *lst, int chunkID)
+{
+	int count;
+	t_node *curr;
+	count = 0;
+	curr = lst;
+	while(curr != NULL)
+	{
+		if (curr->chunk_id == chunkID)
+			count++;
+		curr = curr->next;
+	}
+	// ft_printf("Number of node(s) in linked list: %d\n", count);
+	return (count);
+}
+
+int	 get_four_median(t_node **B, int chunkID, int choose)
+{
+	t_node	*curr_b;
+	int m1;
+	int m2;
+	int m3;
+	int m4;
+	int n_bound;
+
+	// count numbers of values withinchunk
+	n_bound = c_node_wc(*B, chunkID) / 5;
+	m1 = glowest_rankwithin_chunk(B, chunkID) + n_bound;
+	m2 = m1 + n_bound;
+	m3 = m2 + n_bound;
+	m4 = m3 + n_bound;
+	if (choose == 1)
+		return (m1);
+	if (choose == 2)
+		return (m2);
+	if (choose == 3)
+		return (m3);
+	if (choose == 4)
+		return (m4);
+}
+///////////////////////////////////////////////////////
+
 int above_median_available(t_node **lst, int median)
 {
 	t_node	*curr;
@@ -880,10 +924,19 @@ void	quick_sort(t_node **A, t_node **B, t_node **output, int *chunk, int num_chu
 	split_chunk_bottom(A, B, output, 3, get_median_rank_within_chunk(B, 3));
 	decending_from_top(A, B, output, chunk, num_chunk, 3);
 
-	// split_chunk_top(A, B, output, 2, get_three_median(B, 2, 2));
-	// split_chunk_bottom(A, B, output, 2, get_three_median(B, 2, 3));
+	// split_chunk_top(A, B, output, 2, get_four_median(B, 2, 4));
+	// split_chunk_bottom(A, B, output, 2, get_four_median(B, 2, 3));
+	// split_chunk_top(A, B, output, 2, get_four_median(B, 2, 2));
+	// decending_from_bottom(A, B, output, chunk, 2);
+	// split_chunk_bottom(A, B, output, 2, get_four_median(B, 2, 1));
 	// decending_from_top(A, B, output, chunk, num_chunk, 2);
-	// finalization(A, B, output);
+
+
+	split_chunk_top(A, B, output, 2, get_three_median(B, 2, 3));
+	split_chunk_bottom(A, B, output, 2, get_three_median(B, 2, 2));
+	decending_from_top(A, B, output, chunk, num_chunk, 2);
+
+	finalization(A, B, output);
 }
 
 int	final_sort(t_node **A, t_node **output)
@@ -932,7 +985,7 @@ void mega_sort_two(t_node **A, t_node **B, t_node **output)
 	final_sort(A, output);
 
 
-	print_output(output);
+	// print_output(output);
 	// view_all(*A, *B);
 	// view_chunk(outer_chunk, num_chunk);
 	// ft_printf("Number of operation >>>> %d\n", c_node(*output));
@@ -940,7 +993,7 @@ void mega_sort_two(t_node **A, t_node **B, t_node **output)
 	// ft_printf("Check sorted plus = %d\n", check_sorted_plus(A));
 
 	// ft_printf("Number of Operation >>> %d\n", n_op);
-	exit(0);
+	// exit(0);
 }
 
 // Stack A will rotate, if value on top is within current and the next chunks. Ready to PA.

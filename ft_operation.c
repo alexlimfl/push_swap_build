@@ -28,7 +28,6 @@ void    print_output(t_node **output)
     str[8] = "rra";
     str[9] = "rrb";
     str[10] = "rrr";
-    
     curr = *output;
     while (curr != NULL)
     {
@@ -41,48 +40,39 @@ void    print_output(t_node **output)
 int	optimizer(t_node **output, int find, int substi)
 {
     t_node *curr;
-	t_node *durr;
 	
-	// ft_printf("CHECK ^^^^^^^^^^^^^^^^^\n");
-	// print_output(output);
 	if (*output == NULL)
 		return (0);
-	// have to use double_ll, scan from the back
 	curr = double_ll_convert(output);
 	while (curr != NULL && curr->x != 4 && curr->x != 5)
 		curr = curr->prev;
 	if (curr == NULL)
 		return (0);
-	durr = curr->next;
-	while (durr != NULL && durr->x != 4 && durr->x != 5)
+	curr = curr->next;
+	while (curr != NULL && curr->x != 4 && curr->x != 5)
 	{
-			// ft_printf(">>>>>>>>>>>>>>>>>>>%d, %d\n", find, substi);
-		if (durr->x == find)
+		if (curr->x == find)
 		{
-			durr->x = substi;
-			// ft_printf(">>>>>>>>>>>>>>>>>>>>>>>>%d, %d\n", find, substi);
-			// exit(0);
+			curr->x = substi;
 			return (1);
 		}
-		durr = durr->next;
+		curr = curr->next;
 	}
-	// ft_printf("failed >>>>>>>>>>>>>>>>>>>\n");
 	return (0);
 }
 
 void sa(t_node **A, t_node **output, int print)
 {
+    t_node	*first;
+    t_node	*second;
+    t_node	*third;
+
     if(*A == NULL || (*A)->next == NULL)
     {
         ft_printf("Error (sa)\n");
         delete_list(A);
         exit(1);
     }
-
-    t_node *first;
-    t_node *second;
-    t_node *third;
-
     first = *A;
     second = first->next;
     third = first->next->next;
@@ -93,24 +83,21 @@ void sa(t_node **A, t_node **output, int print)
     {
         if (!optimizer(output, 2, 3))
 			insert_back(output, 1);
-        // ft_printf("sa\n");
     }
 }
 
 void sb(t_node **B, t_node **output, int print)
 {
+	t_node	*first;
+	t_node	*second;
+	t_node	*third;
     
-    if(*B == NULL || (*B)->next == NULL)
-    {
-        ft_printf("Error (sb)\n");
-        delete_list(B);
-        exit(1);
-    }
-    
-    t_node *first;
-    t_node *second;
-    t_node *third;
-
+	if (*B == NULL || (*B)->next == NULL)
+	{
+		ft_printf("Error (sb)\n");
+		delete_list(B);
+		exit(1);
+	}
     first = *B;
     second = first->next;
     third = first->next->next;
@@ -121,7 +108,6 @@ void sb(t_node **B, t_node **output, int print)
     {
         if (!optimizer(output, 1, 3))
     		insert_back(output, 2);
-        // ft_printf("sb\n");
     }
 }
 
@@ -137,40 +123,35 @@ void ss(t_node **A, t_node **B, t_node **output, int print)
     sa(A, output, 0);
     sb(A, output, 0);
     if(print == 1)
-    {
         insert_back(output, 3);
-        // ft_printf("ss\n");
-    }
 }
 
 void pa(t_node **A, t_node **B, t_node **output, int print)
 {
+	t_node	*temp_A;
+	t_node	*temp_B;
+
     if(*B == NULL)
     {
-        ft_printf("Error (pa)\n");
-        delete_list(A);
-        delete_list(B);
-        exit(1);
+		ft_printf("Error (pa)\n");
+		delete_list(A);
+		delete_list(B);
+		exit(1);
     }
-
-    t_node *temp_A;
-    t_node *temp_B;
-
-    temp_A = *A;
-    temp_B = *B;
-    *B = temp_B->next;
-
-    temp_B->next = *A;
-    *A = temp_B;
-    if(print == 1)
-    {
-        insert_back(output, 4);
-        // ft_printf("pa\n");
-    }
+	temp_A = *A;
+	temp_B = *B;
+	*B = temp_B->next;
+	temp_B->next = *A;
+	*A = temp_B;
+	if(print == 1)
+		insert_back(output, 4);
 }
 
 void pb(t_node **A, t_node **B, t_node **output, int print)
 {
+    t_node *temp_A;
+    t_node *temp_B;
+
     if(*A == NULL)
     {
         ft_printf("Error (pb)\n");
@@ -178,111 +159,92 @@ void pb(t_node **A, t_node **B, t_node **output, int print)
         delete_list(B);
         exit(1);
     }
-
-    t_node *temp_A;
-    t_node *temp_B;
-
     temp_A = *A;
     temp_B = *B;
     *A = temp_A->next;
-
     temp_A->next = *B;
     *B = temp_A;
     if(print == 1)
-    {
         insert_back(output, 5);
-        // ft_printf("pb\n");
-    }
 }
 
 void ra(t_node **A, t_node **output, int print)
 {
-    if(*A == NULL || (*A)->next == NULL)
-    {
-        ft_printf("Error (ra)\n");
-        delete_list(A);
-        exit(1);
-    }
+	t_node *first;
+	t_node *curr;
 
-    t_node *first;
-    t_node *curr;
+	if(*A == NULL || (*A)->next == NULL)
+	{
+		ft_printf("Error (ra)\n");
+		delete_list(A);
+		exit(1);
+	}
+	first = *A;
+	curr = *A;
+	while(curr->next != NULL)
+		curr = curr->next;
 
-    first = *A;
-    curr = *A;
-    while(curr->next != NULL)
-        curr = curr->next;
-
-    *A = first->next;
-    first->next = NULL;
-    
-    curr->next = first;
+	*A = first->next;
+	first->next = NULL;
+	curr->next = first;
 	if(print == 1)
-    {
+	{
 		if (!optimizer(output, 7, 8))
-        	insert_back(output, 6);
-    	// ft_printf("ra\n");
-    }
+			insert_back(output, 6);
+	}
 }
 
 void rb(t_node **B, t_node **output, int print)
 {
-    if(*B == NULL || (*B)->next == NULL)
-    {
-        ft_printf("Error (rb)\n");
-        delete_list(B);
-        exit(1);
-    }
+	t_node *first;
+	t_node *curr;
 
-    t_node *first;
-    t_node *curr;
-
-    first = *B;
-    curr = *B;
-    while(curr->next != NULL)
-        curr = curr->next;
-
-    *B = first->next;
-    first->next = NULL;
-
-    curr->next = first;
+	if(*B == NULL || (*B)->next == NULL)
+	{
+		ft_printf("Error (rb)\n");
+		delete_list(B);
+		exit(1);
+	}
+	first = *B;
+	curr = *B;
+	while(curr->next != NULL)
+		curr = curr->next;
+	*B = first->next;
+	first->next = NULL;
+	curr->next = first;
 	if(print == 1)
-    {
-        if (!optimizer(output, 6, 8))
+	{
+		if (!optimizer(output, 6, 8))
 			insert_back(output, 7);
-		// ft_printf("rb\n");
-    }
+	}
 }
 
 void rr(t_node **A, t_node **B, t_node **output, int print)
 {
-
 	if(*A == NULL || (*A)->next == NULL || *B == NULL || (*B)->next == NULL)
-    {
-        ft_printf("Error (rr)\n");
-        delete_list(A);
-        delete_list(B);
-        exit(1);
-    }
+	{
+		ft_printf("Error (rr)\n");
+		delete_list(A);
+		delete_list(B);
+		exit(1);
+	}
 	ra(A, output, 0);
 	rb(B, output, 0);
-    if(print == 1)
-    {
-        insert_back(output, 8);
-	    // ft_printf("rr\n");
-    }
+	if(print == 1)
+		insert_back(output, 8);
 }
 
 void rra(t_node **A, t_node **output, int print)
 {
-	if(*A == NULL || (*A)->next == NULL)
-    {
-        ft_printf("Error (rra)\n");
-        delete_list(A);
-        exit(1);
-    }
 	t_node *first;
 	t_node *second_last;
 
+	if(*A == NULL || (*A)->next == NULL)
+	{
+		ft_printf("Error (rra)\n");
+		delete_list(A);
+		exit(1);
+	}
 	first = *A;
 	second_last = *A;
 	while(second_last->next->next != NULL)
@@ -291,24 +253,23 @@ void rra(t_node **A, t_node **output, int print)
 	second_last->next->next = first;
 	second_last->next = NULL;
 	if(print == 1)
-    {
-        if (!optimizer(output, 10, 11))
-        	insert_back(output, 9);
-		// ft_printf("rra\n");
-    }
+	{
+		if (!optimizer(output, 10, 11))
+			insert_back(output, 9);
+	}
 }
 
 void rrb(t_node **B, t_node **output, int print)
 {
-	if(*B == NULL || (*B)->next == NULL)
-    {
-        ft_printf("Error (rrb)\n");
-        delete_list(B);
-        exit(1);
-    }
 	t_node *first;
 	t_node *second_last;
 
+	if(*B == NULL || (*B)->next == NULL)
+	{
+		ft_printf("Error (rrb)\n");
+		delete_list(B);
+		exit(1);
+	}
 	first = *B;
 	second_last = *B;
 	while(second_last->next->next != NULL)
@@ -317,29 +278,25 @@ void rrb(t_node **B, t_node **output, int print)
 	second_last->next->next = first;
 	second_last->next = NULL;
 	if(print == 1)
-    {
-        if (!optimizer(output, 9, 11))
-     	   insert_back(output, 10);
-		// ft_printf("rrb\n");
-    }
+	{
+		if (!optimizer(output, 9, 11))
+			insert_back(output, 10);
+	}
 }
 
 void rrr(t_node **A, t_node **B, t_node **output, int print)
 {
 	if(*A == NULL || (*A)->next == NULL || *B == NULL || (*B)->next == NULL)
-    {
-        ft_printf("Error (rrr)\n");
-        delete_list(A);
-        delete_list(B);
-        exit(1);
-    }
+	{
+		ft_printf("Error (rrr)\n");
+		delete_list(A);
+		delete_list(B);
+		exit(1);
+	}
 	rra(A, output, 0);
 	rrb(B, output, 0);
-    if(print == 1)
-    {
-        insert_back(output, 11);
-	    // ft_printf("rrr\n");
-    }
+	if(print == 1)
+		insert_back(output, 11);
 }
 
 

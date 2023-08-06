@@ -48,8 +48,9 @@ void no_space_and_character_allowed(char **str)
                         exit(0);
                     }
                 }
-            if(str[c][d] != ' ' && (str[c][d] < '0' || str[c][d] > '9'))
+            if(str[c][d] != ' ' && str[c][d] != '-' && (str[c][d] < '0' || str[c][d] > '9'))
             {
+                ft_printf("CHECKK\n");
                 ft_printf("'%c'\n", str[c][d]);
                 ft_printf("Error\n");
                 // ft_printf("Characters found in argv[%d].\n", d);
@@ -142,7 +143,7 @@ int main(int argc, char *argv[])
 		    // mega_sort_one(&A, &B, &output);
     }
 
-    ft_printf("Number of operation >>>> %d\n", c_node(output));
+    // ft_printf("Number of operation >>>> %d\n", c_node(output));
 
     // ft_printf("FINAL >>> \n");
     // ft_printf("Check sorted = %d\n", check_sorted(&A));
@@ -155,6 +156,7 @@ int main(int argc, char *argv[])
 	// view_list(B);
 
     // ft_printf("Deallocation >>> \n");
+    print_output(&output);
     delete_list(&output);
 	delete_list(&A);
 	delete_list(&B);
