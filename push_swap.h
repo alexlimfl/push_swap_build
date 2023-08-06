@@ -27,6 +27,10 @@ typedef struct s_node
 	int				position;
 	int				chunk_id;
 	int				sorted_h_tail;
+	int				num_chunk;
+	int				inner_chunk[100];
+	int				outer_chunk[100];
+	int				median;
 	char			*str;
 	struct s_node	*next;
 	struct s_node	*prev;

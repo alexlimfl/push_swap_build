@@ -31,10 +31,11 @@ void    print_output(t_node **output)
     curr = *output;
     while (curr != NULL)
     {
-        ft_printf("%s\n", str[curr->x - 1]);
+        if(curr->x != 0)
+			ft_printf("%s\n", str[curr->x - 1]);
         curr = curr->next;
     }
-	// ft_printf("N_op: %d\n", c_node(*output));
+	// ft_printf("N_op: %d\n", c_node(*output) - 1);
 }
 
 int	optimizer(t_node **output, int find, int substi)

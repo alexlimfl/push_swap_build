@@ -103,66 +103,46 @@ t_node *ll_convert(char **str)
 int main(int argc, char *argv[])
 {
     
-	int n_operation = 0;
-    n_operation = 0;
-    t_node *A;
+	t_node *A;
 	t_node *B;
-    t_node *output;
-    char **str;
-    
-    A = NULL;
-    B = NULL;
-    output = NULL;
+	t_node *output;
+	int n_operation;
+	char **str;
+
+	n_operation = 0;
+	A = NULL;
+	B = NULL;
+	output = NULL;
 	argc_more_than_one(argc);
-    no_space_and_character_allowed(argv);
+	no_space_and_character_allowed(argv);
 	if (argc == 2)
 	{
 		str = ft_split(argv[1], ' ');
 		A = ll_convert(str);
 	}
-    else
-        A = ll_convert(argv+1);
-
-    if(c_node(A) < 2)
-    {
-        ft_printf("Error\n");
-        exit(1);
-    }
-
-    check_duplicate(&A);
-    // ft_printf("Operations >>>\n");
-    
-    if (!check_sorted(&A))
-    {   
-        if(c_node(A) <= 3)
-            tiny_sort(&A, &output);
-        else if(c_node(A) <= 5)
-            medium_sort(&A, &B, &output);
-        else
-            mega_sort_two(&A, &B, &output);
-		    // mega_sort_one(&A, &B, &output);
-    }
-
-    // ft_printf("Number of operation >>>> %d\n", c_node(output));
-
-    // ft_printf("FINAL >>> \n");
-    // ft_printf("Check sorted = %d\n", check_sorted(&A));
-    // ft_printf("Check MAIN\n");
-    // ft_printf("Number of operations: %d\n", n_operation);
-
-    // ft_printf("Stack A:\n");
-	// view_list(A);
-    // ft_printf("Stack B:\n");
-	// view_list(B);
-
-    // ft_printf("Deallocation >>> \n");
-    print_output(&output);
-    delete_list(&output);
+	else
+		A = ll_convert(argv+1);
+	if(c_node(A) < 2)
+	{
+		ft_printf("Error\n");
+		exit(1);
+	}
+	check_duplicate(&A);
+	if (!check_sorted(&A))
+	{   
+		if(c_node(A) <= 3)
+			tiny_sort(&A, &output);
+		else if(c_node(A) <= 5)
+			medium_sort(&A, &B, &output);
+		else
+			mega_sort_two(&A, &B, &output);
+	}
+	// ft_printf("CHECK >>>>>>>>>>>>>>>>> \n");
+	print_output(&output);
+	delete_list(&output);
 	delete_list(&A);
 	delete_list(&B);
-
-    // ft_printf("Check memory leaks >>> \n");
+	// ft_printf("Check memory leaks >>> \n");
 	// system("leaks -q push_swap");
-
-    return (0);
+	return (0);
 }

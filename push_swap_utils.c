@@ -205,14 +205,10 @@ void	check_duplicate(t_node **A)
 	curr = temp->next;
 	while(curr != NULL)
 	{
-		
-		while(curr != NULL)
 		{
 			if(temp->x == curr->x)
 			{
 
-				// ft_printf("%d\n", temp->x);
-				// ft_printf("%d\n", curr->x);
 				ft_printf("Error\n");
 				exit(1);
 			}
