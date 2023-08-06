@@ -879,10 +879,11 @@ void	quick_sort(t_node **A, t_node **B, t_node **output, int *chunk, int num_chu
 	decending_from_bottom(A, B, output, chunk, 4);
 	split_chunk_bottom(A, B, output, 3, get_median_rank_within_chunk(B, 3));
 	decending_from_top(A, B, output, chunk, num_chunk, 3);
-	split_chunk_top(A, B, output, 2, get_three_median(B, 2, 2));
-	split_chunk_bottom(A, B, output, 2, get_three_median(B, 2, 3));
-	decending_from_top(A, B, output, chunk, num_chunk, 2);
-	finalization(A, B, output);
+
+	// split_chunk_top(A, B, output, 2, get_three_median(B, 2, 2));
+	// split_chunk_bottom(A, B, output, 2, get_three_median(B, 2, 3));
+	// decending_from_top(A, B, output, chunk, num_chunk, 2);
+	// finalization(A, B, output);
 }
 
 int	final_sort(t_node **A, t_node **output)

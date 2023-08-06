@@ -1,3 +1,4 @@
 {
-    "codam-norminette-3.displayErrorName": true
+    "codam-norminette-3.displayErrorName": true,
+    "cmake.configureOnOpen": false
 }
