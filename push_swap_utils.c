@@ -12,11 +12,11 @@
 
 #include "push_swap.h"
 
-int		ft_atoi(const char *str)
+long		ft_atoi(const char *str)
 {
-	int	sign;
-	int	i;
-	int	output;
+	long	sign;
+	int		i;
+	long	output;
 
 	i = 0;
 	sign = 1;
@@ -199,44 +199,44 @@ void	tiny_sort(t_node **A, t_node **output)
 void	check_duplicate(t_node **A)
 {
 	t_node *curr;
-	t_node *temp;
+	t_node *find_curr;
 
-	temp = *A;
-	curr = temp->next;
-	while(curr != NULL)
+	curr = *A;
+	while (curr->next != NULL)
 	{
+		find_curr = curr->next;
+		while (find_curr != NULL)
 		{
-			if(temp->x == curr->x)
+			if (find_curr->x == curr->x)
 			{
-
-				ft_printf("Error\n");
+				ft_printf("Error D\n");
 				exit(1);
 			}
-			curr = curr->next;
+				// exit_message();
+			find_curr = find_curr->next;
 		}
-		temp = temp->next;
-		curr = temp->next;
-	}
-}
-
-int		get_median(t_node *lst)
-{
-	int sum;
-	int median;
-	t_node *curr;
-
-	sum = 0;
-	curr = lst;
-
-	while(curr != NULL)
-	{
-		sum = sum + curr->x;
 		curr = curr->next;
 	}
-	median = sum/(c_node(lst));
-	ft_printf("Sum = %d, Median = %d\n", sum, median);
-	return (median);
 }
+
+// int		get_median(t_node *lst)
+// {
+// 	int sum;
+// 	int median;
+// 	t_node *curr;
+
+// 	sum = 0;
+// 	curr = lst;
+
+// 	while(curr != NULL)
+// 	{
+// 		sum = sum + curr->x;
+// 		curr = curr->next;
+// 	}
+// 	median = sum/(c_node(lst));
+// 	ft_printf("Sum = %d, Median = %d\n", sum, median);
+// 	return (median);
+// }
 
 int 	last_node_value(t_node *lst)
 {

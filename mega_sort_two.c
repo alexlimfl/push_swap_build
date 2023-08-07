@@ -24,19 +24,33 @@ void	view_chunk(int *chunk, int num_chunk)
 	}
 }
 
-int	ps_w_chk(t_node **A, int *chunk, int i)
-{
-	t_node *curr;
+// int	ps_w_chk(t_node **A, int *chunk, int i)
+// {
+// 	t_node *curr;
 
-	curr = *A;
-	while (curr != NULL)
-	{
-		if (curr->rank > (chunk[i]) && curr->rank <= chunk[i + 1])
-			return (curr->position);
-		curr = curr->next;
-	}
-	return (-1);
-}
+// 	curr = *A;
+// 	while (curr != NULL)
+// 	{
+// 		if (curr->rank > (chunk[i]) && curr->rank <= chunk[i + 1])
+// 			return (curr->position);
+// 		curr = curr->next;
+// 	}
+// 	return (-1);
+// }
+
+// int	ps_w_chk_r(t_node **A, int *chunk, int i)
+// {
+// 	t_node	*curr;
+
+// 	curr = double_ll_convert(A);
+// 	while (curr != NULL)
+// 	{
+// 		if (curr->rank > (chunk[i]) && curr->rank <= chunk[i + 1])
+// 			return (curr->position);
+// 		curr = curr->prev;
+// 	}
+// 	return (-1);
+// }
 
 int	check_sorted_plus(t_node **A)
 {
@@ -56,19 +70,6 @@ int	check_sorted_plus(t_node **A)
 	return (1);
 }
 
-int	ps_w_chk_r(t_node **A, int *chunk, int i)
-{
-	t_node	*curr;
-
-	curr = double_ll_convert(A);
-	while (curr != NULL)
-	{
-		if (curr->rank > (chunk[i]) && curr->rank <= chunk[i + 1])
-			return (curr->position);
-		curr = curr->prev;
-	}
-	return (-1);
-}
 
 int	ps_chk_id(t_node **lst, int chunk_one, int chunk_two)
 {

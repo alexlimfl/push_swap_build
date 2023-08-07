@@ -13,6 +13,13 @@
 #include "push_swap.h"
 
 
+void	exit_message()
+{
+	ft_printf("Error\n");
+	exit(1);
+}
+
+
 void argc_more_than_one(int argc)
 {
     if (argc < 2)
@@ -33,52 +40,34 @@ void no_space_and_character_allowed(char **str)
         d = 0;
         while(str[c][d])
         {
-            if(c > 1 && str[c][d] == ' ') // if second argument contains ' '
-            {
-                ft_printf("'%c'\n", str[c][d]);
-                ft_printf("Error\n");
-                // ft_printf("Space found in argv[%d].\n", d);
-                exit(1);
-            }
-            if(str[1][d] == ' ') // if first argument has ' '
-                {
-                    if(str[2]) // if second argument isn't NULL
-                    {
-                        ft_printf("Error\n");
-                        exit(0);
-                    }
-                }
+            if(c > 1 && str[c][d] == ' ')
+                exit_message();
+            if(str[1][d] == ' ')
+			{
+				if(str[2])
+					exit_message();
+			}
             if(str[c][d] != ' ' && str[c][d] != '-' && (str[c][d] < '0' || str[c][d] > '9'))
-            {
-                ft_printf("CHECKK\n");
-                ft_printf("'%c'\n", str[c][d]);
-                ft_printf("Error\n");
-                // ft_printf("Characters found in argv[%d].\n", d);
-                exit(1);
-            }
+				exit_message();
             d++;
         }
         c++;
     }
-    // ft_printf("No space and character found\n");
 }
 
-char **split_string(char **str)// not neccesary, remove after complete
+char **split_string(char **str)
 {
 	char **output;
 	int c;
 	int d;
 
-	if (!str[2]) //argv[2] isn't NULL
+	if (!str[2])
 	{
 		c = 1;
 		output = ft_split(str[c], ' ');
 		d = 0;
-		while(output[d]) //loops when string is not null
-		{
-			ft_printf("string[%d]: %s\n", d, output[d]);
+		while(output[d])
 			d++;
-		}
 	}
 	return (output);
 }
@@ -86,30 +75,45 @@ char **split_string(char **str)// not neccesary, remove after complete
 t_node *ll_convert(char **str)
 {
     t_node *head;
+    long nb;
+    int c;
+	int	d;
+
     head = NULL;
-    int nb;
-    int c,d;
     c = 0;
     d = 0;
     while (str[c])
     {
         nb = ft_atoi(str[c]);
+		if (nb < -2147483648 || nb > 2147483647)
+			exit_message();
 		insert_back(&head, nb);
         c++;
     }
     return (head);
 }
 
+void	sorting_type_assign(t_node **A, t_node **B, t_node **output)
+{
+	check_duplicate(A);
+	if (!check_sorted(A))
+	{   
+		if(c_node(*A) <= 3)
+			tiny_sort(A, output);
+		else if(c_node(*A) <= 5)
+			medium_sort(A, B, output);
+		else
+			mega_sort_two(A, B, output);
+	}
+}
+
 int main(int argc, char *argv[])
 {
-    
-	t_node *A;
-	t_node *B;
-	t_node *output;
-	int n_operation;
-	char **str;
+	t_node	*A;
+	t_node	*B;
+	t_node	*output;
+	char	**str;
 
-	n_operation = 0;
 	A = NULL;
 	B = NULL;
 	output = NULL;
@@ -122,27 +126,11 @@ int main(int argc, char *argv[])
 	}
 	else
 		A = ll_convert(argv+1);
-	if(c_node(A) < 2)
-	{
-		ft_printf("Error\n");
-		exit(1);
-	}
-	check_duplicate(&A);
-	if (!check_sorted(&A))
-	{   
-		if(c_node(A) <= 3)
-			tiny_sort(&A, &output);
-		else if(c_node(A) <= 5)
-			medium_sort(&A, &B, &output);
-		else
-			mega_sort_two(&A, &B, &output);
-	}
-	// ft_printf("CHECK >>>>>>>>>>>>>>>>> \n");
+	sorting_type_assign(&A, &B, &output);
 	print_output(&output);
 	delete_list(&output);
 	delete_list(&A);
 	delete_list(&B);
-	// ft_printf("Check memory leaks >>> \n");
 	// system("leaks -q push_swap");
 	return (0);
 }
