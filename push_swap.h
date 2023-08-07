@@ -53,16 +53,12 @@ typedef struct s_var
 }		t_var;
 
 
-// check 1
+// check_1
 int		check_sorted(t_node **A);
 int		check_sorted_reverse(t_node **A);
 void	check_duplicate(t_node **A);
-void	argc_more_than_one(int argc);
 void	no_space_and_character_allowed(char **str);
-// check 2
 int		check_sorted_plus(t_node **A);
-void	exit_message();
-
 
 // utils 1
 void 	view_list(t_node *lst);
@@ -84,52 +80,52 @@ int		get_lowest_rank(t_node **lst);
 int		get_highest_rank(t_node **lst);
 // utils 4
 int		last_node_value(t_node *lst);
+void	exit_message();
+long	ft_atoi(const char *str);
+t_node	*ll_convert(char **str);
 
-// push operations 1
+// operations 1
 void	sa(t_node **A, t_node **output, int print);
 void	sb(t_node **B, t_node **output, int print);
 void	ss(t_node **A, t_node **B, t_node **output, int print);
 void	pa(t_node **A, t_node **B, t_node **output, int print);
 void 	pb(t_node **A, t_node **B, t_node **output, int print);
-// push operations 2
+// operations 2
 void	ra(t_node **A, t_node **output, int print);
 void	rb(t_node **B, t_node **output, int print);
 void 	rr(t_node **A, t_node **B, t_node **output, int print);
 void 	rra(t_node **A, t_node **output, int print);
 void	rrb(t_node **B, t_node **output, int print);
-// push operations 3
+// operations 3
 void	rrr(t_node **A, t_node **B, t_node **output, int print);
 void    print_output(t_node **output);
+int		optimizer(t_node **output, int find, int substi);
+void 	mega_sort(t_node **A, t_node **B, t_node **output);
 
 // sorting category file
 void	sorting_type_assign(t_node **A, t_node **B, t_node **output);
 void	tiny_sort(t_node **A, t_node **output);
 void	medium_sort(t_node **A, t_node **B, t_node **output);
-void 	mega_sort_two(t_node **A, t_node **B, t_node **output);
+// ^^^over 25 lines
 
-
-
-// ft_printf files 1
-void	*ft_bzero(void	*str, size_t	n);
-void	*f_calloc(size_t	nmemb, size_t	size);
-int		ft_convesion(va_list args, char c, int count);
+// ft_printf_utils
 int		ft_putchar(int c, int count);
 int		ft_putstr(char *str, int count);
-// ft_printf files 2
 int		ft_putnbr(int nb, int count);
 int		ft_un_int_putnbr(unsigned int nb, int count);
-int		ft_hexadecimal(unsigned int nb, int c, int count);
-int		ft_pointer(void *ptr, int count);
-int		ft_puthexadecimal(uintptr_t address, int count);
-// ft_prinft files 3
+void	*ft_bzero(void	*str, size_t n);
+// ft_printf
+void	*f_calloc(size_t	nmemb, size_t	size);
+int		ft_convesion(va_list args, char c, int count);
 int		ft_printf(const char *str, ...);
 
-// utilities functions
-long		ft_atoi(const char *str);
-char	**ft_split(char const *s, char c);
-char	**split_string(char **str);
-void	chunk_maker(int nn, int *chunk, int denominator);
+// ft_hexapointer
+int		ft_hexadecimal(unsigned int nb, int c, int count);
+int		ft_puthexadecimal(uintptr_t address, int count);
+int		ft_pointer(void *ptr, int count);
 
+//ft_split
+char	**ft_split(char const *s, char c);
 
 //	mega sort utils 1
 void	view_chunk(int *chunk, int num_chunk);

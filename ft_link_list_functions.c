@@ -12,126 +12,13 @@
 
 #include "push_swap.h"
 
-void view_list(t_node *lst)
-{
-	ft_printf("List:\n");
-	if (lst == NULL)
-	{
-		ft_printf("Empty\n");
-	}
-    while (lst != NULL)
-    {
-        // ft_printf("%d\n", curr);
-        ft_printf("%d\n", lst->x);
-        lst = lst->next;
-    }
-        // ft_printf("%d\n", lst);
-}
 
-void view_list_rank(t_node *lst)
-{
-	ft_printf("List (Ranking):\n");
-	if (lst == NULL)
-		ft_printf("Empty\n");
-    while (lst != NULL)
-    {
-        ft_printf("%d\n", lst->rank);
-        lst = lst->next;
-    }
-}
 
-void view_list_position(t_node *lst)
-{
-	ft_printf("List (Position):\n");
-	if (lst == NULL)
-		ft_printf("Empty\n");
-    while (lst != NULL)
-    {
-        ft_printf("%d\n", lst->position);
-        lst = lst->next;
-    }
-}
 
-void view_all(t_node *lst, t_node *lst2)
-{
-	ft_printf("List ALL:\n");
-	if (lst == NULL)
-		ft_printf("A: Empty\n");
-	if (lst2 == NULL)
-		ft_printf("B: Empty\n");
-	ft_printf("Value, Rank, ChunkID, Position, sht	 Value, Rank, ChunkID, Position, sht\n");
-    while (lst != NULL || lst2 != NULL)
-    {
-        if(lst != NULL)
-		{
-			ft_printf("%d   %d   %d   %d      ", lst->x, lst->rank, lst->chunk_id, lst->position/*, lst->sorted_h_tail*/);
-			lst = lst->next;
-		}
-		if(lst2 != NULL)
-		{
-			ft_printf("\n		   		%d   %d   %d   %d   ", lst2->x, lst2->rank, lst2->chunk_id, lst2->position/*, lst2->sorted_h_tail*/);
-			lst2 = lst2->next;
-		}
-		ft_printf("\n");
-    }
-}
 
-void view_list_backward(t_node *lst)
-{
-	ft_printf("List (backward):\n");
-	if(lst == NULL)
-	{
-		ft_printf("Empty.\n");
-		return;
-	}
-	while (lst != NULL)
-    {
-		ft_printf("%d\n", lst->x);
-        lst = lst->prev;
-    }
-}
 
-void insert_back(t_node **lst, int value)
-{
-	t_node *newnode, *curr;
-	newnode = malloc(sizeof(t_node));
-	newnode->x = value;
-	newnode->next = NULL;
 
-	if (*lst == NULL) //if value pointed by *root is NULL
-	{
-		*lst = newnode; //*root is assigned to point at value pointed by *newnode
-		// ft_printf("First node in the list with value '%d' is added.\n", value);
-		return;
-	}
-	curr = *lst; //*curr is assigned to point at value pointed by *root
-	while(curr->next != NULL)
-		curr = curr->next;
-	curr->next = newnode;
-	// ft_printf("t_node with value '%d' is added at the end.\n", value);
-	// **lst points at &root/root's address/root pointer/pointer to a pointer
-	// **lst --> *root pointer
-	//  *lst points to variable of &root/root pointer/the allocated memory pointed by root pointer
-	//  *lst --> *root pointer --> malloc(sizeof(t_node))
-	// 		**lst == &root
-	//  	 *lst == *root
-	//   	  lst ==  root->x
-}
 
-void delete_list(t_node **lst)
-{
-	t_node *curr;
-	curr = *lst;
-	while(curr != NULL)
-	{	
-		t_node *prenode;
-		prenode = curr;
-		curr = curr->next;
-		free(prenode);
-	}
-	*lst = NULL;
-	// ft_printf("Deallocation done and list deleted.\n");
-}
 
 void insert_front(t_node **lst, int value)
 {
@@ -301,18 +188,5 @@ int check_loop(t_node *lst)
 	return (0);
 }
 
-int c_node(t_node *lst)
-{
-	int count;
-	t_node *curr;
-	count = 0;
-	curr = lst;
-	while(curr != NULL)
-	{
-		count++;
-		curr = curr->next;
-	}
-	// ft_printf("Number of node(s) in linked list: %d\n", count);
-	return (count);
-}
+
 

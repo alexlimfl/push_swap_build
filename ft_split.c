@@ -84,10 +84,3 @@ char	**ft_split(char const *s, char c)
 	output[j] = 0;
 	return (output);
 }
-
-// char *stringmaker(char const *s, char c)
-// {
-// 	unsigned int i;
-// 	unsigned int j;
-// 	unsigned int
-// }
