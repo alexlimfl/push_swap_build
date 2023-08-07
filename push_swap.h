@@ -32,17 +32,22 @@ typedef struct s_node
 	int				outer_chunk[100];
 	int				median;
 	char			*str;
+	struct s_node	*curr_b;
 	struct s_node	*next;
 	struct s_node	*prev;
 }		t_node;
 
 typedef struct s_var
 {
+	int	i;
+	int c1;
+	int	c2;
 	int	ra;
 	int rb;
 	int rra;
 	int rrb;
 	int stop;
+	int	tail_a_p;
 
 }		t_var;
 
