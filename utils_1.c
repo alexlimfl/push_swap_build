@@ -69,9 +69,9 @@ void	view_all(t_node *lst, t_node *lst2)
 {
 	ft_printf("List ALL:\n");
 	if (lst == NULL)
-		ft_printf("A: Empty\n");
+		ft_printf("a: Empty\n");
 	if (lst2 == NULL)
-		ft_printf("B: Empty\n");
+		ft_printf("b: Empty\n");
 	ft_printf("Value, R, ChunkID, Posi, sht	 Value, R, ChunkID, Posi, sht\n");
 	while (lst != NULL || lst2 != NULL)
 	{

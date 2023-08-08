@@ -12,49 +12,49 @@
 
 #include "push_swap.h"
 
-void	split_chunk_top(t_node **A, t_node **B, t_node **otpt, int chunkID)
+void	split_chunk_top(t_node **a, t_node **b, t_node **otpt, int chunkid)
 {
 	int		target_p_a;
 
-	label_position(A);
-	label_position(B);
-	while ((*B) != NULL && (*B)->chunk_id == chunkID)
+	label_position(a);
+	label_position(b);
+	while ((*b) != NULL && (*b)->chunk_id == chunkid)
 	{
-		rot_b_median_top(A, B, otpt, chunkID);
-		if ((*B)->chunk_id == chunkID)
+		rot_b_median_top(a, b, otpt, chunkid);
+		if ((*b)->chunk_id == chunkid)
 		{
-			target_p_a = get_target_p_a(A, (*B)->rank);
-			(*otpt)->curr_b = *B;
-			push_a(A, B, otpt, target_p_a);
-			pa(A, B, otpt, 1);
+			target_p_a = get_target_p_a(a, (*b)->rank);
+			(*otpt)->curr_b = *b;
+			push_a(a, b, otpt, target_p_a);
+			pa(a, b, otpt, 1);
 		}
 	}
 }
 
-void	split_chunk_bottom(t_node **A, t_node **B, t_node **otpt, int chunkID)
+void	split_chunk_bottom(t_node **a, t_node **b, t_node **otpt, int chunkid)
 {
 	int		target_p_a;
 
-	label_position(A);
-	label_position(B);
-	(*otpt)->curr_b = double_ll_convert(B);
-	while ((*B) != NULL && (*otpt)->curr_b->chunk_id == chunkID)
+	label_position(a);
+	label_position(b);
+	(*otpt)->curr_b = double_ll_convert(b);
+	while ((*b) != NULL && (*otpt)->curr_b->chunk_id == chunkid)
 	{
-		(*otpt)->curr_b = double_ll_convert(B);
-		rot_b_median_bot(A, B, otpt, chunkID);
-		(*otpt)->curr_b = double_ll_convert(B);
-		if ((*otpt)->curr_b->chunk_id == chunkID)
+		(*otpt)->curr_b = double_ll_convert(b);
+		rot_b_median_bot(a, b, otpt, chunkid);
+		(*otpt)->curr_b = double_ll_convert(b);
+		if ((*otpt)->curr_b->chunk_id == chunkid)
 		{
-			target_p_a = get_target_p_a(A, (*otpt)->curr_b->rank);
-			push_a(A, B, otpt, target_p_a);
-			pa(A, B, otpt, 1);
+			target_p_a = get_target_p_a(a, (*otpt)->curr_b->rank);
+			push_a(a, b, otpt, target_p_a);
+			pa(a, b, otpt, 1);
 		}
-		(*otpt)->curr_b = double_ll_convert(B);
+		(*otpt)->curr_b = double_ll_convert(b);
 	}
 }
 
 
-int	ghighest_rankwithin_chunk(t_node **lst, int chunkID)
+int	ghighest_rankwithin_chunk(t_node **lst, int chunkid)
 {
 	t_node	*curr;
 	int		highest;
@@ -63,14 +63,14 @@ int	ghighest_rankwithin_chunk(t_node **lst, int chunkID)
 	curr = (*lst)->next;
 	while (curr != NULL)
 	{
-		if (curr->chunk_id == chunkID && curr->rank > highest)
+		if (curr->chunk_id == chunkid && curr->rank > highest)
 				highest = curr->rank;
 		curr = curr->next;
 	}
 	return (highest);
 }
 
-int	glowest_rankwithin_chunk(t_node **lst, int chunkID)
+int	glowest_rankwithin_chunk(t_node **lst, int chunkid)
 {
 	t_node	*curr;
 	int		lowest;
@@ -79,23 +79,23 @@ int	glowest_rankwithin_chunk(t_node **lst, int chunkID)
 	curr = (*lst)->next;
 	while (curr != NULL)
 	{
-		if (curr->chunk_id == chunkID && curr->rank < lowest)
+		if (curr->chunk_id == chunkid && curr->rank < lowest)
 				lowest = curr->rank;
 		curr = curr->next;
 	}
 	return (lowest);
 }
 
-int	get_three_median(t_node **B, int chunkID, int choose)
+int	get_three_median(t_node **b, int chunkid, int choose)
 {
 	int		m1;
 	int		m2;
 	int		m3;
 	t_node	*curr_b;
 
-	m2 = get_median_rank_within_chunk(B, chunkID);
-	m1 = ((m2 + glowest_rankwithin_chunk(B, chunkID)) / 2);
-	m3 = ((m2 + ghighest_rankwithin_chunk(B, chunkID)) / 2);
+	m2 = get_median_rank_within_chunk(b, chunkid);
+	m1 = ((m2 + glowest_rankwithin_chunk(b, chunkid)) / 2);
+	m3 = ((m2 + ghighest_rankwithin_chunk(b, chunkid)) / 2);
 	if (choose == 1)
 		return (m1);
 	else if (choose == 2)

@@ -12,13 +12,13 @@
 
 #include "push_swap.h"
 
-int		check_sorted(t_node **A)
+int		check_sorted(t_node **a)
 {
 	t_node *curr;
 	int before;
 
-	curr = (*A)->next;
-	before = (*A)->x;	
+	curr = (*a)->next;
+	before = (*a)->x;	
 	while (curr != NULL)
 	{
 		if (curr->x <= before)
@@ -29,13 +29,13 @@ int		check_sorted(t_node **A)
 	return (1);
 }
 
-int		check_sorted_reverse(t_node **A)
+int		check_sorted_reverse(t_node **a)
 {
 	t_node *curr;
 	int before;
 
-	curr = (*A)->next;
-	before = (*A)->x;	
+	curr = (*a)->next;
+	before = (*a)->x;	
 	while (curr != NULL)
 	{
 		
@@ -47,12 +47,12 @@ int		check_sorted_reverse(t_node **A)
 	return (1);
 }
 
-void	check_duplicate(t_node **A)
+void	check_duplicate(t_node **a)
 {
 	t_node *curr;
 	t_node *find_curr;
 
-	curr = *A;
+	curr = *a;
 	while (curr->next != NULL)
 	{
 		find_curr = curr->next;
@@ -92,17 +92,17 @@ void no_space_and_character_allowed(char **str)
     }
 }
 
-int	check_sorted_plus(t_node **A)
+int	check_sorted_plus(t_node **a)
 {
 	t_node	*curr;
 	int		b4;
 
-	curr = (*A)->next;
-	b4 = (*A)->rank;
+	curr = (*a)->next;
+	b4 = (*a)->rank;
 	while (curr != NULL)
 	{
-		if (curr->rank < b4 && !(curr->rank == get_lowest_rank(A)
-				&& b4 == get_highest_rank(A)))
+		if (curr->rank < b4 && !(curr->rank == get_lowest_rank(a)
+				&& b4 == get_highest_rank(a)))
 			return (0);
 		b4 = curr->rank;
 		curr = curr->next;

@@ -1,4 +1,8 @@
 {
     "codam-norminette-3.displayErrorName": true,
-    "cmake.configureOnOpen": false
+    "cmake.configureOnOpen": false,
+    "files.associations": {
+        "memory": "c",
+        "utility": "c"
+    }
 }

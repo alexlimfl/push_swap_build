@@ -12,19 +12,19 @@
 
 #include "push_swap.h"
 
-int	target_a_smallest_b(t_node **A, int rank_b)
+int	target_a_smallest_b(t_node **a, int rank_b)
 {
 	int		highest_rank;
 	int		lowest_rank;
 	t_node	*curr_a;
 
-	highest_rank = get_highest_rank(A);
-	lowest_rank = get_lowest_rank(A);
+	highest_rank = get_highest_rank(a);
+	lowest_rank = get_lowest_rank(a);
 	if (rank_b < lowest_rank)
 	{
 		while (lowest_rank <= highest_rank)
 		{
-			curr_a = *A;
+			curr_a = *a;
 			while (curr_a != NULL)
 			{
 				if (curr_a->rank == rank_b)
@@ -37,14 +37,14 @@ int	target_a_smallest_b(t_node **A, int rank_b)
 	return (-1);
 }
 
-int	target_a_poaition_h(t_node **A, int rank_b)
+int	target_a_poaition_h(t_node **a, int rank_b)
 {
 	t_node	*curr_a;
 
-	curr_a = *A;
-	while (rank_b <= get_highest_rank(A))
+	curr_a = *a;
+	while (rank_b <= get_highest_rank(a))
 	{
-		curr_a = *A;
+		curr_a = *a;
 		while (curr_a != NULL)
 		{
 			if (curr_a->rank == rank_b)
@@ -58,7 +58,7 @@ int	target_a_poaition_h(t_node **A, int rank_b)
 	return (curr_a->position);
 }
 
-int	target_a(t_node **A, int rank_b)
+int	target_a(t_node **a, int rank_b)
 {
 	t_node	*curr_a;
 	int		position_l;
@@ -66,9 +66,9 @@ int	target_a(t_node **A, int rank_b)
 	int		rank_b_temp;
 
 	rank_b_temp = rank_b;
-	while (rank_b >= get_lowest_rank(A))
+	while (rank_b >= get_lowest_rank(a))
 	{
-		curr_a = *A;
+		curr_a = *a;
 		while (curr_a != NULL)
 		{
 			if (curr_a->rank == rank_b)
@@ -80,9 +80,9 @@ int	target_a(t_node **A, int rank_b)
 		rank_b--;
 	}
 	position_l = curr_a->position;
-	if (target_a_poaition_h(A, rank_b_temp) <= c_n(*A) - position_l)
-		return (target_a_poaition_h(A, rank_b_temp));
-	else if (target_a_poaition_h(A, rank_b_temp) > c_n(*A) - position_l)
+	if (target_a_poaition_h(a, rank_b_temp) <= c_n(*a) - position_l)
+		return (target_a_poaition_h(a, rank_b_temp));
+	else if (target_a_poaition_h(a, rank_b_temp) > c_n(*a) - position_l)
 		return (position_l);
 	return (-1);
 }

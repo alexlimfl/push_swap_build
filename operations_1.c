@@ -12,24 +12,25 @@
 
 #include "push_swap.h"
 
-void	sa(t_node **A, t_node **otpt, int print)
+void	sa(t_node **a, t_node **b, t_node **otpt, int print)
 {
 	t_node	*first;
 	t_node	*second;
 	t_node	*third;
 
-	if (*A == NULL || (*A)->next == NULL)
+	if (*a == NULL || (*a)->next == NULL)
 	{
-		ft_printf("Error (sa)\n");
-		delete_list(A);
+		ft_printf("KO\n");
+		delete_list(a);
+		delete_list(b);
 		exit(1);
 	}
-	first = *A;
+	first = *a;
 	second = first->next;
 	third = first->next->next;
 	second->next = first;
 	first->next = third;
-	*A = second;
+	*a = second;
 	if (print == 1)
 	{
 		if (!optimizer(otpt, 2, 3))
@@ -37,24 +38,25 @@ void	sa(t_node **A, t_node **otpt, int print)
 	}
 }
 
-void	sb(t_node **B, t_node **otpt, int print)
+void	sb(t_node **a, t_node **b, t_node **otpt, int print)
 {
 	t_node	*first;
 	t_node	*second;
 	t_node	*third;
 
-	if (*B == NULL || (*B)->next == NULL)
+	if (*b == NULL || (*b)->next == NULL)
 	{
-		ft_printf("Error (sb)\n");
-		delete_list(B);
+		ft_printf("KO\n");
+		delete_list(a);
+		delete_list(b);
 		exit(1);
 	}
-	first = *B;
+	first = *b;
 	second = first->next;
 	third = first->next->next;
 	second->next = first;
 	first->next = third;
-	*B = second;
+	*b = second;
 	if (print == 1)
 	{
 		if (!optimizer(otpt, 1, 3))
@@ -62,59 +64,59 @@ void	sb(t_node **B, t_node **otpt, int print)
 	}
 }
 
-void	ss(t_node **A, t_node **B, t_node **otpt, int print)
+void	ss(t_node **a, t_node **b, t_node **otpt, int print)
 {
-	if (*A == NULL || (*A)->next == NULL || *B == NULL || (*B)->next == NULL)
+	if (*a == NULL || (*a)->next == NULL || *b == NULL || (*b)->next == NULL)
 	{
-		ft_printf("Error (ss)\n");
-		delete_list(A);
-		delete_list(B);
+		ft_printf("KO\n");
+		delete_list(a);
+		delete_list(b);
 		exit(1);
 	}
-	sa(A, otpt, 0);
-	sb(A, otpt, 0);
+	sa(a, b, otpt, 0);
+	sb(a, b, otpt, 0);
 	if (print == 1)
 		insert_back(otpt, 3);
 }
 
-void	pa(t_node **A, t_node **B, t_node **otpt, int print)
+void	pa(t_node **a, t_node **b, t_node **otpt, int print)
 {
 	t_node	*temp_a;
 	t_node	*temp_b;
 
-	if (*B == NULL)
+	if (*b == NULL)
 	{
-		ft_printf("Error (pa)\n");
-		delete_list(A);
-		delete_list(B);
+		ft_printf("KO\n");
+		delete_list(a);
+		delete_list(b);
 		exit(1);
 	}
-	temp_a = *A;
-	temp_b = *B;
-	*B = temp_b->next;
-	temp_b->next = *A;
-	*A = temp_b;
+	temp_a = *a;
+	temp_b = *b;
+	*b = temp_b->next;
+	temp_b->next = *a;
+	*a = temp_b;
 	if (print == 1)
 		insert_back(otpt, 4);
 }
 
-void	pb(t_node **A, t_node **B, t_node **otpt, int print)
+void	pb(t_node **a, t_node **b, t_node **otpt, int print)
 {
 	t_node	*temp_a;
 	t_node	*temp_b;
 
-	if (*A == NULL)
+	if (*a == NULL)
 	{
-		ft_printf("Error (pb)\n");
-		delete_list(A);
-		delete_list(B);
+		ft_printf("KO\n");
+		delete_list(a);
+		delete_list(b);
 		exit(1);
 	}
-	temp_a = *A;
-	temp_b = *B;
-	*A = temp_a->next;
-	temp_a->next = *B;
-	*B = temp_a;
+	temp_a = *a;
+	temp_b = *b;
+	*a = temp_a->next;
+	temp_a->next = *b;
+	*b = temp_a;
 	if (print == 1)
 		insert_back(otpt, 5);
 }

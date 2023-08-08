@@ -12,48 +12,48 @@
 
 #include "push_swap.h"
 
-void	push_top_chunk_attach(t_node **A, t_node **B, t_var *r, t_node **otpt)
+void	push_top_chunk_attach(t_node **a, t_node **b, t_var *r, t_node **otpt)
 {
-	while ((va_wi_ch_av(A, (*otpt)->outer_chunk, r->i)
-			|| va_wi_ch_av(A, (*otpt)->outer_chunk, (r->i + 1))) && c_n(*A) > 3)
+	while ((va_wi_ch_av(a, (*otpt)->outer_chunk, r->i)
+			|| va_wi_ch_av(a, (*otpt)->outer_chunk, (r->i + 1))) && c_n(*a) > 3)
 	{
 		r->ra = 0;
 		r->rb = 0;
-		if ((*A)->chunk_id >= (*B)->chunk_id
-			&& ((*A)->chunk_id == (r->i+1) || (*A)->chunk_id == (r->i+2)))
+		if ((*a)->chunk_id >= (*b)->chunk_id
+			&& ((*a)->chunk_id == (r->i+1) || (*a)->chunk_id == (r->i+2)))
 		{
-			pb(A, B, otpt, 1);
-			if ((*B)->chunk_id == (r->i + 1))
+			pb(a, b, otpt, 1);
+			if ((*b)->chunk_id == (r->i + 1))
 				r->rb = 1;
 		}
-		else if ((*A)->chunk_id < (*B)->chunk_id
-			&& ((*A)->chunk_id == (r->i + 1) || (*A)->chunk_id == (r->i + 2)))
+		else if ((*a)->chunk_id < (*b)->chunk_id
+			&& ((*a)->chunk_id == (r->i + 1) || (*a)->chunk_id == (r->i + 2)))
 		{
-			pb(A, B, otpt, 1);
+			pb(a, b, otpt, 1);
 			r->rb = 1;
 		}
-		if ((*A) != NULL && (*A)->chunk_id != (r->i + 1)
-			&& (*A)->chunk_id != (r->i + 2))
+		if ((*a) != NULL && (*a)->chunk_id != (r->i + 1)
+			&& (*a)->chunk_id != (r->i + 2))
 			r->ra = 1;
-		rotate(A, B, r, otpt);
+		rotate(a, b, r, otpt);
 	}
 }
 
-void	push_top_chunk(t_node **A, t_node **B, t_var *r, t_node **otpt)
+void	push_top_chunk(t_node **a, t_node **b, t_var *r, t_node **otpt)
 {
 	t_var	c;
 
 	c.c1 = 1;
 	c.c2 = 2;
-	while (c_n(*B) < 2)
-		pb_m_f_cid(A, B, otpt, &c);
+	while (c_n(*b) < 2)
+		pb_m_f_cid(a, b, otpt, &c);
 	r->i = 0;
-	while (r->i <= ((*otpt)->num_chunk - 2) && c_n(*A) > 3)
+	while (r->i <= ((*otpt)->num_chunk - 2) && c_n(*a) > 3)
 	{
-		push_top_chunk_attach(A, B, r, otpt);
+		push_top_chunk_attach(a, b, r, otpt);
 		r->i += 2;
 	}
-	tiny_sort(A, otpt);
+	tiny_sort(a, b, otpt);
 }
 
 void	inner_chunk_maker(t_node **otpt, int nn)
@@ -102,19 +102,19 @@ void	outer_chunk_maker(t_node **otpt, int nn)
 	}
 }
 
-int	target_a_largest_b(t_node **A, int rank_b)
+int	target_a_largest_b(t_node **a, int rank_b)
 {
 	int		highest_rank;
 	int		lowest_rank;
 	t_node	*curr_a;
 
-	highest_rank = get_highest_rank(A);
-	lowest_rank = get_lowest_rank(A);
+	highest_rank = get_highest_rank(a);
+	lowest_rank = get_lowest_rank(a);
 	if (rank_b > highest_rank)
 	{
 		while (highest_rank >= lowest_rank)
 		{
-			curr_a = *A;
+			curr_a = *a;
 			while (curr_a != NULL)
 			{
 				if (curr_a->rank == rank_b)

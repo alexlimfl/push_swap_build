@@ -67,7 +67,10 @@ t_node	*ll_convert(char **str)
 	{
 		nb = ft_atoi(str[c]);
 		if (nb < -2147483648 || nb > 2147483647)
+		{
+			delete_list(&head);
 			exit_message();
+		}
 		insert_back(&head, nb);
 		c++;
 	}

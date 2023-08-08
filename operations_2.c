@@ -12,23 +12,24 @@
 
 #include "push_swap.h"
 
-void	ra(t_node **A, t_node **otpt, int print)
+void	ra(t_node **a, t_node **b, t_node **otpt, int print)
 {
 	t_node	*first;
 	t_node	*curr;
 
-	if (*A == NULL || (*A)->next == NULL)
+	if (*a == NULL || (*a)->next == NULL)
 	{
-		ft_printf("Error (ra)\n");
-		delete_list(A);
+		ft_printf("KO\n");
+		delete_list(a);
+		delete_list(b);
 		exit(1);
 	}
-	first = *A;
-	curr = *A;
+	first = *a;
+	curr = *a;
 	while (curr->next != NULL)
 		curr = curr->next;
 
-	*A = first->next;
+	*a = first->next;
 	first->next = NULL;
 	curr->next = first;
 	if (print == 1)
@@ -38,22 +39,23 @@ void	ra(t_node **A, t_node **otpt, int print)
 	}
 }
 
-void	rb(t_node **B, t_node **otpt, int print)
+void	rb(t_node **a, t_node **b, t_node **otpt, int print)
 {
 	t_node	*first;
 	t_node	*curr;
 
-	if (*B == NULL || (*B)->next == NULL)
+	if (*b == NULL || (*b)->next == NULL)
 	{
-		ft_printf("Error (rb)\n");
-		delete_list(B);
+		ft_printf("KO\n");
+		delete_list(a);
+		delete_list(b);
 		exit(1);
 	}
-	first = *B;
-	curr = *B;
+	first = *b;
+	curr = *b;
 	while (curr->next != NULL)
 		curr = curr->next;
-	*B = first->next;
+	*b = first->next;
 	first->next = NULL;
 	curr->next = first;
 	if (print == 1)
@@ -63,37 +65,38 @@ void	rb(t_node **B, t_node **otpt, int print)
 	}
 }
 
-void	rr(t_node **A, t_node **B, t_node **otpt, int print)
+void	rr(t_node **a, t_node **b, t_node **otpt, int print)
 {
-	if (*A == NULL || (*A)->next == NULL || *B == NULL || (*B)->next == NULL)
+	if (*a == NULL || (*a)->next == NULL || *b == NULL || (*b)->next == NULL)
 	{
-		ft_printf("Error (rr)\n");
-		delete_list(A);
-		delete_list(B);
+		ft_printf("KO\n");
+		delete_list(a);
+		delete_list(b);
 		exit(1);
 	}
-	ra(A, otpt, 0);
-	rb(B, otpt, 0);
+	ra(a, b, otpt, 0);
+	rb(b, b, otpt, 0);
 	if (print == 1)
 		insert_back(otpt, 8);
 }
 
-void	rra(t_node **A, t_node **otpt, int print)
+void	rra(t_node **a, t_node **b, t_node **otpt, int print)
 {
 	t_node	*first;
 	t_node	*second_last;
 
-	if (*A == NULL || (*A)->next == NULL)
+	if (*a == NULL || (*a)->next == NULL)
 	{
-		ft_printf("Error (rra)\n");
-		delete_list(A);
+		ft_printf("KO\n");
+		delete_list(a);
+		delete_list(b);
 		exit(1);
 	}
-	first = *A;
-	second_last = *A;
+	first = *a;
+	second_last = *a;
 	while (second_last->next->next != NULL)
 		second_last = second_last->next;
-	*A = second_last->next;
+	*a = second_last->next;
 	second_last->next->next = first;
 	second_last->next = NULL;
 	if (print == 1)
@@ -103,22 +106,23 @@ void	rra(t_node **A, t_node **otpt, int print)
 	}
 }
 
-void	rrb(t_node **B, t_node **otpt, int print)
+void	rrb(t_node **a, t_node **b, t_node **otpt, int print)
 {
 	t_node	*first;
 	t_node	*second_last;
 
-	if (*B == NULL || (*B)->next == NULL)
+	if (*b == NULL || (*b)->next == NULL)
 	{
-		ft_printf("Error (rrb)\n");
-		delete_list(B);
+		ft_printf("KO\n");
+		delete_list(a);
+		delete_list(b);
 		exit(1);
 	}
-	first = *B;
-	second_last = *B;
+	first = *b;
+	second_last = *b;
 	while (second_last->next->next != NULL)
 		second_last = second_last->next;
-	*B = second_last->next;
+	*b = second_last->next;
 	second_last->next->next = first;
 	second_last->next = NULL;
 	if (print == 1)

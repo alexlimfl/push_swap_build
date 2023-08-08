@@ -18,22 +18,22 @@ void	chunk_maker(int nn, int *chunk, int denominator)
 }
 
 
-void	mega_sort_one(t_node **A, t_node **B, t_node **otpt)
+void	mega_sort_one(t_node **a, t_node **b, t_node **otpt)
 {
 	t_node *A_tail;
 
-	label_ranking(A); // simplify values to ranking to make chunk-sorting easier
-	int nn = c_n(*A);
+	label_ranking(a); // simplify values to ranking to make chunk-sorting easier
+	int nn = c_n(*a);
 	int num_chunk;
 
-	if (c_n(*A) <= 100)
+	if (c_n(*a) <= 100)
 		num_chunk = 5;
 	else
 		num_chunk = 10;
 
-	// view_list(*A);
-	// view_list_rank(*A);
-	// view_list_position(*A);
+	// view_list(*a);
+	// view_list_rank(*a);
+	// view_list_position(*a);
 	// view_list_backward(A_tail);
 	// using 2 chunks
 	// int denominator = 2;
@@ -93,11 +93,11 @@ void	mega_sort_one(t_node **A, t_node **B, t_node **otpt)
 	a = 0;
 	while (a < num_chunk)
 	{
-		A_tail = double_ll_convert(A); // make if readable from end to front of Stack A.
-		middle_position = (c_n(*A)/2); // refresh middle position in Stack A
-		label_position(A); // refresh the position of Stack A
+		A_tail = double_ll_convert(a); // make if readable from end to front of Stack a.
+		middle_position = (c_n(*a)/2); // refresh middle position in Stack a
+		label_position(a); // refresh the position of Stack a
 		// count forward
-		curr_forward = *A;
+		curr_forward = *a;
 		while (curr_forward != NULL)
 		{
 			if (curr_forward->rank >= (chunk[a]+1) && curr_forward->rank <= chunk[a+1]) // rank is within 1 to 20, 21 to 40, 41 to 60 etc ...
@@ -138,33 +138,33 @@ void	mega_sort_one(t_node **A, t_node **B, t_node **otpt)
 				// ft_printf("Rank selected: %d\n", rank_selected);
 			}
 			// ft_printf("CHECK 3\n");	
-			// Strategy 2 for B. >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-			// getting Stack B into correct sort before Push B.
-			// let's say target to push B is 8
-			// make sure 7 to 1, (7, 6, 5 , 4, 3, 2, 1) is at the top of Stack B.
-			// if not, make sure 15 to 9 is at the top of Stack B.
-			// make sure when Stack B has more than two nodes.
+			// Strategy 2 for b. >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+			// getting Stack b into correct sort before Push b.
+			// let's say target to push b is 8
+			// make sure 7 to 1, (7, 6, 5 , 4, 3, 2, 1) is at the top of Stack b.
+			// if not, make sure 15 to 9 is at the top of Stack b.
+			// make sure when Stack b has more than two nodes.
 			int position_selected_B = 0;
 			int rank_selected_B = 0;
 			int middle_position_B = 0;
 
-			if (c_n(*B) > 1)
+			if (c_n(*b) > 1)
 			{
-				t_node *curr = *B;
+				t_node *curr = *b;
 				
-				label_position(B);
-				// view_list_position(*B);
+				label_position(b);
+				// view_list_position(*b);
 				int rank_number;
 				int lower_rank = rank_selected - 1;
 				int higher_rank = rank_selected + 1;
-				middle_position_B = (c_n(*B)/2);
+				middle_position_B = (c_n(*b)/2);
 
-				if (rank_selected < get_lowest_rank(B)) // smallest rank in Stack B
+				if (rank_selected < get_lowest_rank(b)) // smallest rank in Stack b
 				{
-					curr = *B;
+					curr = *b;
 					while (curr != NULL)
 					{
-						if (curr->rank == get_highest_rank(B))
+						if (curr->rank == get_highest_rank(b))
 						{
 							position_selected_B = curr->position;
 							rank_selected_B = curr->rank;
@@ -177,7 +177,7 @@ void	mega_sort_one(t_node **A, t_node **B, t_node **otpt)
 				{
 					while (lower_rank > 0) // looking for 7 to 1 rank
 					{	
-						curr = *B;
+						curr = *b;
 						while (curr != NULL)
 						{
 							// ft_printf("Lower rank: %d\n", lower_rank);
@@ -199,7 +199,7 @@ void	mega_sort_one(t_node **A, t_node **B, t_node **otpt)
 					{
 						while (higher_rank <= nn) // looking for 9 to 15
 						{
-							curr = *B;
+							curr = *b;
 							while (curr != NULL)
 							{
 								if (curr->rank == higher_rank)
@@ -218,64 +218,64 @@ void	mega_sort_one(t_node **A, t_node **B, t_node **otpt)
 				}
 			}
 			// ft_printf("Loop: %d\n", a);
-			while (((*A)->rank != rank_selected) || ((c_n(*B) > 1) && ((*B)->rank != rank_selected_B))) //make sure both selected rank at the top of both stacks
+			while (((*a)->rank != rank_selected) || ((c_n(*b) > 1) && ((*b)->rank != rank_selected_B))) //make sure both selected rank at the top of both stacks
 			{
-				if ((c_n(*B) > 1) && ((*A)->rank != rank_selected) && ((*B)->rank != rank_selected_B))
+				if ((c_n(*b) > 1) && ((*a)->rank != rank_selected) && ((*b)->rank != rank_selected_B))
 				{
 					if (position_selected <= middle_position && position_selected_B <= middle_position_B)
-						rr(A, B, otpt, 1);
+						rr(a, b, otpt, 1);
 					else if (position_selected > middle_position && position_selected_B > middle_position_B)
-						rrr(A, B, otpt, 1);
-					else if ((*A)->rank != rank_selected)
+						rrr(a, b, otpt, 1);
+					else if ((*a)->rank != rank_selected)
 					{
 						if (position_selected <= middle_position)
-						ra(A, otpt, 1);
+						ra(a, b, otpt, 1);
 						else if (position_selected > middle_position)
-						rra(A, otpt, 1);
+						rra(a, b, otpt, 1);
 					}
-					else if ((c_n(*B) > 1) && ((*B)->rank != rank_selected_B))
+					else if ((c_n(*b) > 1) && ((*b)->rank != rank_selected_B))
 					{
 						if (position_selected_B <= middle_position_B)
-						rb(B, otpt, 1);
+						rb(a, b, otpt, 1);
 						else if (position_selected_B > middle_position_B)
-						rrb(B, otpt, 1);
+						rrb(a, b, otpt, 1);
 					}
 				}
-				else if ((*A)->rank != rank_selected)
+				else if ((*a)->rank != rank_selected)
 				{
 					if (position_selected <= middle_position)
-						ra(A, otpt, 1);
+						ra(a, b, otpt, 1);
 					else if (position_selected > middle_position)
-						rra(A, otpt, 1);
+						rra(a, b, otpt, 1);
 				}
-				else if ((c_n(*B) > 1) && ((*B)->rank != rank_selected_B))
+				else if ((c_n(*b) > 1) && ((*b)->rank != rank_selected_B))
 				{
 					if (position_selected_B <= middle_position_B)
-						rb(B, otpt, 1);
+						rb(a, b, otpt, 1);
 					else if (position_selected_B > middle_position_B)
-						rrb(B, otpt, 1);
+						rrb(a, b, otpt, 1);
 				}
-				// view_list_rank(*A);
-				// view_list_rank(*B);
+				// view_list_rank(*a);
+				// view_list_rank(*b);
 			}
-			pb(A, B, otpt, 1); //push to stack B
+			pb(a, b, otpt, 1); //push to stack b
 		}
 		else if (curr_forward == NULL && curr_reverse == NULL) // if value in chunk[a] is not found
 			a++;
 				// if (rank_selected == 12)
 				// {
-				// 	view_list_rank(*B);
+				// 	view_list_rank(*b);
 				// 	exit(1);
 				// }
 	}   ///////////////////////////////////////////////ending of the big while loop///////////////////////////////////////////////
 
-	int highest_rank_B = get_highest_rank(B); //checked
+	int highest_rank_B = get_highest_rank(b); //checked
 	// ft_printf("highest_rank_B: %d\n", highest_rank_B);
 	int position_highest_rank_B;
 	int middle_position_B = (nn/2);
-	t_node *curr_sort_B = *B;
+	t_node *curr_sort_B = *b;
 
-	label_position(B);
+	label_position(b);
 	while (curr_sort_B != NULL)
 	{
 		if (curr_sort_B->rank == highest_rank_B) //MAKE SURE IF STATEMENT USING == NOT = !!!
@@ -285,16 +285,16 @@ void	mega_sort_one(t_node **A, t_node **B, t_node **otpt)
 		}
 		curr_sort_B = curr_sort_B->next;
 	}
-	while (!check_sorted_reverse(B) && (*B)->rank != highest_rank_B)
+	while (!check_sorted_reverse(b) && (*b)->rank != highest_rank_B)
 	{
 		if (position_highest_rank_B <= middle_position_B)
-			rb(B, otpt, 1);
+			rb(a, b, otpt, 1);
 		else if (position_highest_rank_B > middle_position_B)
-			rrb(B, otpt, 1);
+			rrb(a, b, otpt, 1);
 	}
-	while ((*B) != NULL)
+	while ((*b) != NULL)
 		{
-			pa(A, B, otpt, 1);
+			pa(a, b, otpt, 1);
 		}
 	// ft_printf("Denominator: %d\n", num_chunk);
 	int i = 0;
@@ -303,13 +303,13 @@ void	mega_sort_one(t_node **A, t_node **B, t_node **otpt)
 		// printf("Chunks : %d\n", chunk[i]);
 		i++;
 	}
-	if (!check_sorted(A))
+	if (!check_sorted(a))
 	{
 		ft_printf("SORT FAILED\n");
 		// exit(1);
 	}
 	// else
-	// 	ft_printf("Number of operation: %d\nCheck sorted >>> %d\n", n_operation, check_sorted(A));
+	// 	ft_printf("Number of operation: %d\nCheck sorted >>> %d\n", n_operation, check_sorted(a));
 
 }
 

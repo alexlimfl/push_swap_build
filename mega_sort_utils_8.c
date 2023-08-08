@@ -26,77 +26,77 @@ int	above_median_available(t_node **lst, int median)
 	return (0);
 }
 
-void	finalization_attach(t_node **A, t_node **B, t_node **otpt, int m)
+void	finalization_attach(t_node **a, t_node **b, t_node **otpt, int m)
 {
 	int		target_p_a;
 
-	(*otpt)->curr_b = *B;
-	while (*B != NULL && (*B)->rank > m)
+	(*otpt)->curr_b = *b;
+	while (*b != NULL && (*b)->rank > m)
 	{
-		label_position(B);
-		(*otpt)->curr_b = *B;
-		target_p_a = get_target_p_a(A, (*otpt)->curr_b->rank);
-		push_a(A, B, otpt, target_p_a);
-		pa(A, B, otpt, 1);
+		label_position(b);
+		(*otpt)->curr_b = *b;
+		target_p_a = get_target_p_a(a, (*otpt)->curr_b->rank);
+		push_a(a, b, otpt, target_p_a);
+		pa(a, b, otpt, 1);
 	}
 }
 
-void	finalization(t_node **A, t_node **B, t_node **otpt)
+void	finalization(t_node **a, t_node **b, t_node **otpt)
 {
 	int	m[4];
 	int	i;
 
 	m[0] = 0;
-	m[1] = get_three_median(B, 1, 1);
-	m[2] = get_three_median(B, 1, 2);
-	m[3] = get_three_median(B, 1, 3);
+	m[1] = get_three_median(b, 1, 1);
+	m[2] = get_three_median(b, 1, 2);
+	m[3] = get_three_median(b, 1, 3);
 	i = 3;
-	while (*B != NULL)
+	while (*b != NULL)
 	{
-		while ((*B)->rank <= m[i] && c_n(*B) > 1)
-			rb(B, otpt, 1);
-		finalization_attach(A, B, otpt, m[i]);
-		if (!above_median_available(B, m[i]))
+		while ((*b)->rank <= m[i] && c_n(*b) > 1)
+			rb(a, b, otpt, 1);
+		finalization_attach(a, b, otpt, m[i]);
+		if (!above_median_available(b, m[i]))
 			i--;
 	}
 }
 
-void	quick_sort(t_node **A, t_node **B, t_node **otpt)
+void	quick_sort(t_node **a, t_node **b, t_node **otpt)
 {
-	decend_top(A, B, otpt, 5);
-	(*otpt)->median = get_median_rank_within_chunk(B, 4);
-	split_chunk_top(A, B, otpt, 4);
-	decending_bot(A, B, otpt, 4);
-	(*otpt)->median = get_median_rank_within_chunk(B, 3);
-	split_chunk_bottom(A, B, otpt, 3);
-	decend_top(A, B, otpt, 3);
+	decend_top(a, b, otpt, 5);
+	(*otpt)->median = get_median_rank_within_chunk(b, 4);
+	split_chunk_top(a, b, otpt, 4);
+	decending_bot(a, b, otpt, 4);
+	(*otpt)->median = get_median_rank_within_chunk(b, 3);
+	split_chunk_bottom(a, b, otpt, 3);
+	decend_top(a, b, otpt, 3);
 
-	(*otpt)->median = get_three_median(B, 2, 3);
-	split_chunk_top(A, B, otpt, 2);
-	(*otpt)->median = get_three_median(B, 2, 2);
-	split_chunk_bottom(A, B, otpt, 2);
-	decend_top(A, B, otpt, 2);
+	(*otpt)->median = get_three_median(b, 2, 3);
+	split_chunk_top(a, b, otpt, 2);
+	(*otpt)->median = get_three_median(b, 2, 2);
+	split_chunk_bottom(a, b, otpt, 2);
+	decend_top(a, b, otpt, 2);
 
-	finalization(A, B, otpt);
+	finalization(a, b, otpt);
 }
 
-void	final_sort(t_node **A, t_node **otpt)
+void	final_sort(t_node **a, t_node **b, t_node **otpt)
 {
 	t_node	*curr;
 
-	label_position(A);
-	curr = *A;
+	label_position(a);
+	curr = *a;
 	while (curr != NULL)
 	{
-		if (curr->rank == get_lowest_rank(A))
+		if (curr->rank == get_lowest_rank(a))
 			break ;
 		curr = curr->next;
 	}
-	while ((*A)->position != curr->position)
+	while ((*a)->position != curr->position)
 	{
-		if (curr->position <= c_n(*A) / 2)
-			ra(A, otpt, 1);
+		if (curr->position <= c_n(*a) / 2)
+			ra(a, b, otpt, 1);
 		else
-			rra(A, otpt, 1);
+			rra(a, b, otpt, 1);
 	}
 }

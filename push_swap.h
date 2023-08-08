@@ -18,7 +18,7 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include <stdint.h>
-# include <stdio.h>
+// # include <stdio.h>
 # include <limits.h>
 
 typedef struct s_node
@@ -57,11 +57,11 @@ typedef struct s_var
 
 
 // check_1
-int		check_sorted(t_node **A);
-int		check_sorted_reverse(t_node **A);
-void	check_duplicate(t_node **A);
+int		check_sorted(t_node **a);
+int		check_sorted_reverse(t_node **a);
+void	check_duplicate(t_node **a);
 void	no_space_and_character_allowed(char **str);
-int		check_sorted_plus(t_node **A);
+int		check_sorted_plus(t_node **a);
 
 // utils 1
 void	view_list(t_node *lst);
@@ -88,29 +88,29 @@ long	ft_atoi(const char *str);
 t_node	*ll_convert(char **str);
 
 // operations 1
-void	sa(t_node **A, t_node **otpt, int print);
-void	sb(t_node **B, t_node **otpt, int print);
-void	ss(t_node **A, t_node **B, t_node **otpt, int print);
-void	pa(t_node **A, t_node **B, t_node **otpt, int print);
-void	pb(t_node **A, t_node **B, t_node **otpt, int print);
+void	sa(t_node **a, t_node **b, t_node **otpt, int print);
+void	sb(t_node **a, t_node **b, t_node **otpt, int print);
+void	ss(t_node **a, t_node **b, t_node **otpt, int print);
+void	pa(t_node **a, t_node **b, t_node **otpt, int print);
+void	pb(t_node **a, t_node **b, t_node **otpt, int print);
 // operations 2
-void	ra(t_node **A, t_node **otpt, int print);
-void	rb(t_node **B, t_node **otpt, int print);
-void	rr(t_node **A, t_node **B, t_node **otpt, int print);
-void	rra(t_node **A, t_node **otpt, int print);
-void	rrb(t_node **B, t_node **otpt, int print);
+void	ra(t_node **a, t_node **b, t_node **otpt, int print);
+void	rb(t_node **a, t_node **b, t_node **otpt, int print);
+void	rr(t_node **a, t_node **b, t_node **otpt, int print);
+void	rra(t_node **a, t_node **b, t_node **otpt, int print);
+void	rrb(t_node **a, t_node **b, t_node **otpt, int print);
 // operations 3
-void	rrr(t_node **A, t_node **B, t_node **otpt, int print);
+void	rrr(t_node **a, t_node **b, t_node **otpt, int print);
 void	print_output(t_node **otpt);
 int		optimizer(t_node **otpt, int find, int substi);
-void	mega_sort(t_node **A, t_node **B, t_node **otpt);
+void	mega_sort(t_node **a, t_node **b, t_node **otpt);
 
 // sorting category file
-void	sorting_type_assign(t_node **A, t_node **B, t_node **otpt);
-void	tiny_sort_attach(t_node **a, t_node **otpt, t_node *curr);
-void	tiny_sort(t_node **A, t_node **otpt);
+void	sorting_type_assign(t_node **a, t_node **b, t_node **otpt);
+void	tiny_sort_attach(t_node **a, t_node **b, t_node **otpt, t_node *curr);
+void	tiny_sort(t_node **a, t_node **b, t_node **otpt);
 void	medium_sort_attach(t_node **a, t_node **b, t_node **otpt);
-void	medium_sort(t_node **A, t_node **B, t_node **otpt);
+void	medium_sort(t_node **a, t_node **b, t_node **otpt);
 
 // ft_printf_utils
 int		ft_putchar(int c, int count);
@@ -138,50 +138,50 @@ int		ps_c_id_r(t_node **lst, int chunk_one, int chunk_two);
 int		va_wi_ch_av(t_node **lst, int *chunk, int i);
 int		chunkid_avalable(t_node **lst, int id);
 //	mega sort utils 2
-void	pb_m_f_cid(t_node **A, t_node **B, t_node **otpt, t_var *c);
+void	pb_m_f_cid(t_node **a, t_node **b, t_node **otpt, t_var *c);
 void	lable_chunk(t_node **lst, t_node **otpt);
-void	rotate(t_node **A, t_node **B, t_var *op, t_node **otpt);
-void	reverse_rotate(t_node **A, t_node **B, t_var *op, t_node **otpt);
+void	rotate(t_node **a, t_node **b, t_var *op, t_node **otpt);
+void	reverse_rotate(t_node **a, t_node **b, t_var *op, t_node **otpt);
 int		check_sorted_h_tail(t_node **lst);
 //	mega sort utils 3
-void	push_top_chunk_attach(t_node **A, t_node **B, t_var *r, t_node **otpt);
-void	push_top_chunk(t_node **A, t_node **B, t_var *r, t_node **otpt);
+void	push_top_chunk_attach(t_node **a, t_node **b, t_var *r, t_node **otpt);
+void	push_top_chunk(t_node **a, t_node **b, t_var *r, t_node **otpt);
 void	inner_chunk_maker(t_node **otpt, int nn);
 void	outer_chunk_maker(t_node **otpt, int nn);
-int		target_a_largest_b(t_node **A, int rank_b);
+int		target_a_largest_b(t_node **a, int rank_b);
 //	mega sort utils 4
-int		target_a_smallest_b(t_node **A, int rank_b);
-int		target_a_poaition_h(t_node **A, int rank_b);
-int		target_a(t_node **A, int rank_b);
+int		target_a_smallest_b(t_node **a, int rank_b);
+int		target_a_poaition_h(t_node **a, int rank_b);
+int		target_a(t_node **a, int rank_b);
 int		find_rank_of_position(t_node **lst, int position);
 int		is_even(int num);
 //	mega sort utils 5
-int		get_target_p_a(t_node **A, int curr_B_rank);
-void	top_a_one(t_node **A, t_var *op, int target_p_a, int curr_B_rank);
-void	top_a_two(t_node **A, t_var *op, int target_p_a, int curr_B_rank);
+int		get_target_p_a(t_node **a, int curr_B_rank);
+void	top_a_one(t_node **a, t_var *op, int target_p_a, int curr_B_rank);
+void	top_a_two(t_node **a, t_var *op, int target_p_a, int curr_B_rank);
 void	reset_op(t_var *op);
-void	push_a(t_node **A, t_node **B, t_node **otpt, int target_p_a);
+void	push_a(t_node **a, t_node **b, t_node **otpt, int target_p_a);
 //	mega sort utils 6
-void	decend_top(t_node **A, t_node **B, t_node **otpt, int until_chunk);
-void	decending_bot(t_node **A, t_node **B, t_node **otpt, int until_chunk);
-int		get_median_rank_within_chunk(t_node **lst, int chunkID);
-void	rot_b_median_top(t_node **A, t_node **B, t_node **otpt, int chunkID);
-void	rot_b_median_bot(t_node **A, t_node **B, t_node **otpt, int chunkID);
+void	decend_top(t_node **a, t_node **b, t_node **otpt, int until_chunk);
+void	decending_bot(t_node **a, t_node **b, t_node **otpt, int until_chunk);
+int		get_median_rank_within_chunk(t_node **lst, int chunkid);
+void	rot_b_median_top(t_node **a, t_node **b, t_node **otpt, int chunkid);
+void	rot_b_median_bot(t_node **a, t_node **b, t_node **otpt, int chunkid);
 //	mega sort utils 7
-void	split_chunk_top(t_node **A, t_node **B, t_node **otpt, int chunkID);
-void	split_chunk_bottom(t_node **A, t_node **B, t_node **otpt, int chunkID);
-int		ghighest_rankwithin_chunk(t_node **lst, int chunkID);
-int		glowest_rankwithin_chunk(t_node **lst, int chunkID);
-int		get_three_median(t_node **B, int chunkID, int choose);
+void	split_chunk_top(t_node **a, t_node **b, t_node **otpt, int chunkid);
+void	split_chunk_bottom(t_node **a, t_node **b, t_node **otpt, int chunkid);
+int		ghighest_rankwithin_chunk(t_node **lst, int chunkid);
+int		glowest_rankwithin_chunk(t_node **lst, int chunkid);
+int		get_three_median(t_node **b, int chunkid, int choose);
 //	mega sort utils 8
 int		above_median_available(t_node **lst, int median);
-void	finalization_attach(t_node **A, t_node **B, t_node **otpt, int m);
-void	finalization(t_node **A, t_node **B, t_node **otpt);
-void	quick_sort(t_node **A, t_node **B, t_node **otpt);
-void	final_sort(t_node **A, t_node **otpt);
+void	finalization_attach(t_node **a, t_node **b, t_node **otpt, int m);
+void	finalization(t_node **a, t_node **b, t_node **otpt);
+void	quick_sort(t_node **a, t_node **b, t_node **otpt);
+void	final_sort(t_node **a, t_node **b, t_node **otpt);
 
 // unused files
-void	mega_sort_one(t_node **A, t_node **B, t_node **otpt);
+void	mega_sort_one(t_node **a, t_node **b, t_node **otpt);
 void	insert_front(t_node **lst, int value);
 void	insert_after(t_node *lst, int value);
 void	insert_sorted(t_node **lst, int value);
@@ -189,11 +189,11 @@ void	delete_an_element(t_node **lst, int value);
 void	delete_all_element(t_node **lst, int value);
 void	reverse(t_node **lst);
 int		check_loop(t_node *lst);
-int		ps_w_chk(t_node **A, int *chunk, int i);
-int		ps_w_chk_r(t_node **A, int *chunk, int i);
-void	pa_s_w_f(t_node **A, t_node **B, t_node **otpt, int *chunk, int i);
-int		pb_m_w_f(t_node **A, t_node **B, t_node **otpt, int *chunk, int i);
-int		c_node_wc(t_node *lst, int chunkID);
-int		get_four_median(t_node **B, int chunkID, int choose);
+int		ps_w_chk(t_node **a, int *chunk, int i);
+int		ps_w_chk_r(t_node **a, int *chunk, int i);
+void	pa_s_w_f(t_node **a, t_node **b, t_node **otpt, int *chunk, int i);
+int		pb_m_w_f(t_node **a, t_node **b, t_node **otpt, int *chunk, int i);
+int		c_node_wc(t_node *lst, int chunkid);
+int		get_four_median(t_node **b, int chunkid, int choose);
 int		get_median(t_node *lst);
 #endif

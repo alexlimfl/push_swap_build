@@ -19,7 +19,7 @@ void	view_chunk(int *chunk, int num_chunk)
 	i = 0;
 	while (i <= num_chunk)
 	{
-		printf("%d\n", chunk[i]);
+		ft_printf("%d\n", chunk[i]);
 		i++;
 	}
 }

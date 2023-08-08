@@ -12,17 +12,17 @@
 
 #include "push_swap.h"
 
-void	rrr(t_node **A, t_node **B, t_node **otpt, int print)
+void	rrr(t_node **a, t_node **b, t_node **otpt, int print)
 {
-	if (*A == NULL || (*A)->next == NULL || *B == NULL || (*B)->next == NULL)
+	if (*a == NULL || (*a)->next == NULL || *b == NULL || (*b)->next == NULL)
 	{
-		ft_printf("Error (rrr)\n");
-		delete_list(A);
-		delete_list(B);
+		ft_printf("KO\n");
+		delete_list(a);
+		delete_list(b);
 		exit(1);
 	}
-	rra(A, otpt, 0);
-	rrb(B, otpt, 0);
+	rra(a, b, otpt, 0);
+	rrb(b, b, otpt, 0);
 	if (print == 1)
 		insert_back(otpt, 11);
 }
@@ -76,18 +76,18 @@ int	optimizer(t_node **otpt, int find, int substi)
 	return (0);
 }
 
-void	mega_sort(t_node **A, t_node **B, t_node **otpt)
+void	mega_sort(t_node **a, t_node **b, t_node **otpt)
 {	
 	t_node	*curr;
 	t_var	r;
 
-	curr = *A;
+	curr = *a;
 	(*otpt)->num_chunk = 10;
-	label_ranking(A);
-	inner_chunk_maker(otpt, c_n(*A));
-	outer_chunk_maker(otpt, c_n(*A));
-	lable_chunk(A, otpt);
-	push_top_chunk(A, B, &r, otpt);
-	quick_sort(A, B, otpt);
-	final_sort(A, otpt);
+	label_ranking(a);
+	inner_chunk_maker(otpt, c_n(*a));
+	outer_chunk_maker(otpt, c_n(*a));
+	lable_chunk(a, otpt);
+	push_top_chunk(a, b, &r, otpt);
+	quick_sort(a, b, otpt);
+	final_sort(a, b, otpt);
 }

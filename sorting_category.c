@@ -19,7 +19,7 @@ void	sorting_type_assign(t_node **a, t_node **b, t_node **otpt)
 	if (!check_sorted(a))
 	{
 		if (c_n(*a) <= 3)
-			tiny_sort(a, otpt);
+			tiny_sort(a, b, otpt);
 		else if (c_n(*a) <= 5)
 			medium_sort(a, b, otpt);
 		else
@@ -27,25 +27,25 @@ void	sorting_type_assign(t_node **a, t_node **b, t_node **otpt)
 	}
 }
 
-void	tiny_sort_attach(t_node **a, t_node **otpt, t_node *curr)
+void	tiny_sort_attach(t_node **a, t_node **b, t_node **otpt, t_node *curr)
 {
 	while (!check_sorted(a))
 	{
 		if ((*otpt)->c == 1 && (*otpt)->largest == curr->x)
 		{
-			ra(a, otpt, 1);
+			ra(a, b, otpt, 1);
 			curr = *a;
 			(*otpt)->c = 1;
 		}
 		if ((*otpt)->c == 2 && (*otpt)->largest == curr->x)
 		{
-			rra(a, otpt, 1);
+			rra(a, b, otpt, 1);
 			curr = *a;
 			(*otpt)->c = 1;
 		}
 		if ((*otpt)->c == 3 && (*otpt)->largest == curr->x)
 		{
-			sa(a, otpt, 1);
+			sa(a, b, otpt, 1);
 			curr = *a;
 			(*otpt)->c = 1;
 		}
@@ -54,14 +54,14 @@ void	tiny_sort_attach(t_node **a, t_node **otpt, t_node *curr)
 	}
 }
 
-void	tiny_sort(t_node **a, t_node **otpt)
+void	tiny_sort(t_node **a, t_node **b, t_node **otpt)
 {
 	t_node	*curr;
 
 	(*otpt)->largest = get_largest(a);
 	curr = *a;
 	(*otpt)->c = 1;
-	tiny_sort_attach(a, otpt, curr);
+	tiny_sort_attach(a, b, otpt, curr);
 }
 
 void	medium_sort_attach(t_node **a, t_node **b, t_node **otpt)
@@ -80,7 +80,7 @@ void	medium_sort_attach(t_node **a, t_node **b, t_node **otpt)
 		else if (check_sorted(a) && (*b)->x > last_node_value(*a))
 			pa(a, b, otpt, 1);
 		else
-			ra(a, otpt, 1);
+			ra(a, b, otpt, 1);
 	}	
 }
 
@@ -90,13 +90,13 @@ void	medium_sort(t_node **a, t_node **b, t_node **otpt)
 	(*otpt)->smallest = get_smallest(a);
 	pb(a, b, otpt, 1);
 	pb(a, b, otpt, 1);
-	tiny_sort(a, otpt);
+	tiny_sort(a, b, otpt);
 	medium_sort_attach(a, b, otpt);
 	while (!check_sorted(a))
 	{
 		if (last_node_value(*a) == (*otpt)->smallest)
-			rra(a, otpt, 1);
+			rra(a, b, otpt, 1);
 		else
-			ra(a, otpt, 1);
+			ra(a, b, otpt, 1);
 	}
 }
