@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 
-NAME = push_swap.exe
+NAME = push_swap
 CC = gcc
 FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 RCS = ar -rcs

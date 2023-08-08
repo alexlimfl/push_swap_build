@@ -9,7 +9,7 @@ void	chunk_maker(int nn, int *chunk, int denominator)
 	chunk[0] = 0;
 
 	i = 1;
-	while(numerator <= denominator)
+	while (numerator <= denominator)
 	{
 		chunk[i] = (numerator/denominator)*nn;
 		i++;
@@ -18,15 +18,15 @@ void	chunk_maker(int nn, int *chunk, int denominator)
 }
 
 
-void	mega_sort_one(t_node **A, t_node **B, t_node **output)
+void	mega_sort_one(t_node **A, t_node **B, t_node **otpt)
 {
 	t_node *A_tail;
 
 	label_ranking(A); // simplify values to ranking to make chunk-sorting easier
-	int nn = c_node(*A);
+	int nn = c_n(*A);
 	int num_chunk;
 
-	if(c_node(*A) <= 100)
+	if (c_n(*A) <= 100)
 		num_chunk = 5;
 	else
 		num_chunk = 10;
@@ -68,7 +68,7 @@ void	mega_sort_one(t_node **A, t_node **B, t_node **output)
 	// chunk[0] = 0;
 	// 
 	// i = 1;
-	// while(numerator <= denominator)
+	// while (numerator <= denominator)
 	// {
 	// 	chunk[i] = (numerator/denominator)*nn;
 	// 	i++;
@@ -91,16 +91,16 @@ void	mega_sort_one(t_node **A, t_node **B, t_node **output)
 	int a;
 	int count = 1;
 	a = 0;
-	while(a < num_chunk)
+	while (a < num_chunk)
 	{
 		A_tail = double_ll_convert(A); // make if readable from end to front of Stack A.
-		middle_position = (c_node(*A)/2); // refresh middle position in Stack A
+		middle_position = (c_n(*A)/2); // refresh middle position in Stack A
 		label_position(A); // refresh the position of Stack A
 		// count forward
 		curr_forward = *A;
-		while(curr_forward != NULL)
+		while (curr_forward != NULL)
 		{
-			if(curr_forward->rank >= (chunk[a]+1) && curr_forward->rank <= chunk[a+1]) // rank is within 1 to 20, 21 to 40, 41 to 60 etc ...
+			if (curr_forward->rank >= (chunk[a]+1) && curr_forward->rank <= chunk[a+1]) // rank is within 1 to 20, 21 to 40, 41 to 60 etc ...
 			{
 				position_f = curr_forward->position;
 				// ft_printf("position_f = %d\n", position_f);
@@ -110,9 +110,9 @@ void	mega_sort_one(t_node **A, t_node **B, t_node **output)
 		}
 		// count reverse
 		curr_reverse = A_tail;
-		while(curr_reverse != NULL)
+		while (curr_reverse != NULL)
 		{
-			if(curr_reverse->rank >= (chunk[a]+1) && curr_reverse->rank <= chunk[a+1]) // rank is within 1 to 20, 21 to 40, 41 to 60 etc ...
+			if (curr_reverse->rank >= (chunk[a]+1) && curr_reverse->rank <= chunk[a+1]) // rank is within 1 to 20, 21 to 40, 41 to 60 etc ...
 			{
 				position_b = curr_reverse->position;
 				break;
@@ -120,18 +120,18 @@ void	mega_sort_one(t_node **A, t_node **B, t_node **output)
 			curr_reverse = curr_reverse->prev;
 		}
 		// ft_printf("CHECK 1\n");
-		if(curr_forward != NULL || curr_reverse != NULL) // if value in chunk[a] is found
+		if (curr_forward != NULL || curr_reverse != NULL) // if value in chunk[a] is found
 		{
 				// position_selected = position_f;
 				// rank_selected = curr_forward->rank;
 			// ft_printf("CHECK 2\n");
-			if(position_f <= (nn - position_b)) // choose forward selection
+			if (position_f <= (nn - position_b)) // choose forward selection
 			{
 				position_selected = position_f;
 				rank_selected = curr_forward->rank;
 				// ft_printf("Rank selected: %d\n", rank_selected);
 			}
-			else if(position_f > (nn - position_b)) // choose backward selection
+			else if (position_f > (nn - position_b)) // choose backward selection
 			{
 				position_selected = position_b;
 				rank_selected = curr_reverse->rank;
@@ -148,7 +148,7 @@ void	mega_sort_one(t_node **A, t_node **B, t_node **output)
 			int rank_selected_B = 0;
 			int middle_position_B = 0;
 
-			if (c_node(*B) > 1)
+			if (c_n(*B) > 1)
 			{
 				t_node *curr = *B;
 				
@@ -157,14 +157,14 @@ void	mega_sort_one(t_node **A, t_node **B, t_node **output)
 				int rank_number;
 				int lower_rank = rank_selected - 1;
 				int higher_rank = rank_selected + 1;
-				middle_position_B = (c_node(*B)/2);
+				middle_position_B = (c_n(*B)/2);
 
-				if(rank_selected < get_lowest_rank(B)) // smallest rank in Stack B
+				if (rank_selected < get_lowest_rank(B)) // smallest rank in Stack B
 				{
 					curr = *B;
-					while(curr != NULL)
+					while (curr != NULL)
 					{
-						if(curr->rank == get_highest_rank(B))
+						if (curr->rank == get_highest_rank(B))
 						{
 							position_selected_B = curr->position;
 							rank_selected_B = curr->rank;
@@ -173,15 +173,15 @@ void	mega_sort_one(t_node **A, t_node **B, t_node **output)
 						curr = curr->next;
 					}
 				}
-				else if(rank_selected > 1)
+				else if (rank_selected > 1)
 				{
-					while(lower_rank > 0) // looking for 7 to 1 rank
+					while (lower_rank > 0) // looking for 7 to 1 rank
 					{	
 						curr = *B;
-						while(curr != NULL)
+						while (curr != NULL)
 						{
 							// ft_printf("Lower rank: %d\n", lower_rank);
-							if(curr->rank == lower_rank)
+							if (curr->rank == lower_rank)
 							{
 								// ft_printf("Lower rank: >>>>>>>>>>>>>>> %d\n", lower_rank);
 								position_selected_B = curr->position;
@@ -190,19 +190,19 @@ void	mega_sort_one(t_node **A, t_node **B, t_node **output)
 							}
 							curr = curr->next;
 						}
-						if(rank_selected_B != 0)
+						if (rank_selected_B != 0)
 							break;
 						lower_rank--;
 					}
 
-					if(rank_selected_B == 0) // couldn't find any
+					if (rank_selected_B == 0) // couldn't find any
 					{
-						while(higher_rank <= nn) // looking for 9 to 15
+						while (higher_rank <= nn) // looking for 9 to 15
 						{
 							curr = *B;
-							while(curr != NULL)
+							while (curr != NULL)
 							{
-								if(curr->rank == higher_rank)
+								if (curr->rank == higher_rank)
 								{
 									position_selected_B = curr->position;
 									rank_selected_B = curr->rank;
@@ -210,7 +210,7 @@ void	mega_sort_one(t_node **A, t_node **B, t_node **output)
 								}
 								curr = curr->next;
 							}
-							if(rank_selected_B != 0)
+							if (rank_selected_B != 0)
 								break;
 							higher_rank++;
 						}
@@ -218,51 +218,51 @@ void	mega_sort_one(t_node **A, t_node **B, t_node **output)
 				}
 			}
 			// ft_printf("Loop: %d\n", a);
-			while(((*A)->rank != rank_selected) || ((c_node(*B) > 1) && ((*B)->rank != rank_selected_B))) //make sure both selected rank at the top of both stacks
+			while (((*A)->rank != rank_selected) || ((c_n(*B) > 1) && ((*B)->rank != rank_selected_B))) //make sure both selected rank at the top of both stacks
 			{
-				if((c_node(*B) > 1) && ((*A)->rank != rank_selected) && ((*B)->rank != rank_selected_B))
+				if ((c_n(*B) > 1) && ((*A)->rank != rank_selected) && ((*B)->rank != rank_selected_B))
 				{
-					if(position_selected <= middle_position && position_selected_B <= middle_position_B)
-						rr(A, B, output, 1);
-					else if(position_selected > middle_position && position_selected_B > middle_position_B)
-						rrr(A, B, output, 1);
-					else if((*A)->rank != rank_selected)
+					if (position_selected <= middle_position && position_selected_B <= middle_position_B)
+						rr(A, B, otpt, 1);
+					else if (position_selected > middle_position && position_selected_B > middle_position_B)
+						rrr(A, B, otpt, 1);
+					else if ((*A)->rank != rank_selected)
 					{
-						if(position_selected <= middle_position)
-						ra(A, output, 1);
-						else if(position_selected > middle_position)
-						rra(A, output, 1);
+						if (position_selected <= middle_position)
+						ra(A, otpt, 1);
+						else if (position_selected > middle_position)
+						rra(A, otpt, 1);
 					}
-					else if((c_node(*B) > 1) && ((*B)->rank != rank_selected_B))
+					else if ((c_n(*B) > 1) && ((*B)->rank != rank_selected_B))
 					{
-						if(position_selected_B <= middle_position_B)
-						rb(B, output, 1);
-						else if(position_selected_B > middle_position_B)
-						rrb(B, output, 1);
+						if (position_selected_B <= middle_position_B)
+						rb(B, otpt, 1);
+						else if (position_selected_B > middle_position_B)
+						rrb(B, otpt, 1);
 					}
 				}
-				else if((*A)->rank != rank_selected)
+				else if ((*A)->rank != rank_selected)
 				{
-					if(position_selected <= middle_position)
-						ra(A, output, 1);
-					else if(position_selected > middle_position)
-						rra(A, output, 1);
+					if (position_selected <= middle_position)
+						ra(A, otpt, 1);
+					else if (position_selected > middle_position)
+						rra(A, otpt, 1);
 				}
-				else if((c_node(*B) > 1) && ((*B)->rank != rank_selected_B))
+				else if ((c_n(*B) > 1) && ((*B)->rank != rank_selected_B))
 				{
-					if(position_selected_B <= middle_position_B)
-						rb(B, output, 1);
-					else if(position_selected_B > middle_position_B)
-						rrb(B, output, 1);
+					if (position_selected_B <= middle_position_B)
+						rb(B, otpt, 1);
+					else if (position_selected_B > middle_position_B)
+						rrb(B, otpt, 1);
 				}
 				// view_list_rank(*A);
 				// view_list_rank(*B);
 			}
-			pb(A, B, output, 1); //push to stack B
+			pb(A, B, otpt, 1); //push to stack B
 		}
-		else if(curr_forward == NULL && curr_reverse == NULL) // if value in chunk[a] is not found
+		else if (curr_forward == NULL && curr_reverse == NULL) // if value in chunk[a] is not found
 			a++;
-				// if(rank_selected == 12)
+				// if (rank_selected == 12)
 				// {
 				// 	view_list_rank(*B);
 				// 	exit(1);
@@ -276,34 +276,34 @@ void	mega_sort_one(t_node **A, t_node **B, t_node **output)
 	t_node *curr_sort_B = *B;
 
 	label_position(B);
-	while(curr_sort_B != NULL)
+	while (curr_sort_B != NULL)
 	{
-		if(curr_sort_B->rank == highest_rank_B) //MAKE SURE IF STATEMENT USING == NOT = !!!
+		if (curr_sort_B->rank == highest_rank_B) //MAKE SURE IF STATEMENT USING == NOT = !!!
 		{
 			position_highest_rank_B = curr_sort_B->position;
 			break;
 		}
 		curr_sort_B = curr_sort_B->next;
 	}
-	while(!check_sorted_reverse(B) && (*B)->rank != highest_rank_B)
+	while (!check_sorted_reverse(B) && (*B)->rank != highest_rank_B)
 	{
-		if(position_highest_rank_B <= middle_position_B)
-			rb(B, output, 1);
-		else if(position_highest_rank_B > middle_position_B)
-			rrb(B, output, 1);
+		if (position_highest_rank_B <= middle_position_B)
+			rb(B, otpt, 1);
+		else if (position_highest_rank_B > middle_position_B)
+			rrb(B, otpt, 1);
 	}
-	while((*B) != NULL)
+	while ((*B) != NULL)
 		{
-			pa(A, B, output, 1);
+			pa(A, B, otpt, 1);
 		}
 	// ft_printf("Denominator: %d\n", num_chunk);
 	int i = 0;
-	while(i <= num_chunk)
+	while (i <= num_chunk)
 	{
 		// printf("Chunks : %d\n", chunk[i]);
 		i++;
 	}
-	if(!check_sorted(A))
+	if (!check_sorted(A))
 	{
 		ft_printf("SORT FAILED\n");
 		// exit(1);

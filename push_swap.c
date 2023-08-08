@@ -12,31 +12,31 @@
 
 #include "push_swap.h"
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-	t_node	*A;
-	t_node	*B;
-	t_node	*output;
+	t_node	*a;
+	t_node	*b;
+	t_node	*otpt;
 	char	**str;
 
-	A = NULL;
-	B = NULL;
-	output = NULL;
+	a = NULL;
+	b = NULL;
+	otpt = NULL;
 	if (argc < 2)
 		exit_message();
 	no_space_and_character_allowed(argv);
 	if (argc == 2)
 	{
 		str = ft_split(argv[1], ' ');
-		A = ll_convert(str);
+		a = ll_convert(str);
 	}
 	else
-		A = ll_convert(argv+1);
-	sorting_type_assign(&A, &B, &output);
-	print_output(&output);
-	delete_list(&output);
-	delete_list(&A);
-	delete_list(&B);
+		a = ll_convert(argv + 1);
+	sorting_type_assign(&a, &b, &otpt);
+	print_output(&otpt);
+	delete_list(&otpt);
+	delete_list(&a);
+	delete_list(&b);
 	// system("leaks -q push_swap");
 	return (0);
 }

@@ -12,54 +12,53 @@
 
 #include "push_swap.h"
 
-void rrr(t_node **A, t_node **B, t_node **output, int print)
+void	rrr(t_node **A, t_node **B, t_node **otpt, int print)
 {
-	if(*A == NULL || (*A)->next == NULL || *B == NULL || (*B)->next == NULL)
+	if (*A == NULL || (*A)->next == NULL || *B == NULL || (*B)->next == NULL)
 	{
 		ft_printf("Error (rrr)\n");
 		delete_list(A);
 		delete_list(B);
 		exit(1);
 	}
-	rra(A, output, 0);
-	rrb(B, output, 0);
-	if(print == 1)
-		insert_back(output, 11);
+	rra(A, otpt, 0);
+	rrb(B, otpt, 0);
+	if (print == 1)
+		insert_back(otpt, 11);
 }
 
-void    print_output(t_node **output)
+void	print_output(t_node **otpt)
 {
-    t_node *curr;
-    const char *str[11];
+	t_node		*curr;
+	const char	*str[11];
 
-    str[0] = "sa";
-    str[1] = "sb";
-    str[2] = "ss";
-    str[3] = "pa";
-    str[4] = "pb";
-    str[5] = "ra";
-    str[6] = "rb";
-    str[7] = "rr";
-    str[8] = "rra";
-    str[9] = "rrb";
-    str[10] = "rrr";
-    curr = *output;
-    while (curr != NULL)
-    {
-        if(curr->x != 0)
+	str[0] = "sa";
+	str[1] = "sb";
+	str[2] = "ss";
+	str[3] = "pa";
+	str[4] = "pb";
+	str[5] = "ra";
+	str[6] = "rb";
+	str[7] = "rr";
+	str[8] = "rra";
+	str[9] = "rrb";
+	str[10] = "rrr";
+	curr = *otpt;
+	while (curr != NULL)
+	{
+		if (curr->x != 0)
 			ft_printf("%s\n", str[curr->x - 1]);
-        curr = curr->next;
-    }
-	// ft_printf("N_op: %d\n", c_node(*output) - 1);
+		curr = curr->next;
+	}
 }
 
-int	optimizer(t_node **output, int find, int substi)
+int	optimizer(t_node **otpt, int find, int substi)
 {
-    t_node *curr;
-	
-	if (*output == NULL)
+	t_node	*curr;
+
+	if (*otpt == NULL)
 		return (0);
-	curr = double_ll_convert(output);
+	curr = double_ll_convert(otpt);
 	while (curr != NULL && curr->x != 4 && curr->x != 5)
 		curr = curr->prev;
 	if (curr == NULL)
@@ -77,19 +76,18 @@ int	optimizer(t_node **output, int find, int substi)
 	return (0);
 }
 
-void mega_sort(t_node **A, t_node **B, t_node **output)
+void	mega_sort(t_node **A, t_node **B, t_node **otpt)
 {	
 	t_node	*curr;
 	t_var	r;
 
 	curr = *A;
-	insert_back(output, 0);
-	(*output)->num_chunk = 10;
+	(*otpt)->num_chunk = 10;
 	label_ranking(A);
-	inner_chunk_maker(output, c_node(*A));
-	outer_chunk_maker(output, c_node(*A));
-	lable_chunk(A, output);
-	push_top_chunk(A, B, &r, output);
-	quick_sort(A, B, output);
-	final_sort(A, output);
+	inner_chunk_maker(otpt, c_n(*A));
+	outer_chunk_maker(otpt, c_n(*A));
+	lable_chunk(A, otpt);
+	push_top_chunk(A, B, &r, otpt);
+	quick_sort(A, B, otpt);
+	final_sort(A, otpt);
 }

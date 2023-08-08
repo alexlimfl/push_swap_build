@@ -14,9 +14,9 @@
 
 t_node	*double_ll_convert(t_node **lst)
 {
-	t_node *prev;
-	t_node *curr;
-	t_node *tail;
+	t_node	*prev;
+	t_node	*curr;
+	t_node	*tail;
 
 	if (*lst == NULL)
 		return (NULL);
@@ -32,10 +32,10 @@ t_node	*double_ll_convert(t_node **lst)
 	return (tail);
 }
 
-void insert_back(t_node **lst, int value)
+void	insert_back(t_node **lst, int value)
 {
-	t_node  *newnode;
-    t_node  *curr;
+	t_node	*newnode;
+	t_node	*curr;
 
 	newnode = malloc(sizeof(t_node));
 	newnode->x = value;
@@ -43,22 +43,22 @@ void insert_back(t_node **lst, int value)
 	if (*lst == NULL)
 	{
 		*lst = newnode;
-		return;
+		return ;
 	}
 	curr = *lst;
-	while(curr->next != NULL)
+	while (curr->next != NULL)
 		curr = curr->next;
 	curr->next = newnode;
 }
 
-void delete_list(t_node **lst)
+void	delete_list(t_node **lst)
 {
-	t_node  *curr;
+	t_node	*curr;
+	t_node	*prenode;
 
 	curr = *lst;
-	while(curr != NULL)
+	while (curr != NULL)
 	{	
-		t_node *prenode;
 		prenode = curr;
 		curr = curr->next;
 		free(prenode);
@@ -68,21 +68,21 @@ void delete_list(t_node **lst)
 
 void	label_ranking(t_node **lst)
 {
-	int max_rank;
-	int	bigger_than_nb;
-	int	nb;
-	t_node *curr;
-	t_node *curr_two;
+	int		max_rank;
+	int		bigger_than_nb;
+	int		nb;
+	t_node	*curr;
+	t_node	*curr_two;
 
-	max_rank = c_node(*lst);
+	max_rank = c_n(*lst);
 	curr = *lst;
 	curr_two = *lst;
-	while(curr != NULL)
+	while (curr != NULL)
 	{
 		nb = curr->x;
 		curr_two = *lst;
 		bigger_than_nb = 0;
-		while(curr_two != NULL)
+		while (curr_two != NULL)
 		{
 			if (curr_two->x > nb)
 				bigger_than_nb += 1;
@@ -93,14 +93,14 @@ void	label_ranking(t_node **lst)
 	}
 }
 
-void 	label_position(t_node **lst)
+void	label_position(t_node **lst)
 {
-	t_node *curr;
-	int count;
+	t_node	*curr;
+	int		count;
 
 	count = 1;
 	curr = *lst;
-	while(curr != NULL)
+	while (curr != NULL)
 	{
 		curr->position = count;
 		curr = curr->next;

@@ -59,13 +59,13 @@ static int	word_length(char const *str, unsigned int i, char delimiter)
 
 char	**ft_split(char const *s, char c)
 {
-	char			**output;
+	char			**otpt;
 	unsigned int	i;
 	unsigned int	j;
 	unsigned int	k;
 
-	output = malloc(sizeof(char *) * (word_occurance(s, c) + 1));
-	if (!s || !output)
+	otpt = malloc(sizeof(char *) * (word_occurance(s, c) + 1));
+	if (!s || !otpt)
 		return (0);
 	i = 0;
 	j = 0;
@@ -75,12 +75,12 @@ char	**ft_split(char const *s, char c)
 			i++;
 		if (!s[i])
 			break ;
-		output[j] = malloc(sizeof(char) * (word_length(s, i, c)) + 1);
+		otpt[j] = malloc(sizeof(char) * (word_length(s, i, c)) + 1);
 		k = 0;
 		while (s[i] && !is_delimiter(s[i], c))
-			output[j][k++] = s[i++];
-		output[j++][k] = '\0';
+			otpt[j][k++] = s[i++];
+		otpt[j++][k] = '\0';
 	}
-	output[j] = 0;
-	return (output);
+	otpt[j] = 0;
+	return (otpt);
 }

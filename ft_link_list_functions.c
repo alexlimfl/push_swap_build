@@ -40,7 +40,7 @@ void insert_front(t_node **lst, int value)
 
 void insert_after(t_node *lst, int value)
 {
-	if(lst == NULL)
+	if (lst == NULL)
 	{
 		ft_printf("No node found\n");
 		return;
@@ -55,16 +55,16 @@ void insert_after(t_node *lst, int value)
 
 void insert_sorted(t_node **lst, int value)
 {
-	if(*lst == NULL || (*lst)->x >= value)
+	if (*lst == NULL || (*lst)->x >= value)
 	{
 		insert_front(lst, value);
 		return;
 	}
 	t_node *curr;
 	curr = *lst;
-	while(curr->next != NULL)
+	while (curr->next != NULL)
 	{
-		if(curr->next->x >= value)
+		if (curr->next->x >= value)
 			break;
 		curr = curr->next;
 	}

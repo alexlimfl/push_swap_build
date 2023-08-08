@@ -24,7 +24,7 @@ void	view_chunk(int *chunk, int num_chunk)
 	}
 }
 
-int	ps_chk_id(t_node **lst, int chunk_one, int chunk_two)
+int	ps_c_id(t_node **lst, int chunk_one, int chunk_two)
 {
 	t_node	*curr;
 
@@ -38,7 +38,7 @@ int	ps_chk_id(t_node **lst, int chunk_one, int chunk_two)
 	return (-1);
 }
 
-int	ps_chk_id_r(t_node **lst, int chunk_one, int chunk_two)
+int	ps_c_id_r(t_node **lst, int chunk_one, int chunk_two)
 {
 	t_node	*curr;
 
@@ -66,7 +66,7 @@ int	va_wi_ch_av(t_node **lst, int *chunk, int i)
 	return (0);
 }
 
-int	chunkID_avalable(t_node **lst, int id)
+int	chunkid_avalable(t_node **lst, int id)
 {
 	t_node	*curr;
 

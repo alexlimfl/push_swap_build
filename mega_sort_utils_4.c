@@ -12,26 +12,24 @@
 
 #include "push_swap.h"
 
-int	target_A_smallest_B(t_node **A, int rank_b)
+int	target_a_smallest_b(t_node **A, int rank_b)
 {
-	t_node *curr_A;
-	int highest_rank;
-	int lowest_rank;
+	int		highest_rank;
+	int		lowest_rank;
+	t_node	*curr_a;
 
-			// ft_printf("RANKB %d\n", rank_b);
 	highest_rank = get_highest_rank(A);
 	lowest_rank = get_lowest_rank(A);
-	// label_position(A);
-	if(rank_b < lowest_rank)
+	if (rank_b < lowest_rank)
 	{
-		while(lowest_rank <= highest_rank)
+		while (lowest_rank <= highest_rank)
 		{
-			curr_A = *A;
-			while (curr_A != NULL)
+			curr_a = *A;
+			while (curr_a != NULL)
 			{
-				if(curr_A->rank == rank_b)
-					return (curr_A->position);
-				curr_A = curr_A->next;
+				if (curr_a->rank == rank_b)
+					return (curr_a->position);
+				curr_a = curr_a->next;
 			}
 			rank_b++;
 		}
@@ -39,30 +37,30 @@ int	target_A_smallest_B(t_node **A, int rank_b)
 	return (-1);
 }
 
-int target_A_poaition_h(t_node **A, int rank_b)
+int	target_a_poaition_h(t_node **A, int rank_b)
 {
-	t_node *curr_A;
+	t_node	*curr_a;
 
-	curr_A = *A;
+	curr_a = *A;
 	while (rank_b <= get_highest_rank(A))
 	{
-		curr_A = *A;
-		while (curr_A != NULL)
+		curr_a = *A;
+		while (curr_a != NULL)
 		{
-			if (curr_A->rank == rank_b)
+			if (curr_a->rank == rank_b)
 				break ;
-			curr_A = curr_A->next;
+			curr_a = curr_a->next;
 		}
-		if (curr_A != NULL)
+		if (curr_a != NULL)
 			break ;
 		rank_b++;
 	}
-	return (curr_A->position);
+	return (curr_a->position);
 }
 
-int target_A(t_node **A, int rank_b)
+int	target_a(t_node **A, int rank_b)
 {
-	t_node	*curr_A;
+	t_node	*curr_a;
 	int		position_l;
 	int		position_h;
 	int		rank_b_temp;
@@ -70,21 +68,21 @@ int target_A(t_node **A, int rank_b)
 	rank_b_temp = rank_b;
 	while (rank_b >= get_lowest_rank(A))
 	{
-		curr_A = *A;
-		while (curr_A != NULL)
+		curr_a = *A;
+		while (curr_a != NULL)
 		{
-			if (curr_A->rank == rank_b)
+			if (curr_a->rank == rank_b)
 				break ;
-			curr_A = curr_A->next;
+			curr_a = curr_a->next;
 		}
-		if (curr_A != NULL)
+		if (curr_a != NULL)
 			break ;
 		rank_b--;
 	}
-	position_l = curr_A->position;
-	if (target_A_poaition_h(A, rank_b_temp) <= c_node(*A) - position_l)
-		return (target_A_poaition_h(A, rank_b_temp));
-	else if (target_A_poaition_h(A, rank_b_temp) > c_node(*A) - position_l)
+	position_l = curr_a->position;
+	if (target_a_poaition_h(A, rank_b_temp) <= c_n(*A) - position_l)
+		return (target_a_poaition_h(A, rank_b_temp));
+	else if (target_a_poaition_h(A, rank_b_temp) > c_n(*A) - position_l)
 		return (position_l);
 	return (-1);
 }

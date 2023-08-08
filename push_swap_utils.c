@@ -33,12 +33,12 @@
 // 	sum = 0;
 // 	curr = lst;
 
-// 	while(curr != NULL)
+// 	while (curr != NULL)
 // 	{
 // 		sum = sum + curr->x;
 // 		curr = curr->next;
 // 	}
-// 	median = sum/(c_node(lst));
+// 	median = sum/(c_n(lst));
 // 	ft_printf("Sum = %d, Median = %d\n", sum, median);
 // 	return (median);
 // }

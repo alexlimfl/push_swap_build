@@ -47,7 +47,7 @@
 
 
 
-// void	push_A_single_way_find(t_node **A, t_node **B, t_node **output, int *chunk, int i)
+// void	pa_s_w_f(t_node **A, t_node **B, t_node **otpt, int *chunk, int i)
 // {
 // 	int	position_s;
 
@@ -56,32 +56,32 @@
 // 	if (position_s > 0)
 // 	{
 // 		while (position_s != -1 && (*A)->position != position_s)
-// 			ra(A, output, 1);
-// 		pb(A, B, output, 1);
+// 			ra(A, otpt, 1);
+// 		pb(A, B, otpt, 1);
 // 	}
 // }
 
-// int	push_B_multi_way_find(t_node **A, t_node **B, t_node **output, int *chunk, int i)
+// int	pb_m_w_f(t_node **A, t_node **B, t_node **otpt, int *chunk, int i)
 // {
 // 	int	position_s;
 
 // 	label_position(A);
 // 	if (ps_w_chk(A, chunk, i) + ps_w_chk_r(A, chunk, i) > 0)
 // 	{
-// 		if (ps_w_chk(A, chunk, i) <= (c_node(*A) - ps_w_chk_r(A, chunk, i)))
+// 		if (ps_w_chk(A, chunk, i) <= (c_n(*A) - ps_w_chk_r(A, chunk, i)))
 // 		{
 // 			position_s = ps_w_chk(A, chunk, i);
 // 			while (position_s != -1 && (*A)->position != position_s)
-// 				ra(A, output, 1);
+// 				ra(A, otpt, 1);
 // 		}
-// 		else if (ps_w_chk(A, chunk, i) > (c_node(*A) - ps_w_chk_r(A, chunk, i)))
+// 		else if (ps_w_chk(A, chunk, i) > (c_n(*A) - ps_w_chk_r(A, chunk, i)))
 // 		{
 // 			position_s = ps_w_chk_r(A, chunk, i);
 // 			while (position_s != -1 && (*A)->position != position_s)
-// 				rra(A, output, 1);
+// 				rra(A, otpt, 1);
 // 		}
 // 		if (position_s > 0)
-// 			pb(A, B, output, 1);
+// 			pb(A, B, otpt, 1);
 // 	}
 // }
 
@@ -105,7 +105,7 @@ int c_node_wc(t_node *lst, int chunkID)
 	t_node *curr;
 	count = 0;
 	curr = lst;
-	while(curr != NULL)
+	while (curr != NULL)
 	{
 		if (curr->chunk_id == chunkID)
 			count++;

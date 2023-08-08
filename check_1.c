@@ -19,7 +19,7 @@ int		check_sorted(t_node **A)
 
 	curr = (*A)->next;
 	before = (*A)->x;	
-	while(curr != NULL)
+	while (curr != NULL)
 	{
 		if (curr->x <= before)
 			return (0);
@@ -36,7 +36,7 @@ int		check_sorted_reverse(t_node **A)
 
 	curr = (*A)->next;
 	before = (*A)->x;	
-	while(curr != NULL)
+	while (curr != NULL)
 	{
 		
 		if (curr->x >= before)
@@ -75,13 +75,13 @@ void no_space_and_character_allowed(char **str)
     while (str[c])
     {
         d = 0;
-        while(str[c][d])
+        while (str[c][d])
         {
             if (c > 1 && str[c][d] == ' ')
                 exit_message();
-            if(str[1][d] == ' ')
+            if (str[1][d] == ' ')
 			{
-				if(str[2])
+				if (str[2])
 					exit_message();
 			}
             if (str[c][d] != ' ' && str[c][d] != '-' && (str[c][d] < '0' || str[c][d] > '9'))

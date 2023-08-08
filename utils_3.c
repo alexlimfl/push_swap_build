@@ -12,13 +12,14 @@
 
 #include "push_swap.h"
 
-int c_node(t_node *lst)
+int	c_n(t_node *lst)
 {
-	int count;
-	t_node *curr;
+	int		count;
+	t_node	*curr;
+
 	count = 0;
 	curr = lst;
-	while(curr != NULL)
+	while (curr != NULL)
 	{
 		count++;
 		curr = curr->next;
@@ -26,12 +27,12 @@ int c_node(t_node *lst)
 	return (count);
 }
 
-int		get_largest(t_node **lst)
+int	get_largest(t_node **lst)
 {
-	int largest;
-	t_node *curr;
+	int		largest;
+	t_node	*curr;
 
-	if(*lst == NULL)
+	if (*lst == NULL)
 		return (0);
 	largest = (*lst)->x;
 	curr = (*lst)->next;
@@ -41,16 +42,15 @@ int		get_largest(t_node **lst)
 			largest = curr->x;
 		curr = curr->next;
 	}
-	// ft_printf("Largest = %d\n", largest);
 	return (largest);
 }
 
-int		get_highest_rank(t_node **lst)
+int	get_highest_rank(t_node **lst)
 {
-	int highest_rank;
-	t_node *curr;
+	int		highest_rank;
+	t_node	*curr;
 
-	if(*lst == NULL)
+	if (*lst == NULL)
 		return (0);
 	highest_rank = (*lst)->rank;
 	curr = (*lst)->next;
@@ -63,12 +63,12 @@ int		get_highest_rank(t_node **lst)
 	return (highest_rank);
 }
 
-int		get_smallest(t_node **lst)
+int	get_smallest(t_node **lst)
 {
-	int smallest;
-	t_node *curr;
+	int		smallest;
+	t_node	*curr;
 
-	if(*lst == NULL)
+	if (*lst == NULL)
 		return (0);
 	smallest = (*lst)->x;
 	curr = (*lst)->next;
@@ -81,12 +81,12 @@ int		get_smallest(t_node **lst)
 	return (smallest);
 }
 
-int		get_lowest_rank(t_node **lst)
+int	get_lowest_rank(t_node **lst)
 {
 	int		lowest_rank;
 	t_node	*curr;
 
-	if(*lst == NULL)
+	if (*lst == NULL)
 		return (0);
 	lowest_rank = (*lst)->rank;
 	curr = (*lst)->next;
