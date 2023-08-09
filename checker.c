@@ -12,7 +12,6 @@
 
 #include "checker.h"
 
-
 void	operation_attach(t_node **a, t_node **b, t_node **otpt, char *s)
 {
 	if (s[0] == 's' && s[1] == 'a')
@@ -41,23 +40,28 @@ void	operation(t_node **a, t_node **b, t_node **otpt, char *s)
 		pa(a, b, otpt, 1);
 	else if (s[0] == 'p' && s[1] == 'b')
 		pb(a, b, otpt, 1);
-	else 
+	else
 		operation_attach(a, b, otpt, s);
-
 }
 
-void	clear_ll_exit(t_node **a, t_node **b, t_node **otpt, int s)
+void	control(t_node **a, t_node **b, t_node **otpt)
 {
-	delete_list(a);
-	delete_list(b);
-	delete_list(otpt);
-	if (s == 2)
-		ft_printf("Quit program\n");
-	if (s == 1)
-		ft_printf("OK\n");
-	if (s == 0)
-		ft_printf("KO\n");
-	exit(0);
+	int		initial_total;
+	char	*input;
+
+	initial_total = c_n(*a);
+	check_duplicate(a);
+	while (!(c_n(*a) == initial_total && check_sorted(a)))
+	{
+		input = get_next_line(0);
+		if (ft_strncmp(input, "quit", 4) == 0)
+			clear_ll_exit(a, b, otpt, 2);
+		if (ft_strncmp(input, "view", 4) == 0)
+			view_all(*a, *b);
+		operation(a, b, otpt, input);
+	}
+	view_all(*a, *b);
+	clear_ll_exit(a, b, otpt, 1);
 }
 
 int	main(int argc, char *argv[])
@@ -66,8 +70,6 @@ int	main(int argc, char *argv[])
 	t_node	*b;
 	t_node	*otpt;
 	char	**str;
-	char	*input;
-	int		initial_total;
 
 	a = NULL;
 	b = NULL;
@@ -82,17 +84,6 @@ int	main(int argc, char *argv[])
 	}
 	else
 		a = ll_convert(argv + 1);
-	check_duplicate(&a);
-	initial_total = c_n(a);
-	while (!(c_n(a) == initial_total && check_sorted(&a)))
-	{
-		input = get_next_line(0);
-		if (ft_strncmp(input, "quit", 4) == 0)
-			clear_ll_exit(&a, &b, &otpt, 2);
-		operation(&a, &b, &otpt, input);
-	}
-	view_all(a, b);
-	clear_ll_exit(&a, &b, &otpt, 1);
-	// system("leaks -q push_swap");
+	control(&a, &b, &otpt);
 	return (0);
 }

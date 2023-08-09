@@ -76,3 +76,18 @@ t_node	*ll_convert(char **str)
 	}
 	return (head);
 }
+
+void	clear_ll_exit(t_node **a, t_node **b, t_node **otpt, int s)
+{
+	delete_list(a);
+	delete_list(b);
+	delete_list(otpt);
+	if (s == 2)
+		ft_printf("Quit program\n");
+	if (s == 1)
+		ft_printf("OK\n");
+	if (s == 0)
+		ft_printf("KO\n");
+	exit(0);
+}
+	// system("leaks -q checker");

@@ -15,12 +15,7 @@
 void	rrr(t_node **a, t_node **b, t_node **otpt, int print)
 {
 	if (*a == NULL || (*a)->next == NULL || *b == NULL || (*b)->next == NULL)
-	{
-		ft_printf("KO\n");
-		delete_list(a);
-		delete_list(b);
-		exit(1);
-	}
+		clear_ll_exit(a, b, otpt, 0);
 	rra(a, b, otpt, 0);
 	rrb(b, b, otpt, 0);
 	if (print == 1)

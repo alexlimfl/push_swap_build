@@ -37,6 +37,6 @@ int	main(int argc, char *argv[])
 	delete_list(&otpt);
 	delete_list(&a);
 	delete_list(&b);
-	// system("leaks -q push_swap");
 	return (0);
 }
+	// system("leaks -q push_swap");

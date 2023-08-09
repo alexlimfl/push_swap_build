@@ -18,17 +18,11 @@ void	ra(t_node **a, t_node **b, t_node **otpt, int print)
 	t_node	*curr;
 
 	if (*a == NULL || (*a)->next == NULL)
-	{
-		ft_printf("KO\n");
-		delete_list(a);
-		delete_list(b);
-		exit(1);
-	}
+		clear_ll_exit(a, b, otpt, 0);
 	first = *a;
 	curr = *a;
 	while (curr->next != NULL)
 		curr = curr->next;
-
 	*a = first->next;
 	first->next = NULL;
 	curr->next = first;
@@ -45,12 +39,7 @@ void	rb(t_node **a, t_node **b, t_node **otpt, int print)
 	t_node	*curr;
 
 	if (*b == NULL || (*b)->next == NULL)
-	{
-		ft_printf("KO\n");
-		delete_list(a);
-		delete_list(b);
-		exit(1);
-	}
+		clear_ll_exit(a, b, otpt, 0);
 	first = *b;
 	curr = *b;
 	while (curr->next != NULL)
@@ -68,12 +57,7 @@ void	rb(t_node **a, t_node **b, t_node **otpt, int print)
 void	rr(t_node **a, t_node **b, t_node **otpt, int print)
 {
 	if (*a == NULL || (*a)->next == NULL || *b == NULL || (*b)->next == NULL)
-	{
-		ft_printf("KO\n");
-		delete_list(a);
-		delete_list(b);
-		exit(1);
-	}
+		clear_ll_exit(a, b, otpt, 0);
 	ra(a, b, otpt, 0);
 	rb(b, b, otpt, 0);
 	if (print == 1)
@@ -86,12 +70,7 @@ void	rra(t_node **a, t_node **b, t_node **otpt, int print)
 	t_node	*second_last;
 
 	if (*a == NULL || (*a)->next == NULL)
-	{
-		ft_printf("KO\n");
-		delete_list(a);
-		delete_list(b);
-		exit(1);
-	}
+		clear_ll_exit(a, b, otpt, 0);
 	first = *a;
 	second_last = *a;
 	while (second_last->next->next != NULL)
@@ -112,12 +91,7 @@ void	rrb(t_node **a, t_node **b, t_node **otpt, int print)
 	t_node	*second_last;
 
 	if (*b == NULL || (*b)->next == NULL)
-	{
-		ft_printf("KO\n");
-		delete_list(a);
-		delete_list(b);
-		exit(1);
-	}
+		clear_ll_exit(a, b, otpt, 0);
 	first = *b;
 	second_last = *b;
 	while (second_last->next->next != NULL)

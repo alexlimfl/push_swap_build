@@ -70,13 +70,11 @@ void	quick_sort(t_node **a, t_node **b, t_node **otpt)
 	(*otpt)->median = get_median_rank_within_chunk(b, 3);
 	split_chunk_bottom(a, b, otpt, 3);
 	decend_top(a, b, otpt, 3);
-
 	(*otpt)->median = get_three_median(b, 2, 3);
 	split_chunk_top(a, b, otpt, 2);
 	(*otpt)->median = get_three_median(b, 2, 2);
 	split_chunk_bottom(a, b, otpt, 2);
 	decend_top(a, b, otpt, 2);
-
 	finalization(a, b, otpt);
 }
 

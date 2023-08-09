@@ -55,7 +55,6 @@ typedef struct s_var
 
 }t_var;
 
-
 // check_1
 int		check_sorted(t_node **a);
 int		check_sorted_reverse(t_node **a);
@@ -86,6 +85,7 @@ int		last_node_value(t_node *lst);
 void	exit_message(void);
 long	ft_atoi(const char *str);
 t_node	*ll_convert(char **str);
+void	clear_ll_exit(t_node **a, t_node **b, t_node **otpt, int s);
 
 // operations 1
 void	sa(t_node **a, t_node **b, t_node **otpt, int print);

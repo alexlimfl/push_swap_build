@@ -19,12 +19,7 @@ void	sa(t_node **a, t_node **b, t_node **otpt, int print)
 	t_node	*third;
 
 	if (*a == NULL || (*a)->next == NULL)
-	{
-		ft_printf("KO\n");
-		delete_list(a);
-		delete_list(b);
-		exit(1);
-	}
+		clear_ll_exit(a, b, otpt, 0);
 	first = *a;
 	second = first->next;
 	third = first->next->next;
@@ -45,12 +40,7 @@ void	sb(t_node **a, t_node **b, t_node **otpt, int print)
 	t_node	*third;
 
 	if (*b == NULL || (*b)->next == NULL)
-	{
-		ft_printf("KO\n");
-		delete_list(a);
-		delete_list(b);
-		exit(1);
-	}
+		clear_ll_exit(a, b, otpt, 0);
 	first = *b;
 	second = first->next;
 	third = first->next->next;
@@ -67,12 +57,7 @@ void	sb(t_node **a, t_node **b, t_node **otpt, int print)
 void	ss(t_node **a, t_node **b, t_node **otpt, int print)
 {
 	if (*a == NULL || (*a)->next == NULL || *b == NULL || (*b)->next == NULL)
-	{
-		ft_printf("KO\n");
-		delete_list(a);
-		delete_list(b);
-		exit(1);
-	}
+		clear_ll_exit(a, b, otpt, 0);
 	sa(a, b, otpt, 0);
 	sb(a, b, otpt, 0);
 	if (print == 1)
@@ -85,12 +70,7 @@ void	pa(t_node **a, t_node **b, t_node **otpt, int print)
 	t_node	*temp_b;
 
 	if (*b == NULL)
-	{
-		ft_printf("KO\n");
-		delete_list(a);
-		delete_list(b);
-		exit(1);
-	}
+		clear_ll_exit(a, b, otpt, 0);
 	temp_a = *a;
 	temp_b = *b;
 	*b = temp_b->next;
@@ -106,12 +86,7 @@ void	pb(t_node **a, t_node **b, t_node **otpt, int print)
 	t_node	*temp_b;
 
 	if (*a == NULL)
-	{
-		ft_printf("KO\n");
-		delete_list(a);
-		delete_list(b);
-		exit(1);
-	}
+		clear_ll_exit(a, b, otpt, 0);
 	temp_a = *a;
 	temp_b = *b;
 	*a = temp_a->next;

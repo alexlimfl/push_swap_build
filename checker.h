@@ -51,7 +51,6 @@ void	check_duplicate(t_node **a);
 int		check_sorted(t_node **a);
 int		c_n(t_node *lst);
 
-
 size_t	ft_strlen(const char *str);
 void	*ft_bzero(void	*str, size_t	n);
 void	*ft_calloc(size_t	nmemb, size_t	size);
@@ -76,6 +75,8 @@ void	rra(t_node **a, t_node **b, t_node **otpt, int print);
 void	rrb(t_node **a, t_node **b, t_node **otpt, int print);
 // operations 3
 void	rrr(t_node **a, t_node **b, t_node **otpt, int print);
+void	clear_ll_exit(t_node **a, t_node **b, t_node **otpt, int s);
+
 
 int	ft_printf(const char	*str, ...);
 int	ft_strncmp(const char *str1, const char *str2, size_t n);
