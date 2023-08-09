@@ -53,7 +53,6 @@ void	split_chunk_bottom(t_node **a, t_node **b, t_node **otpt, int chunkid)
 	}
 }
 
-
 int	ghighest_rankwithin_chunk(t_node **lst, int chunkid)
 {
 	t_node	*curr;

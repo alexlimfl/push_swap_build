@@ -73,7 +73,6 @@ void	top_a_two(t_node **a, t_var *op, int target_p_a, int curr_B_rank)
 	}
 }
 
-
 void	reset_op(t_var *op)
 {
 	op->ra = 0;

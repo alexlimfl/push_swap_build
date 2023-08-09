@@ -181,19 +181,19 @@ void	quick_sort(t_node **a, t_node **b, t_node **otpt);
 void	final_sort(t_node **a, t_node **b, t_node **otpt);
 
 // unused files
-void	mega_sort_one(t_node **a, t_node **b, t_node **otpt);
-void	insert_front(t_node **lst, int value);
-void	insert_after(t_node *lst, int value);
-void	insert_sorted(t_node **lst, int value);
-void	delete_an_element(t_node **lst, int value);
-void	delete_all_element(t_node **lst, int value);
-void	reverse(t_node **lst);
-int		check_loop(t_node *lst);
-int		ps_w_chk(t_node **a, int *chunk, int i);
-int		ps_w_chk_r(t_node **a, int *chunk, int i);
-void	pa_s_w_f(t_node **a, t_node **b, t_node **otpt, int *chunk, int i);
-int		pb_m_w_f(t_node **a, t_node **b, t_node **otpt, int *chunk, int i);
-int		c_node_wc(t_node *lst, int chunkid);
-int		get_four_median(t_node **b, int chunkid, int choose);
-int		get_median(t_node *lst);
+// void	mega_sort_one(t_node **a, t_node **b, t_node **otpt);
+// void	insert_front(t_node **lst, int value);
+// void	insert_after(t_node *lst, int value);
+// void	insert_sorted(t_node **lst, int value);
+// void	delete_an_element(t_node **lst, int value);
+// void	delete_all_element(t_node **lst, int value);
+// void	reverse(t_node **lst);
+// int		check_loop(t_node *lst);
+// int		ps_w_chk(t_node **a, int *chunk, int i);
+// int		ps_w_chk_r(t_node **a, int *chunk, int i);
+// void	pa_s_w_f(t_node **a, t_node **b, t_node **otpt, int *chunk, int i);
+// int		pb_m_w_f(t_node **a, t_node **b, t_node **otpt, int *chunk, int i);
+// int		c_node_wc(t_node *lst, int chunkid);
+// int		get_four_median(t_node **b, int chunkid, int choose);
+// int		get_median(t_node *lst);
 #endif

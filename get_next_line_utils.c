@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "checker.h"
 
 size_t	ft_strlen(const char *str)
 {
@@ -68,7 +68,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	len1 = ft_strlen((char *) s1);
 	len2 = ft_strlen((char *) s2);
-	s_out = calloc(1, len1 + len2 + 1);
+	s_out = ft_calloc(1, len1 + len2 + 1);
 	if (!s_out)
 		return (NULL);
 	i = -1;

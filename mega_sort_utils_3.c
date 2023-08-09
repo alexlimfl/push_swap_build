@@ -20,7 +20,7 @@ void	push_top_chunk_attach(t_node **a, t_node **b, t_var *r, t_node **otpt)
 		r->ra = 0;
 		r->rb = 0;
 		if ((*a)->chunk_id >= (*b)->chunk_id
-			&& ((*a)->chunk_id == (r->i+1) || (*a)->chunk_id == (r->i+2)))
+			&& ((*a)->chunk_id == (r->i + 1) || (*a)->chunk_id == (r->i + 2)))
 		{
 			pb(a, b, otpt, 1);
 			if ((*b)->chunk_id == (r->i + 1))

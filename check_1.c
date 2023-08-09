@@ -12,13 +12,13 @@
 
 #include "push_swap.h"
 
-int		check_sorted(t_node **a)
+int	check_sorted(t_node **a)
 {
-	t_node *curr;
-	int before;
+	t_node	*curr;
+	int		before;
 
 	curr = (*a)->next;
-	before = (*a)->x;	
+	before = (*a)->x;
 	while (curr != NULL)
 	{
 		if (curr->x <= before)
@@ -29,16 +29,15 @@ int		check_sorted(t_node **a)
 	return (1);
 }
 
-int		check_sorted_reverse(t_node **a)
+int	check_sorted_reverse(t_node **a)
 {
-	t_node *curr;
-	int before;
+	t_node	*curr;
+	int		before;
 
 	curr = (*a)->next;
-	before = (*a)->x;	
+	before = (*a)->x;
 	while (curr != NULL)
 	{
-		
 		if (curr->x >= before)
 			return (0);
 		before = curr->x;
@@ -49,8 +48,8 @@ int		check_sorted_reverse(t_node **a)
 
 void	check_duplicate(t_node **a)
 {
-	t_node *curr;
-	t_node *find_curr;
+	t_node	*curr;
+	t_node	*find_curr;
 
 	curr = *a;
 	while (curr->next != NULL)
@@ -66,30 +65,31 @@ void	check_duplicate(t_node **a)
 	}
 }
 
-void no_space_and_character_allowed(char **str)
+void	no_space_and_character_allowed(char **str)
 {
-    int c;
-    int d;
+	int	c;
+	int	d;
 
-    c = 1;
-    while (str[c])
-    {
-        d = 0;
-        while (str[c][d])
-        {
-            if (c > 1 && str[c][d] == ' ')
-                exit_message();
-            if (str[1][d] == ' ')
+	c = 1;
+	while (str[c])
+	{
+		d = 0;
+		while (str[c][d])
+		{
+			if (c > 1 && str[c][d] == ' ')
+				exit_message();
+			if (str[1][d] == ' ')
 			{
 				if (str[2])
 					exit_message();
 			}
-            if (str[c][d] != ' ' && str[c][d] != '-' && (str[c][d] < '0' || str[c][d] > '9'))
+			if (str[c][d] != ' ' && str[c][d] != '-'
+				&& (str[c][d] < '0' || str[c][d] > '9'))
 				exit_message();
-            d++;
-        }
-        c++;
-    }
+			d++;
+		}
+		c++;
+	}
 }
 
 int	check_sorted_plus(t_node **a)

@@ -67,27 +67,48 @@ void	view_list_backward(t_node *lst)
 
 void	view_all(t_node *lst, t_node *lst2)
 {
-	ft_printf("List ALL:\n");
-	if (lst == NULL)
-		ft_printf("a: Empty\n");
-	if (lst2 == NULL)
-		ft_printf("b: Empty\n");
-	ft_printf("Value, R, ChunkID, Posi, sht	 Value, R, ChunkID, Posi, sht\n");
+	ft_printf("STACK A:	STACK B:");
 	while (lst != NULL || lst2 != NULL)
 	{
 		if (lst != NULL)
 		{
-			ft_printf("%d   %d   %d   %d      ", lst->x, lst->rank,
-				lst->chunk_id, lst->position/*, lst->sorted_h_tail*/);
+			ft_printf("\n%d", lst->x);
 			lst = lst->next;
 		}
 		if (lst2 != NULL)
 		{
-			ft_printf("\n		   		%d   %d   %d   %d   ", lst2->x,
-				lst2->rank, lst2->chunk_id,
-				lst2->position/*, lst2->sorted_h_tail*/);
+			ft_printf("		%d", lst2->x);
 			lst2 = lst2->next;
+			if (lst == NULL)
+				ft_printf("\n");
 		}
-		ft_printf("\n");
 	}
+	ft_printf("\n");
 }
+
+// void	view_all(t_node *lst, t_node *lst2)
+// {
+// 	ft_printf("List ALL:\n");
+// 	if (lst == NULL)
+// 		ft_printf("a: Empty\n");
+// 	if (lst2 == NULL)
+// 		ft_printf("b: Empty\n");
+// 	ft_printf("Value, R, ChunkID, Posi, sht	 Value, R, ChunkID, Posi, sht\n");
+// 	while (lst != NULL || lst2 != NULL)
+// 	{
+// 		if (lst != NULL)
+// 		{
+// 			ft_printf("%d   %d   %d   %d      ", lst->x, lst->rank,
+// 				lst->chunk_id, lst->position/*, lst->sorted_h_tail*/);
+// 			lst = lst->next;
+// 		}
+// 		if (lst2 != NULL)
+// 		{
+// 			ft_printf("\n		   		%d   %d   %d   %d   ", lst2->x,
+// 				lst2->rank, lst2->chunk_id,
+// 				lst2->position/*, lst2->sorted_h_tail*/);
+// 			lst2 = lst2->next;
+// 		}
+// 		ft_printf("\n");
+// 	}
+// }

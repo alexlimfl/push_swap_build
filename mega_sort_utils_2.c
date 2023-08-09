@@ -84,7 +84,6 @@ int	check_sorted_h_tail(t_node **lst)
 	before = (*lst)->x;
 	while (curr != NULL)
 	{
-
 		if (curr->x >= before)
 		{
 			before = curr->x;

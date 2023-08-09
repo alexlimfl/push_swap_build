@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "checker.h"
 
 char	*ft_get_line_after_newline(char *s_str)
 {
@@ -26,7 +26,7 @@ char	*ft_get_line_after_newline(char *s_str)
 		free (s_str);
 		return (NULL);
 	}
-	str = calloc(1, ft_strlen(s_str) - i);
+	str = ft_calloc(1, ft_strlen(s_str) - i);
 	if (!str)
 		return (NULL);
 	i++;
@@ -47,7 +47,7 @@ char	*ft_get_line_before_newline(char *s_str)
 	len = 0;
 	while (s_str[len] != '\n' && s_str[len])
 		len++;
-	str = calloc(1, len + 2);
+	str = ft_calloc(1, len + 2);
 	if (!str)
 		return (NULL);
 	len = 0;
@@ -66,7 +66,7 @@ char	*ft_get_line_read(int fd, char *s_str)
 	char	*str;
 	ssize_t	bytes_read;
 
-	str = calloc(1, BUFFER_SIZE + 1);
+	str = ft_calloc(1, BUFFER_SIZE + 1);
 	if (!str)
 		return (NULL);
 	bytes_read = 1;
